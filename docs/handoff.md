@@ -40,3 +40,7 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 - 公开 Pages 已部署并实际打开：`9b4d7c1e517ef5e7c08fd2cf35335a16282d9b20`。
 - [公开页面验证报告](verification/2026-09-22-pages.md)：机器检查、部署、浏览器操作范围、线上 ZIP 哈希及未测项。
 - 本交接/报告的后续文档提交不改变已验证的 VFX 代码。查看最新版 Pages 时仍应读取 `build-info.json`，不要推断线上一定等于本地 HEAD。
+
+## 独立 design-system 技能接入
+
+已接入 `.agents/skills/design-system/`，来源 https://github.com/liush2yuxjtu/design-system-skill ，固定提交 `f6a01e1944983ce27b28611ff72e0b6714bd318b`。`skills.lock.json` 为逐文件校验真源，`scripts/verify-skill-sync.py` 已接入 npm run verify。用于后续设计系统提取、组件/屏幕/VFX合同工作；本次没有实现新战斗HUD或Godot runtime。独立技能保留官方/社区来源区别与完整许可。

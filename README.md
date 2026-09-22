@@ -54,3 +54,7 @@ V2 着色器与后期必须使用运行时；源 GLB 本身仍是 V1 结构模�
 执行 `npm run verify` 运行机器检查；结果写入 `verification/latest.json`。这不会自动把浏览器验收标为通过。公开发布由 GitHub Actions 先验证再部署，页面的 `build-info.json` 可核对实际源提交。
 
 [打开 GitHub Pages 预览](https://liush2yuxjtu.github.io/create-game-asset/)
+
+## 独立设计系统技能
+
+已接入 [design-system](.agents/skills/design-system/SKILL.md)，上游为 [design-system-skill](https://github.com/liush2yuxjtu/design-system-skill)。它负责可追溯的视觉规则、设计变量、组件、屏幕和可选游戏/VFX合同；与现有 create-game-asset 技能配合。版本与文件指纹见 [skills.lock.json](skills.lock.json)。

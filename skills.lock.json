@@ -1,0 +1,35 @@
+{
+  "design-system": {
+    "repository": "https://github.com/liush2yuxjtu/design-system-skill",
+    "revision": "f6a01e1944983ce27b28611ff72e0b6714bd318b",
+    "source_path": ".agents/skills/design-system",
+    "destination": ".agents/skills/design-system",
+    "sha256": {
+      "LICENSE": "c009cf074636d5ceef08941db9ab266aa95a59d609cdf331a91e814ef525659f",
+      "SKILL.md": "06612e28fe7f9437473d18a725888b50e2f9d8122429bef38ea5cdd43ceee9e5",
+      "agents/openai.yaml": "541dd68989dc598331ffb5e76ed2ba6bafc4a711e44abc90b769d58e73daeec9",
+      "assets/templates/DESIGN.md": "43e67ea73ba8210b89887569d8fc40ceb8b6ef07c31f632c1a39d6c01564662f",
+      "assets/templates/FLOW.md": "0955ad21d76fb5824ec73a65bcc098210a1ea708d2955b8a592c6c6c7f4c2f11",
+      "assets/templates/INDEX.md": "717ecdc9bc6d6990e62fb53ae693b0504499b2f08c7d39c27f7253347ae1e039",
+      "assets/templates/SCREEN.md": "0c35fbf4345f5ed5a22a1500af28fc20d40b24fe4419fc65f563535df7f534ad",
+      "assets/templates/VERIFY.md": "71a3d0e08b8b288507d5f4d2228e858e7c7e28a0b23a3aea0cd89b1fbbed441a",
+      "assets/templates/VFX_SPEC.json": "4e4a5929784f40da00dac49b301c99f16a8f35f70ff4955695f65996d9c781c2",
+      "assets/templates/system.json": "0b17abab2ae768c653cfd5fbe261d3e07cec7e68f0b536a91347530706cff7f8",
+      "references/claude-design-analysis.md": "72f2f08c2c0ee6b4c08beecf30f44cbfdf8fa27584b9646853c94e57b62d3455",
+      "references/game-ui.md": "4d9ad049d23ce48de2464ff28a0d3832819da9f9fe344bf66b5f36437a57366f",
+      "references/godot.md": "b48b30b46b940d868b976630eae18cbd1e57272cb5ee62eb32724b533965ad56",
+      "references/licenses/community-artifacts.txt": "d4c3afe9b57fa1854827210b501890d45018b90cfe6780cb843f1ea5de41ae41",
+      "references/licenses/community-design-md.txt": "d116e214adbcab1c96e680695bcda5c629f00d72425f83e18770ce5e156c17d4",
+      "references/licenses/community-extraction.txt": "2a309cf919e921f08baa031214d4074a5ace0cbe0d49e80b55280bb572b739ca",
+      "references/licenses/community-governance.txt": "1400d572fb60897f7970a763fb73d1aa7804b71bad41bf6e45061de7b7a09ac1",
+      "references/licenses/community-tokens.txt": "c8f168486c91894115315055a08e017cedb41189b331196f879c74b985a51f81",
+      "references/source-research.md": "fe6044477b8e09fcfe0cfce0ce5badc879c0259771273a77a8f981078685bcf5",
+      "references/sources.json": "5b68a3abf49dae54a1ab6a4f559e7ea55b3c214b006481f0c8a8d6b3b550468e",
+      "references/verification.md": "8b0a765a1e6a69319fa32cdae9f407d57ad3554bb724c96714b9690727a341e8",
+      "references/vfx.md": "91ddbeeccc1b3c451ecf600d577c2cc75085de0959bcb6db4a4ec71027102c77",
+      "references/web-design.md": "3360fb3a8a2f40811f42f0faf472f44d5750e2a690351fb1521848abe3f3659b",
+      "scripts/scaffold.py": "36b681b591c248b195e6eb9f69dbbda72fab26ff4a726caf39da4b47c5aa7c23",
+      "scripts/validate.py": "772f364ac670bcda42babfca98233f2d787350c5779cdd3669d2097476656bbd"
+    }
+  }
+}

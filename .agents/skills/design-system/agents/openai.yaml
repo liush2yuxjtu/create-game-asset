@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design System"
+  short_description: "Extract traceable visual systems, screens and VFX contracts"
+  default_prompt: "Use $design-system to extract this project's visual contract and separate observed values from proposed changes."

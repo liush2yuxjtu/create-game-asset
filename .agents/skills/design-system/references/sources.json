@@ -1,0 +1,150 @@
+{
+  "retrieved": "2026-09-22",
+  "method": "Original GitHub files read at listed revisions; manifests store content hashes. Remote marketing claims excluded.",
+  "sources": [
+    {
+      "id": "community-extraction",
+      "repository": "Trystan-SA/claude-design-system-prompt",
+      "revision": "3c3ddb07d7aa3fef051d83608596470c95cfd8fe",
+      "retrieved": "2026-09-22",
+      "authority": "社区；仓库自称逆向整理，不视为 Anthropic 官方提示词",
+      "license": "MIT",
+      "license_url": "https://github.com/Trystan-SA/claude-design-system-prompt/blob/3c3ddb07d7aa3fef051d83608596470c95cfd8fe/LICENSE",
+      "local_license": "licenses/community-extraction.txt",
+      "files": [
+        {
+          "path": "codex/skills/design-system-extract.md",
+          "url": "https://github.com/Trystan-SA/claude-design-system-prompt/blob/3c3ddb07d7aa3fef051d83608596470c95cfd8fe/codex/skills/design-system-extract.md",
+          "sha256": "06ee22b8e2447c69c76c70beb980b2a2d192921b3e913b49cbc753c631e7ce4b"
+        }
+      ],
+      "decision": "按源代码提取真实值、缺口与不一致；不采用固定审美禁令"
+    },
+    {
+      "id": "community-artifacts",
+      "repository": "jiji262/claude-design-skill",
+      "revision": "35a20e5ada2c9e768d1bc094ce1ef3218f48684b",
+      "retrieved": "2026-09-22",
+      "authority": "社区；自称适配内部提示词，来源真实性未独立确认",
+      "license": "MIT",
+      "license_url": "https://github.com/jiji262/claude-design-skill/blob/35a20e5ada2c9e768d1bc094ce1ef3218f48684b/LICENSE",
+      "local_license": "licenses/community-artifacts.txt",
+      "files": [
+        {
+          "path": "SKILL.md",
+          "url": "https://github.com/jiji262/claude-design-skill/blob/35a20e5ada2c9e768d1bc094ce1ef3218f48684b/SKILL.md",
+          "sha256": "042463438be5b13448813c86605691c295055a2f99b79cc9f3c05985d7a04785"
+        }
+      ],
+      "decision": "真实资产、渐进披露、真实浏览器验证；不采用强制三方案、反复询问或固定搜索次数"
+    },
+    {
+      "id": "community-tokens",
+      "repository": "plugin87/ux-ui-agent-skills",
+      "revision": "f2e2f7fcc5cb9d99bbd8ec5e0d75cebb98e21e7e",
+      "retrieved": "2026-09-22",
+      "authority": "社区实现",
+      "license": "MIT",
+      "license_url": "https://github.com/plugin87/ux-ui-agent-skills/blob/f2e2f7fcc5cb9d99bbd8ec5e0d75cebb98e21e7e/LICENSE",
+      "local_license": "licenses/community-tokens.txt",
+      "files": [
+        {
+          "path": ".claude/skills/design-tokens/SKILL.md",
+          "url": "https://github.com/plugin87/ux-ui-agent-skills/blob/f2e2f7fcc5cb9d99bbd8ec5e0d75cebb98e21e7e/.claude/skills/design-tokens/SKILL.md",
+          "sha256": "0b218f063b59e265fe8872596b07600237ba152644c84c4b67d340cdb89b7399"
+        }
+      ],
+      "decision": "分层 token 与别名校验；不将11色阶、4px网格和Major Third比例设为所有项目规则"
+    },
+    {
+      "id": "community-governance",
+      "repository": "Owl-Listener/designer-skills",
+      "revision": "9a6930cf84a822eb458624bd11c61aac5bbdf224",
+      "retrieved": "2026-09-22",
+      "authority": "社区实现",
+      "license": "MIT",
+      "license_url": "https://github.com/Owl-Listener/designer-skills/blob/9a6930cf84a822eb458624bd11c61aac5bbdf224/LICENSE",
+      "local_license": "licenses/community-governance.txt",
+      "files": [
+        {
+          "path": "design-systems/README.md",
+          "url": "https://github.com/Owl-Listener/designer-skills/blob/9a6930cf84a822eb458624bd11c61aac5bbdf224/design-systems/README.md",
+          "sha256": "92b76b04aed89b0379ad1dabf027d888c4ace773695566abaebbda31cc0230d3"
+        },
+        {
+          "path": "design-systems/skills/design-token/SKILL.md",
+          "url": "https://github.com/Owl-Listener/designer-skills/blob/9a6930cf84a822eb458624bd11c61aac5bbdf224/design-systems/skills/design-token/SKILL.md",
+          "sha256": "65eb18a241ba7d1ab1fbe224c2b74ebc6f66997e80991e3db08dd217baecdedc"
+        },
+        {
+          "path": "design-systems/skills/component-spec/SKILL.md",
+          "url": "https://github.com/Owl-Listener/designer-skills/blob/9a6930cf84a822eb458624bd11c61aac5bbdf224/design-systems/skills/component-spec/SKILL.md",
+          "sha256": "a761dc070c0dded27a66098401d47fec5a9e2fde9afeadea03279635d9ac3698"
+        },
+        {
+          "path": "design-systems/skills/design-system-governance/SKILL.md",
+          "url": "https://github.com/Owl-Listener/designer-skills/blob/9a6930cf84a822eb458624bd11c61aac5bbdf224/design-systems/skills/design-system-governance/SKILL.md",
+          "sha256": "2e2eb92a3ec28e47632e2b13bcce7ab3187a61c258c07151925ed20289bd4bf5"
+        }
+      ],
+      "decision": "组件状态/API、语义别名、治理和迁移；规模按项目需要选择"
+    },
+    {
+      "id": "community-design-md",
+      "repository": "rohitg00/awesome-claude-design",
+      "revision": "7f60ee56b9340f8c2671a08c2d8aab4037546a64",
+      "retrieved": "2026-09-22",
+      "authority": "社区整理；九章节是其recipe约定",
+      "license": "MIT",
+      "license_url": "https://github.com/rohitg00/awesome-claude-design/blob/7f60ee56b9340f8c2671a08c2d8aab4037546a64/LICENSE",
+      "local_license": "licenses/community-design-md.txt",
+      "files": [
+        {
+          "path": "recipes/repo-to-design-system.md",
+          "url": "https://github.com/rohitg00/awesome-claude-design/blob/7f60ee56b9340f8c2671a08c2d8aab4037546a64/recipes/repo-to-design-system.md",
+          "sha256": "7935184e57ea7a7306ef5bcdd823a906dfddd918bc9efc49ebd09a41fca81a89"
+        },
+        {
+          "path": "prompts/brand-to-design-md.md",
+          "url": "https://github.com/rohitg00/awesome-claude-design/blob/7f60ee56b9340f8c2671a08c2d8aab4037546a64/prompts/brand-to-design-md.md",
+          "sha256": "d352d55e1d5fd746f8890030de8376f31450212d8a3438758809a7cd9d7106f4"
+        }
+      ],
+      "decision": "按代码取证、inferred标签、屏幕上下文；不采纳未经核实的90%准确率或token成本营销数字"
+    },
+    {
+      "id": "google-design-md",
+      "repository": "google-labs-code/design.md",
+      "revision": "9bf8eae67128b6cc55ad9bf86665767deb4c11cd",
+      "retrieved": "2026-09-22",
+      "authority": "Google Labs发布的alpha格式规范；不是Anthropic规范",
+      "license": "Apache-2.0",
+      "license_url": "https://github.com/google-labs-code/design.md/blob/9bf8eae67128b6cc55ad9bf86665767deb4c11cd/LICENSE",
+      "files": [
+        {
+          "path": "docs/spec.md",
+          "url": "https://github.com/google-labs-code/design.md/blob/9bf8eae67128b6cc55ad9bf86665767deb4c11cd/docs/spec.md",
+          "sha256": "8f297a7bd38cf08bde06c96f5eea2ebfcd9930a8bc1dfe964f8e8dec894e691a"
+        }
+      ],
+      "decision": "可选YAML token与正文理由分离；八类正文顺序。我们的inventory是附加格式，不声称通过完整规范验证"
+    },
+    {
+      "id": "anthropic-frontend",
+      "repository": "anthropics/skills",
+      "revision": "34040c9c568585f6929bedeaad110ad08f079624",
+      "retrieved": "2026-09-22",
+      "authority": "Anthropic官方仓库公开技能；不是其内部系统提示词",
+      "license": "Apache-2.0",
+      "license_url": "https://github.com/anthropics/skills/blob/34040c9c568585f6929bedeaad110ad08f079624/skills/frontend-design/LICENSE.txt",
+      "files": [
+        {
+          "path": "skills/frontend-design/SKILL.md",
+          "url": "https://github.com/anthropics/skills/blob/34040c9c568585f6929bedeaad110ad08f079624/skills/frontend-design/SKILL.md",
+          "sha256": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3"
+        }
+      ],
+      "decision": "以具体产品任务决定视觉方向、写作与设计审查；不复制其全文或将某种审美禁令普遍化"
+    }
+  ]
+}

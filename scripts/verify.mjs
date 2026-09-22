@@ -5,6 +5,7 @@ mkdirSync('verification',{recursive:true});
 function save(){writeFileSync('verification/latest.json',JSON.stringify(report,null,2)+'\n');}
 save();
 for(const [name,command,args] of [
+ ['skill-provenance','python3',['scripts/verify-skill-sync.py']],
  ['timeline','npm',['test']],['package','npm',['run','package:asset']],
  ['asset-integrity','python3',['scripts/verify-assets.py']],['build','npm',['run','build']],
  ['whitespace','git',['diff','--check']]

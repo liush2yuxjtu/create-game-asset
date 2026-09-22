@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "name": "{{name}}",
+  "mode": "{{mode}}",
+  "sources": [],
+  "tokens": {},
+  "screens": [],
+  "flows": [],
+  "checks": [{"id":"source-extraction","scope":"static","status":"NOT_RUN","evidence":[]}]
+}

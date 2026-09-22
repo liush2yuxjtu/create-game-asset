@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "name": "{{name}}",
+  "duration_seconds": null,
+  "identity": {"description":null,"source_id":null},
+  "layers": [],
+  "states": [],
+  "events": [],
+  "runtime": {"current":null,"target_engine":null,"version":null,"renderer":null,"scene":null},
+  "quality": {"high":null,"low":null},
+  "verification": {"browser":"NOT_RUN","engine":"NOT_RUN","gameplay":"NOT_RUN","device":"NOT_RUN","art":"NOT_RUN"}
+}

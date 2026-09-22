@@ -28,3 +28,7 @@ Canonical skill paths live in `.agents/skills/`; do not create divergent copies 
 Update `docs/handoff.md` when behavior, verification procedure, deployment, or remaining blockers change. Include concrete paths, latest tested release/report, acceptance boundaries and next action. Keep historical local checks distinguishable from the current public release. Reply in Chinese unless requested otherwise.
 
 No credentials, browser session material, private conversation dumps, or personal environment paths belong in this public repository. This repository's handoff files are project documentation, not a request to modify personal memory.
+
+## Design-system skill dependency
+
+For system-level source extraction, token/component/screen contracts or game HUD/VFX design-system work, read `.agents/skills/design-system/SKILL.md`. It is a pinned copy from the independent design-system-skill repository; `skills.lock.json` records its source revision and file hashes. It complements create-game-asset and does not replace its asset pipeline or imply that Godot/HUD is complete. Edit upstream and sync deliberately; the verifier rejects unnoticed local drift. No global skill installation is required.

@@ -14,6 +14,7 @@ On a new checkout run `npm ci`, then `npm run verify`.
 The runner writes `verification/latest.json` with source SHA, initial working-tree status, step exit codes, and `browser: NOT_RUN`. It exits nonzero on a failed step. It does not silently skip missing Python/Node tools or browser requirements.
 
 Checks:
+- `python3 scripts/verify-skill-sync.py`: verify the complete design-system skill copy against its pinned upstream file manifest. Update the lock only after reviewing an intentional upstream sync.
 - `npm test`: timeline boundaries 0/1.1/1.8/3.2, cleanup, deterministic backwards sampling, invalid times.
 - `npm run package:asset`: rebuild the 16-frame RGBA sprite atlas and deterministic ZIP.
 - `python3 scripts/verify-assets.py`: verify original GLB SHA, geometry identity, animation duration, ZIP inventory and internal hashes, equality with current runtime source, normalized asset specification, sprite dimensions and frame coordinates.
