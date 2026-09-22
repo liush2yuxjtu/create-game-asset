@@ -1,0 +1,13 @@
+{
+  "name":"青岚剑阵", "id":"qinglan-sword-formation", "version":"2.0.0", "category":"vfx",
+  "style":"青玉剑气 / 墨绿笔触 / 旧金护手 / 水墨消散",
+  "canonical_reference":"../v1/qinglan-sword-formation.glb",
+  "runtime":"Three.js r170 / WebGL 2", "duration_seconds":3.2,
+  "identity":{"main_swords":1,"flying_swords":6,"palette":{"jade":"#7bcbb0","ink":"#101d19","gold":"#c2a364"}},
+  "states":[{"id":"charge","label":"蓄势","start":0,"end":1.1},{"id":"slash","label":"斩击","start":1.1,"end":1.8},{"id":"dissipate","label":"消散","start":1.8,"end":3.2}],
+  "events":[{"name":"impact-cue","at_seconds":1.2,"type":"visual-only","gameplay_binding":null}],
+  "coordinates":{"up":"+Y","ground":"XZ","origin":"formation center","scale":"V1 authored units; confirm meter scale with target game"},
+  "quality":{"high":{"particles":640,"max_pixel_ratio":1.75},"low":{"particles":220,"max_pixel_ratio":1}},
+  "limits":{"target_engine":null,"device_performance_verified":false,"character_binding":false,"hit_logic":false},
+  "provenance":{"source_url":"https://winbrain-qinglan-pitch.liushiyuxjtu.chatgpt.site/assets/qinglan-sword-formation.glb","source_role":"User project V1; preserved unchanged","v2_method":"Agent-authored procedural geometry and GLSL; no extracted game assets"}
+}
