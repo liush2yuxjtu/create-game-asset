@@ -1,0 +1,476 @@
+{
+  "schemaVersion": 1,
+  "name": "ynjh — 一念逍遥参考系统",
+  "mode": "game",
+  "version": "0.1",
+  "sources": [
+    {
+      "id": "g-arrival",
+      "url": "https://www.gameui.net/images/738688",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "浅色山水、留白、竖屏背景"
+    },
+    {
+      "id": "g-notice",
+      "url": "https://www.gameui.net/images/738689",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "纸色公告窗；左侧分类，右侧长文"
+    },
+    {
+      "id": "g-login",
+      "url": "https://www.gameui.net/images/738690",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "全屏插画；下部区服和主操作"
+    },
+    {
+      "id": "g-servers",
+      "url": "https://www.gameui.net/images/738692",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "深色浮层；分组列表、状态文字与颜色"
+    },
+    {
+      "id": "g-identity",
+      "url": "https://www.gameui.net/images/738695",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "水中玉佩、黑白鱼、两项纵向文字选择"
+    },
+    {
+      "id": "g-character",
+      "url": "https://www.gameui.net/images/738704",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "中央角色、左右切换箭头、底部确认"
+    },
+    {
+      "id": "g-appearance",
+      "url": "https://www.gameui.net/images/738705",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "中央角色；右侧圆形类别；默认与随机操作"
+    },
+    {
+      "id": "g-story",
+      "url": "https://www.gameui.net/images/738718",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "地图、NPC、任务标记、剧情跳过入口"
+    },
+    {
+      "id": "g-quest",
+      "url": "https://www.gameui.net/images/738719",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "背景变暗；纸色任务窗、立绘、奖励预览"
+    },
+    {
+      "id": "g-path",
+      "url": "https://www.gameui.net/images/738722",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "炼体与修法两项，红蓝区分且有文字说明"
+    },
+    {
+      "id": "g-cultivation",
+      "url": "https://www.gameui.net/images/738724",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "顶部资源栏；中央留白；下部打坐角色"
+    },
+    {
+      "id": "g-growth",
+      "url": "https://www.gameui.net/images/738725",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "战力横条和气血增量，反馈靠近角色"
+    },
+    {
+      "id": "g-breakthrough",
+      "url": "https://www.gameui.net/images/738726",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "角色位置上的圆形突破操作"
+    },
+    {
+      "id": "g-quest-realm",
+      "url": "https://www.gameui.net/images/738732",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "明确野狼谷、一阶妖丹0/1、奖励预览"
+    },
+    {
+      "id": "g-world",
+      "url": "https://www.gameui.net/images/738733",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "山水地图、纵向地名、锁定区域与引导标记"
+    },
+    {
+      "id": "g-realm-info",
+      "url": "https://www.gameui.net/images/738734",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "纸色详情窗、推荐条件、说明、产出"
+    },
+    {
+      "id": "g-realm-map",
+      "url": "https://www.gameui.net/images/738735",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "山水场景内圆形角色标记与地点名"
+    },
+    {
+      "id": "g-combat",
+      "url": "https://www.gameui.net/images/738736",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "角色圆形标记；地图/传送/设置；底部导航"
+    },
+    {
+      "id": "g-target",
+      "url": "https://www.gameui.net/images/738737",
+      "captured_at": "2026-09-22",
+      "authority": "community screenshot",
+      "inspected": "主角/敌方标记、点状连线；下部消息和导航"
+    }
+  ],
+  "tokens": {
+    "paper": {
+      "kind": "color",
+      "value": "#f1ecdf",
+      "classification": "proposed",
+      "rationale": "青岚Web适配值；不是参考截图精确采样"
+    },
+    "ink": {
+      "kind": "color",
+      "value": "#293d36",
+      "classification": "proposed",
+      "rationale": "青岚Web适配值；不是参考截图精确采样"
+    },
+    "rule": {
+      "kind": "color",
+      "value": "#b9af95",
+      "classification": "proposed",
+      "rationale": "青岚Web适配值；不是参考截图精确采样"
+    },
+    "gold": {
+      "kind": "color",
+      "value": "#897044",
+      "classification": "proposed",
+      "rationale": "青岚Web适配值；不是参考截图精确采样"
+    }
+  },
+  "screens": [
+    {
+      "id": "arrival",
+      "name": "水墨入场",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-arrival",
+          "locator": "浅色山水、留白、竖屏背景"
+        }
+      ]
+    },
+    {
+      "id": "notice",
+      "name": "更新公告",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-notice",
+          "locator": "纸色公告窗；左侧分类，右侧长文"
+        }
+      ]
+    },
+    {
+      "id": "login",
+      "name": "踏入仙途",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-login",
+          "locator": "全屏插画；下部区服和主操作"
+        }
+      ]
+    },
+    {
+      "id": "servers",
+      "name": "区服选择",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-servers",
+          "locator": "深色浮层；分组列表、状态文字与颜色"
+        }
+      ]
+    },
+    {
+      "id": "identity",
+      "name": "开局选择",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-identity",
+          "locator": "水中玉佩、黑白鱼、两项纵向文字选择"
+        }
+      ]
+    },
+    {
+      "id": "character",
+      "name": "角色选择",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-character",
+          "locator": "中央角色、左右切换箭头、底部确认"
+        }
+      ]
+    },
+    {
+      "id": "appearance",
+      "name": "外观编辑",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-appearance",
+          "locator": "中央角色；右侧圆形类别；默认与随机操作"
+        }
+      ]
+    },
+    {
+      "id": "story",
+      "name": "初入山门",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-story",
+          "locator": "地图、NPC、任务标记、剧情跳过入口"
+        }
+      ]
+    },
+    {
+      "id": "quest",
+      "name": "师父任务",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-quest",
+          "locator": "背景变暗；纸色任务窗、立绘、奖励预览"
+        }
+      ]
+    },
+    {
+      "id": "path",
+      "name": "修炼方向",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-path",
+          "locator": "炼体与修法两项，红蓝区分且有文字说明"
+        }
+      ]
+    },
+    {
+      "id": "cultivation",
+      "name": "洞府修炼",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-cultivation",
+          "locator": "顶部资源栏；中央留白；下部打坐角色"
+        }
+      ]
+    },
+    {
+      "id": "growth",
+      "name": "修炼反馈",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-growth",
+          "locator": "战力横条和气血增量，反馈靠近角色"
+        }
+      ]
+    },
+    {
+      "id": "breakthrough",
+      "name": "突破入口",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-breakthrough",
+          "locator": "角色位置上的圆形突破操作"
+        }
+      ]
+    },
+    {
+      "id": "quest-realm",
+      "name": "秘境任务",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-quest-realm",
+          "locator": "明确野狼谷、一阶妖丹0/1、奖励预览"
+        }
+      ]
+    },
+    {
+      "id": "world",
+      "name": "世界地图",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-world",
+          "locator": "山水地图、纵向地名、锁定区域与引导标记"
+        }
+      ]
+    },
+    {
+      "id": "realm-info",
+      "name": "野狼谷说明",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-realm-info",
+          "locator": "纸色详情窗、推荐条件、说明、产出"
+        }
+      ]
+    },
+    {
+      "id": "realm-map",
+      "name": "秘境分布",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-realm-map",
+          "locator": "山水场景内圆形角色标记与地点名"
+        }
+      ]
+    },
+    {
+      "id": "combat",
+      "name": "秘境近景",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-combat",
+          "locator": "角色圆形标记；地图/传送/设置；底部导航"
+        }
+      ]
+    },
+    {
+      "id": "target",
+      "name": "目标指示",
+      "status": "implemented",
+      "product": "reference-game",
+      "observation": "static-only",
+      "evidence": [
+        {
+          "source_id": "g-target",
+          "locator": "主角/敌方标记、点状连线；下部消息和导航"
+        }
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "id": "F-entry",
+      "classification": "inferred",
+      "screens": [
+        "login",
+        "servers",
+        "identity",
+        "character",
+        "appearance",
+        "story"
+      ]
+    },
+    {
+      "id": "F-cultivate",
+      "classification": "inferred",
+      "screens": [
+        "quest",
+        "path",
+        "cultivation",
+        "growth",
+        "breakthrough"
+      ]
+    },
+    {
+      "id": "F-realm",
+      "classification": "inferred",
+      "screens": [
+        "quest-realm",
+        "world",
+        "realm-info",
+        "realm-map",
+        "combat",
+        "target"
+      ]
+    },
+    {
+      "id": "F-appearance",
+      "classification": "inferred",
+      "screens": [
+        "character",
+        "appearance",
+        "character"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "reference-live-interaction",
+      "scope": "browser",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "reference-game-art-approval",
+      "scope": "art",
+      "status": "NOT_RUN",
+      "evidence": []
+    }
+  ]
+}

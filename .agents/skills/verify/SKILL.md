@@ -50,3 +50,7 @@ Write a dated report under `docs/verification/` or update `docs/validation.md` w
 - Remaining Unity/UE, gameplay, device/performance and art-approval limits.
 
 Update `docs/handoff.md` with the latest report and next required action. Machine PASS, Pages deployment success, real-browser PASS, and final engine acceptance are distinct statuses. Only declare the scope actually tested complete.
+
+## YNJH rehearsal extension
+
+The default page is now a rehearsal. First verify prepare → explanation → enter → cast → result at 3.2s → retry/back. Escape cancels the native dialog and restores focus. Health starts at 100 and the visual-only cue at 1.2s changes the simulated health to 64 once; repeated sampling never compounds it. Mode changes cancel rehearsal; hidden-page interruption returns it to ready. Confirm the procedural dummy is visible in rehearsal and absent in the studio, with the HUD outside the canvas safe area. Switch to 特效工作台 to perform the original V2 checklist above. Check `/ynjh/` and its original source links; diagrams there are authored schematics, not screenshots. The new contract integrity step may PASS with reference-game interaction/art readiness NOT_READY.
