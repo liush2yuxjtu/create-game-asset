@@ -1,0 +1,13 @@
+{
+  "name": "example-asset",
+  "category": "character|vfx|sprite|model",
+  "style": "",
+  "canonical_reference": "",
+  "states": [
+    "idle",
+    "action",
+    "success",
+    "failure"
+  ],
+  "runtime": ""
+}
