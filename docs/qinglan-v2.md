@@ -8,7 +8,7 @@ V1 模型从用户已有的公开样件下载，保留原字节；未改动旧�
 
 ## 本地运行
 
-仓库根目录执行 `npm ci`、`npm run dev`。构建 `npm run build`，使用 `npm run preview` 查看构建结果。所有运行依赖随构建打包，无运行时 CDN 请求。打包需要 Python 3 和 zip：`npm run package:asset`。
+仓库根目录执行 `npm ci`、`npm run dev`。构建 `npm run build`，使用 `npm run preview` 查看构建结果。所有运行依赖随构建打包，无运行时 CDN 请求。打包需要 Python 3（标准库生成可重现 ZIP）：`npm run package:asset`。
 
 ## 引擎中立资产规格
 

@@ -10,4 +10,13 @@ const files={
 const hashes={};for(const [name,source] of Object.entries(files)){await mkdir(`${tmp}/${name.split('/').slice(0,-1).join('/')}`,{recursive:true});await copyFile(source,`${tmp}/${name}`);hashes[name]=createHash('sha256').update(await readFile(source)).digest('hex');}
 const spec=JSON.parse(await readFile(`${tmp}/asset-spec.json`));spec.canonical_reference='models/qinglan-v1-source.glb';await writeFile(`${tmp}/asset-spec.json`,JSON.stringify(spec,null,2)+'\n');hashes['asset-spec.json']=createHash('sha256').update(await readFile(`${tmp}/asset-spec.json`)).digest('hex');
 await writeFile(`${tmp}/manifest.json`,JSON.stringify({id:'qinglan-vfx',version:'2.0.0',runtime:'three@0.170.0',entry:'runtime/qinglan-vfx.js',model:'models/qinglan-v1-source.glb',duration:3.2,glb_is_v1_source:true,v2_effects_require_runtime:true,sha256:hashes},null,2)+'\n');
-await rm(dest,{force:true});execFileSync('zip',['-q','-r',`../${dest}`,'.'],{cwd:tmp});await rm(tmp,{recursive:true});console.log(`Packaged ${Object.keys(files).length} assets + manifest: ${dest}`);
+await rm(dest,{force:true});execFileSync('python3',['-c',`import pathlib,sys,zipfile
+root=pathlib.Path(sys.argv[1])
+with zipfile.ZipFile(sys.argv[2],'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+ for p in sorted(root.rglob('*')):
+  if p.is_file():
+   info=zipfile.ZipInfo(p.relative_to(root).as_posix(),date_time=(2026,1,1,0,0,0))
+   info.compress_type=zipfile.ZIP_DEFLATED
+   info.external_attr=0o644 << 16
+   z.writestr(info,p.read_bytes(),compresslevel=9)
+`,tmp,dest]);await rm(tmp,{recursive:true});console.log(`Packaged ${Object.keys(files).length} assets + manifest: ${dest}`);

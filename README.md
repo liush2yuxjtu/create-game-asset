@@ -44,3 +44,13 @@ npm run preview
 - [原 V1 公开概念与结构预览](https://winbrain-qinglan-pitch.liushiyuxjtu.chatgpt.site/)
 
 V2 着色器与后期必须使用运行时；源 GLB 本身仍是 V1 结构模型。Unity/UE、角色命中和真机性能尚待目标引擎及设备明确后验收。
+
+## /verify 与交接
+
+- [项目 AGENTS.md](AGENTS.md)：统一约定、完成条件及交接要求。
+- [/verify 技能](.agents/skills/verify/SKILL.md)：机器检查与实际浏览器验收步骤。
+- [当前交接](docs/handoff.md)：版本、发布方式与剩余范围。
+
+执行 `npm run verify` 运行机器检查；结果写入 `verification/latest.json`。这不会自动把浏览器验收标为通过。公开发布由 GitHub Actions 先验证再部署，页面的 `build-info.json` 可核对实际源提交。
+
+[打开 GitHub Pages 预览](https://liush2yuxjtu.github.io/create-game-asset/)

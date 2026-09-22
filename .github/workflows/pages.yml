@@ -1,0 +1,49 @@
+name: Verify and deploy Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+jobs:
+  verify-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - run: npm run verify
+      - name: Require committed reproducible assets
+        run: |
+          git diff --exit-code
+          node --input-type=module -e "import fs from 'node:fs'; const b=JSON.parse(fs.readFileSync('dist/build-info.json')); if(b.dirty || b.sourceSha !== process.env.GITHUB_SHA) process.exit(1);"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: machine-verification
+          path: verification/latest.json
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    needs: verify-build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

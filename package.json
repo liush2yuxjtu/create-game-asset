@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "vite build --base=./",
+    "build": "node scripts/build.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "test": "node --test scripts/*.test.mjs",
-    "package:asset": "node scripts/package-asset.mjs"
+    "package:asset": "node scripts/package-asset.mjs",
+    "verify": "node scripts/verify.mjs"
   },
   "dependencies": {
     "three": "0.170.0"
