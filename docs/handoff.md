@@ -37,16 +37,19 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 
 ## 最近已验证发布
 
-- 公开 Pages 已部署并实际打开：`9b4d7c1e517ef5e7c08fd2cf35335a16282d9b20`。
+- 最新公开实现已部署并实际操作：`043e2b73648d2a0d113a66a53e10d36b09c902ed`，见 [YNJH公开验证报告](verification/2026-09-22-ynjh.md)。
+- 历史V2公开实现：`9b4d7c1e517ef5e7c08fd2cf35335a16282d9b20`。
 - [公开页面验证报告](verification/2026-09-22-pages.md)：机器检查、部署、浏览器操作范围、线上 ZIP 哈希及未测项。
 - 本交接/报告的后续文档提交不改变已验证的 VFX 代码。查看最新版 Pages 时仍应读取 `build-info.json`，不要推断线上一定等于本地 HEAD。
 
 ## 独立 design-system 技能接入
 
-已接入 `.agents/skills/design-system/`，来源 https://github.com/liush2yuxjtu/design-system-skill ，固定提交 `f6a01e1944983ce27b28611ff72e0b6714bd318b`。`skills.lock.json` 为逐文件校验真源，`scripts/verify-skill-sync.py` 已接入 npm run verify。用于后续设计系统提取、组件/屏幕/VFX合同工作；本次没有实现新战斗HUD或Godot runtime。独立技能保留官方/社区来源区别与完整许可。
+已接入 `.agents/skills/design-system/`，来源 https://github.com/liush2yuxjtu/design-system-skill ，固定提交 `f6a01e1944983ce27b28611ff72e0b6714bd318b`。`skills.lock.json` 为逐文件校验真源，`scripts/verify-skill-sync.py` 已接入 npm run verify。用于后续设计系统提取、组件/屏幕/VFX合同工作；接入技能时尚无新战斗HUD；后续YNJH演练已实现，Godot runtime仍未实现。独立技能保留官方/社区来源区别与完整许可。
 
 ## 2026-09-22 一念逍遥系统应用
 
 用户明确基线为一念逍遥；`design-systems/ynjh/`保存19个已观察静态样本和4条推断流程，`public/ynjh/`为原创建构示意与原图链接。青岚默认进入秘境演练；保留特效工作台模式。新增准备/说明/演练/结算，木人及模拟气血，纸色HUD、墨绿地台、空间安全区、阶段ARIA与44px控件。原始GLB和V2 runtime包保持原合同。
 
 验收见 `docs/verification/2026-09-22-ynjh.md`。基线真实游戏跳转、全409图覆盖、Godot、真机、美术批准仍未验证。对比范围是布局/信息/流程适配，非原技能逐帧复刻。
+
+下一步验收：真实参考游戏流程确认、用户美术反馈、目标引擎/设备确定后再做命中与性能验收。不要把模拟木人气血当作正式游戏逻辑。
