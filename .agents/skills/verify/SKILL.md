@@ -13,6 +13,12 @@ Report machine checks and real-browser acceptance separately. Start with the cur
 
 Technical PASS、dynamic observation PASS、reference parity、user art approval分别记录。资料检索完成不等于原视频已观看；未完成参考片段验证时reference parity必须为NOT_RUN。
 
+## JavaScript / Canvas skill-animation route
+
+For `public/jianghu-sixteen/*.js`, first read [制作与运行验证手册](references/procedural-2d-vfx.md). It records how the original paper/crane/talisman shapes, deterministic timeline, player and browser-exported GIF were made, plus the exact local drive path and known limitations. Use this route for this Canvas surface; do not apply Qinglan's 3.2s/WebGL checklist to the 4.8s crane animation.
+
+Maintain this project verifier when the actual launch/drive/evidence path changes. Do not copy the global skill into a second project directory. Give the scoped runtime verdict exactly one of PASS / FAIL / BLOCKED / SKIP; docs-only changes with no runtime change are SKIP. Keep machine checks, deployment, reference parity and user art approval as separate evidence fields, not substitutes for the runtime verdict. Prior screenshots establish only their recorded candidate.
+
 ## 1. Repeatable machine checks
 
 On a new checkout run `npm ci`, then `npm run verify`.

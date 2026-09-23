@@ -57,3 +57,15 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 ## 2026-09-23 动态特效验证协议
 
 用户收窄关注点为技能动态特效。`/verify`新增动态检查矩阵、参考片段证据流程和报告模板；参考来源在`.agents/skills/verify/references/yinian-vfx-sources.md`。Exa核验17173官方来源转载与TapTap历史玩家资料；视频候选未播放，动态对标仍NOT_RUN。下一步按协议录制青岚完整释放、实际观看基准片段，逐项对照运动/峰值/余韵；不扩展HUD。此轮不修改runtime或原始资产。
+
+## 江湖十六念 · 候选评审
+
+16张独立概念v1与纸鹤俯视v2位于public/jianghu-sixteen/images；完整提示词、SHA256、AI初筛及用户偏好分列于concepts.json。逐张评审页在同目录index.html，05/09/14/16附原创Canvas动作研究。正式选择存Airtable表“江湖十六念 · 概念评审”，当前全部待选择；网页本地选择不自动云同步。先让用户选，再制作对应成品动画，禁止把用户看好某招等同于生成图入选。参考3 GIF见docs/jianghu-sixteen/REFERENCES.md；只做画面取样，未完成逐帧对标。
+
+### 江湖十六念俯视动画修订
+
+最新方向：去掉山水大景，俯视、单个技能范围。新增 `public/jianghu-sixteen/animation.html`、`crane.js` 和 `animations/paper-cranes-v0.2.gif`。原16张概念图保留，05-v2单独增量。验证边界见 `docs/jianghu-sixteen/VERIFY.md`；没有发布或验收新的公共Pages。Airtable17项待用户选择，下一步按选择打磨，不把题材偏好标成生成图通过。
+
+### 项目级 /verify 制作手册
+
+新增 `.agents/skills/verify/references/procedural-2d-vfx.md`，由项目级SKILL.md加载。记录纸鹤JS形变/路径/时序/播放器制作方法、4193真实浏览器操作、倒退采样相邻探针、GIF截图裁切修复及发布边界。此次仅增补文档，runtime verdict为SKIP；历史原型验证仍以其记录的候选为准。用户已授权提交、推送及直接合并PR #3，不代表全部概念美术选择通过。
