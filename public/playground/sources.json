@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "researchedAt": "2026-09-23",
+  "subject": "一念江湖 — 天羽游戏 / wangguoqing / TapTap 218252",
+  "methods": ["Web Search: 游戏身份、官方商店、原帖、原图逐项核验", "Exa: 两轮检索及批量全文抓取，追溯转载攻略的原作者"],
+  "scope": "尽力覆盖公开可访问的官方商店、原始社区攻略、截图、视频候选与转载，不声称穷尽互联网。",
+  "identityBoundary": "仓库 design-systems/ynjh 明确属于一念逍遥，未覆盖；本台账仅记录天羽游戏的一念江湖。",
+  "dynamicParity": "NOT_RUN: 已观察静态地图和火鸟截图，未播放可验证的完整原游戏技能循环；没有原游戏逐帧时序、粒子数量或相机角度测量。",
+  "sources": [
+    {"id":"JH-01","title":"TapTap · 一念江湖官方试玩页","url":"https://www.taptap.cn/app/218252","date":"2021-07-05 更新日志；2026-09-23访问","type":"developer-store","evidence":"已读正文","featured":true,"observation":"开发者天羽游戏、供应商wangguoqing；单机RPG，强调预判Boss技能和走位。历史4.4日志包含护盾、复活等功能，不提供可测量的VFX曲线。","retrieval":["web","exa"]},
+    {"id":"JH-02","title":"好游快爆 · 官方分发与地图截图","url":"https://www.3839.com/a/134797.htm","date":"2021-06至07；2026-09-23访问","type":"developer-distribution","evidence":"已读正文 / 已看原图","featured":true,"observation":"原图可见俯瞰地面、块状草地与水面、桥和小型直立像素角色；下方是方向与动作按钮。这里的俯瞰是2D地图空间，不据此推算3D镜头倾角。","imagesInspected":["https://img.71acg.net/kbyx~sykb/20210622/1856056481?591x1280=","https://img.71acg.net/kbyx~sykb/20210622/18560631983"],"caveat":"3.3/3.2更新记录提到冰鸟CD变长；不要把更早攻略的6秒当作所有版本通用参数。","retrieval":["web","exa"]},
+    {"id":"JH-03","title":"LoveKun · 深渊四大巨兽打法原帖","url":"https://www.taptap.cn/moment/158154480636921330","date":"2021-06-27","type":"first-person-community-guide","evidence":"原作者攻略 / 已看火鸟图","featured":true,"observation":"历史攻略描述冰鸟在玩家前方一格结冰、火鸟在玩家脚下造成范围火烧。火鸟原图可见深色石地、Boss与明黄色放射状效果；这是静态外形证据，不是完整动画。","imagesInspected":["https://img2-tc.tapimg.com/bbcode/images/ecaa684426642024a95515941a08c0af.png/_tap_ugc.jpg"],"imagesNotInspected":["https://img2-tc.tapimg.com/bbcode/images/9f0c30353c0b1b38d14dd44381f1220e.png/_tap_ugc.jpg"],"caveat":"原帖的冰鸟6秒、冻结3.5秒和火鸟3秒是历史玩法描述；本试验场三项新样件的时序与轮廓是原创设计。","retrieval":["web","exa"]},
+    {"id":"JH-04","title":"LoveKun · 地心4层地狱难度打法","url":"https://www.taptap.cn/moment/160445921623016902","date":"2021-07-03","type":"original-video-candidate","evidence":"视频元数据已读 / 未播放","featured":true,"observation":"从原作者攻略关联到的实机视频候选。标题和发布信息已核验，但未观看完整技能循环；不能声称已经测得起势、弹速或消散时长。","retrieval":["web"]},
+    {"id":"JH-05","title":"4399 · 一念江湖分发页","url":"https://a.4399.cn/mobile/201706.html","date":"2021-07-05 页面记录","type":"developer-distribution","evidence":"Exa 正文已读","featured":true,"observation":"将游戏描述为天羽游戏的像素RPG；页面列4.3，更新内容含护盾和复活。不同渠道版本号需分别保留，不据此推断当前最新版。","retrieval":["exa"],"caveat":"Web直接访问超时；正文通过Exa取得。"},
+    {"id":"JH-06","title":"TapTap · WW提供的带图难点攻略","url":"https://www.taptap.cn/moment/157644227591799778","date":"2021-06-25","type":"community-guide","evidence":"Exa 正文已读 / 图片未核验","featured":true,"observation":"已确认原帖为玩家WW攻略的代发汇总，用于追溯公开攻略来源。未读取完整图片内容，不把题目视作已验证的技能视觉证据。","retrieval":["exa"]},
+    {"id":"JH-07","title":"当快软件园 · 一念江湖资料页","url":"https://www.32r.com/app/103387.html","date":"页面标记2025-07-28","type":"secondary-aggregator","evidence":"已读正文","featured":false,"observation":"重复像素RPG和四Boss攻略，提供包名com.scripteditor.p0518121141。属于资料交叉检索，不作为独立实机证据。","retrieval":["web"]},
+    {"id":"JH-08","title":"乐游网 · 2021早期游戏介绍","url":"https://www.962.net/azgame/531454.html","date":"2021-06-23","type":"secondary-aggregator","evidence":"Exa 搜索摘要","featured":false,"observation":"早期像素地图、城镇和存档介绍；未下载APK，未核验其中的截图序列。","retrieval":["exa"]},
+    {"id":"JH-09","title":"逍遥手游网 · 一念江湖4.4资料","url":"https://m.xyzs.com/game/4071.html","date":"页面标记2026-04-01","type":"secondary-aggregator","evidence":"Exa 搜索摘要","featured":false,"observation":"转载历史Boss攻略。2026编辑日期不等于游戏2026更新，更不等于新的实机动画证据。","retrieval":["exa"]},
+    {"id":"JH-10","title":"当下软件园 · 一念江湖4.4资料","url":"https://m.downxia.com/downinfo/512950.html","date":"未知","type":"secondary-aggregator","evidence":"Exa 搜索摘要","featured":false,"observation":"与原始四Boss攻略重复；只作为转载来源登记。","retrieval":["exa"]},
+    {"id":"JH-11","title":"安族网 · 深渊四大巨兽攻略转载","url":"https://www.apkzu.com/info/64108.html","date":"2021-07-01","type":"secondary-reprint","evidence":"Exa 搜索摘要","featured":false,"observation":"复述冰鸟前方一格与火鸟脚下火烧；已追溯至JH-03，不重复计作独立证据。","retrieval":["exa"]},
+    {"id":"JH-12","title":"游戏潮 · 入门攻略转载","url":"http://www.yxmod.com/yxgl/114265.html","date":"2021-07-01","type":"secondary-reprint","evidence":"Exa 搜索摘要","featured":false,"observation":"相同Boss攻略的再发布。未作为技术或美术设计的权威来源。","retrieval":["exa"]}
+  ],
+  "excluded": [
+    {"name":"一念逍遥","reason":"不同游戏；保留仓库原ynjh系统，不能用其飞剑/水墨资料冒充本游戏。"},
+    {"name":"燕云十六声相关的一念江湖解说","reason":"视频标题或栏目同名，不是天羽游戏本作。"},
+    {"name":"天涯明月刀同名奇遇 / 九天诛魔","reason":"同名或搜索混入结果；不采纳其美术或玩法。"},
+    {"name":"二手站的多人社交/联机扩写","reason":"与已核验官方单机描述冲突，未找到一手依据。"}
+  ],
+  "reuse": "只记录URL、日期和简短观察。没有把第三方游戏图片、视频、纹理或模型复制进公开仓库。"
+}

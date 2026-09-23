@@ -81,3 +81,11 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 ### PR #4 发布审查修复
 
 目录预览接入字段由 `public/asset-lab/catalog-contract.js` 在初始化前校验，完整合同见README；`persistence.js`报告真实写入结果，保存失败不会再被导入成功提示覆盖。新增回归检查后13项测试通过。36式绘制算法未变；公开版本仍需发布后按build-info与浏览器实测确认。
+
+### 2026-09-23 俯瞰特效试验场
+
+新增`/playground/`及根`design.md`，40个兼容透明Canvas技能、5种原创mock地形、落点/施法者/旋转/缩放、源码图鉴、隔离本地JS插槽。原纸鹤、四动作研究、青岚WebGL与A/B控制器保持原入口。59项public/src JS由构建自动索引；不是59个技能。
+
+本次参考**天羽游戏的一念江湖**，12项来源台账在`public/playground/sources.json`；既有ynjh仍为一念逍遥，未覆盖。三项空间研究的图形/时长均原创，不冒充原游戏动画。
+
+本地19项机器测试和245项浏览器断言PASS，报告见`verification/2026-09-23-topdown-playground.md`。新增`scripts/verify-playground.py`；Pages工作流在PR/main执行真实浏览器门禁并上传证据。发布后必须重新核对live SHA并运行公开页面脚本。动态parity、用户美术、真实引擎及真机性能未验收。
