@@ -1,0 +1,182 @@
+{
+  "scope": "Chromium inline HTML real UI and deterministic generated render; file navigation blocked by browser policy; official GIF network playback NOT VERIFIED",
+  "reference_playback": "NOT_VERIFIED_NETWORK_UNAVAILABLE",
+  "visual_parity": "NOT_VERIFIED",
+  "source_sha256": "7161333eb3c89fbc065cb1701dbae95b2b3d6c91a0de3045149f844191355901",
+  "checks": [
+    {
+      "check": "initial render + valid canvas",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "effects contain visible pixels",
+      "pass": true,
+      "detail": 1032318
+    },
+    {
+      "check": "deterministic same-time render",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "play advances time",
+      "pass": true,
+      "detail": 0.7500000000000001
+    },
+    {
+      "check": "pause freezes time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "step forward 1/60 s",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "step backward",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "timeline scrubbing pauses at requested time",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "charge jump",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "strike jump",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "fade jump",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "blade layer changes actual pixels",
+      "pass": true,
+      "detail": [
+        1231830,
+        264133
+      ]
+    },
+    {
+      "check": "all layers hidden yields transparent render",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "time zero has no effects",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "last frame clears effects",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "one-shot stops at duration",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "replay resets and plays",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "quarter-speed runtime",
+      "pass": true,
+      "detail": {
+        "slowDelta": 0.10002500000000003,
+        "normalDelta": 0.4000000000000001,
+        "ratio": 3.9990002499375152
+      }
+    },
+    {
+      "check": "paper background alters render",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "checkerboard background selection",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "target toggle",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "intensity adjusts parameter + label",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "transparent PNG export",
+      "pass": true,
+      "detail": [
+        1200,
+        720
+      ]
+    },
+    {
+      "check": "4x4 sprite sheet export",
+      "pass": true,
+      "detail": [
+        1536,
+        1536
+      ]
+    },
+    {
+      "check": "comparison shows separate original + generated surfaces",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "unavailable reference is not replaced with fake image",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "source selector preserves exact fire GIF URL",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "reference-only surface hides generated effects",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "390px no horizontal overflow",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "768px no horizontal overflow",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "check": "page has no uncaught JS errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "check": "reduced-motion starts paused",
+      "pass": true,
+      "detail": null
+    }
+  ],
+  "pass": true
+}
