@@ -2,13 +2,15 @@
 // CSP blocks network, external imports, DOM access, cookies and storage. Watchdog kills hangs.
 export class PluginHost {
  constructor(onFrame,onError){this.onFrame=onFrame;this.onError=onError;this.busy=false;this.seq=0;this.listener=e=>this.receive(e);window.addEventListener('message',this.listener);}
- dispose(){clearTimeout(this.timer);this.frame?.remove();this.frame=null;this.busy=false;this.reject?.(new Error('导入已取消'));this.reject=null;}
+ dispose(){clearTimeout(this.timer);this.frame?.remove();this.frame=null;this.busy=false;this.loaded=false;this.reject?.(new Error('导入已取消'));this.reject=null;}
  destroy(){this.dispose();window.removeEventListener('message',this.listener);}
  fail(message){this.reject?.(new Error(message));this.reject=null;this.dispose();this.onError(message);}
  receive(e){if(!this.frame||e.source!==this.frame.contentWindow)return;const m=e.data;if(!m||typeof m!=='object')return;
   if(m.type==='boot'){this.frame.contentWindow.postMessage({type:'load',source:this.source},'*');return;}
   if(m.type==='error'){this.fail(String(m.message).slice(0,200));return;}
-  if(m.type==='ready'){clearTimeout(this.timer);this.reject=null;this.resolve(m.meta);return;}
+  if(m.type==='ready'){if(this.loaded)return;const x=m.meta;
+   if(!x||typeof x.id!=='string'||!/^[a-z][a-z0-9-]{0,63}$/.test(x.id)||typeof x.name!=='string'||!x.name.trim()||x.name.length>80||!Number.isFinite(x.duration)||x.duration<=0||x.duration>30){this.fail('JS合同无效：元数据不符合要求');return;}
+   clearTimeout(this.timer);this.reject=null;this.loaded=true;this.resolve({id:x.id,name:x.name,duration:x.duration});return;}
   if(m.type==='frame'&&m.bitmap instanceof ImageBitmap){if(m.seq!==this.seq){m.bitmap.close();return;}clearTimeout(this.timer);this.busy=false;this.onFrame(m.bitmap,m.time);}
  }
  async load(file){if(file.size>65536||!file.name.toLowerCase().endsWith('.js'))throw new Error('请选择不超过64KB的自包含 .js 模块。');const source=await file.text();this.dispose();this.source=source;
@@ -18,5 +20,5 @@ self.onmessage=async e=>{try{const m=e.data;if(m.type==='load'){const u='data:te
   const frame=document.createElement('iframe');frame.hidden=true;frame.title='本地技能隔离沙箱';frame.setAttribute('sandbox','allow-scripts');frame.referrerPolicy='no-referrer';frame.srcdoc=`<!doctype html><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' blob: data:; worker-src blob:; connect-src 'none'; img-src 'none'; style-src 'none'; child-src 'none'; form-action 'none'; base-uri 'none'"><script>${script.replace(/<\/script/gi,'<\\/script')}<\/script>`;this.frame=frame;
   return new Promise((resolve,reject)=>{this.resolve=resolve;this.reject=reject;this.timer=setTimeout(()=>this.fail('插件加载超时，已终止沙箱。'),2500);document.body.append(frame);});
  }
- render(time,options){if(this.busy||!this.frame)return;this.busy=true;this.seq++;this.timer=setTimeout(()=>this.fail('插件绘制超时，已终止Worker。'),1500);this.frame.contentWindow.postMessage({type:'render',seq:this.seq,time,options},'*');}
+ render(time,options){if(this.busy||!this.frame||!this.loaded)return;this.busy=true;this.seq++;this.timer=setTimeout(()=>this.fail('插件绘制超时，已终止Worker。'),1500);this.frame.contentWindow.postMessage({type:'render',seq:this.seq,time,options},'*');}
 }

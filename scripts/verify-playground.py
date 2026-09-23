@@ -37,6 +37,8 @@ def main():
             check('source index',page.locator('.source-row').count()>=59)
             r=context.request.get(urljoin(args.url,'../build-info.json'));check('build info',r.ok);report['build']=r.json()
             page.screenshot(path=str(out/'desktop.png'),full_page=True)
+            for selector in ['#play','#replay','#share','.file-button']:
+                check('desktop 44px '+selector,page.locator(selector).bounding_box()['height']>=44)
             page.locator('#telegraph').uncheck()
             ids=page.locator('#skill option').evaluate_all('(xs)=>xs.map(x=>x.value)')
             for aid in ids:
@@ -62,10 +64,20 @@ def main():
             local_empty=pixels(page);check('local JS produces pixels',diff(local_frame,local_empty)>500)
             seek(page,100);page.wait_for_function("Number(document.querySelector('#stage').dataset.renderTime)===2")
             check('local JS cleanup',diff(local_empty,pixels(page))==0)
+            slow=b'await new Promise(r=>setTimeout(r,500)); export default {id:"slow-probe",name:"Slow ready probe",duration:2,draw(g,t){if(t<=0||t>=2)return;g.fillRect(220,140,40,40);}};'
+            page.locator('#plugin-file').set_input_files({'name':'slow.js','mimeType':'text/javascript','buffer':slow})
+            seek(page,49)
+            page.wait_for_function("document.querySelector('#skill-name').textContent==='Slow ready probe'")
+            page.wait_for_function("document.querySelector('#stage').dataset.renderTime===document.querySelector('#stage').dataset.time")
+            check('replacement waits for ready during user seek',page.locator('#stage').get_attribute('data-effect')=='local-effect')
             page.locator('#remove-plugin').click();check('local JS removal',page.locator('#stage').get_attribute('data-effect')!='local-effect')
             page.locator('#plugin-file').set_input_files({'name':'bad.js','mimeType':'text/javascript','buffer':b'export default {id:"invalid"};'})
             page.wait_for_function("document.querySelector('#notice').textContent.includes('拒绝') || document.querySelector('#notice').textContent.includes('未接入')")
             check('invalid module rejected',page.locator('#stage').get_attribute('data-effect')!='local-effect')
+            forged=b'postMessage({type:"ready",meta:{id:"forged-probe",name:"Forged metadata",duration:"3"}}); export default {id:"valid-probe",name:"Valid",duration:3,draw(){}};'
+            page.locator('#plugin-file').set_input_files({'name':'forged.js','mimeType':'text/javascript','buffer':forged})
+            page.wait_for_function("document.querySelector('#notice').textContent.includes('元数据')")
+            check('forged ready metadata rejected',page.locator('#stage').get_attribute('data-effect')!='local-effect')
             loop_code=b'export default {id:"timeout-probe",name:"Timeout probe",duration:2,draw(){while(true){}}};'
             page.locator('#plugin-file').set_input_files({'name':'timeout.js','mimeType':'text/javascript','buffer':loop_code})
             page.wait_for_function("document.querySelector('#notice').textContent.includes('超时')",timeout=7000)
@@ -108,6 +120,8 @@ def main():
             check('quarter-speed clock advances at expected scale',.10<dt<.36,{'wallSeconds':elapsed,'effectSeconds':dt,'tolerance':'0.10–0.36 effect seconds for ~0.8 wall seconds plus automation overhead'})
             page.locator('#speed').select_option('1');seek(page,49)
             page.set_viewport_size({'width':390,'height':844});page.wait_for_timeout(100)
+            for selector in ['#play','#replay','#share','.file-button']:
+                check('mobile 44px '+selector,page.locator(selector).bounding_box()['height']>=44)
             check('390px no horizontal overflow',page.evaluate('document.documentElement.scrollWidth<=innerWidth'))
             check('mobile stage fully within viewport',page.locator('#stage').bounding_box()['width']<=390)
             page.screenshot(path=str(out/'mobile.png'),full_page=True)
