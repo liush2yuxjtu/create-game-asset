@@ -38,3 +38,7 @@ For system-level source extraction, token/component/screen contracts or game HUD
 `design-systems/ynjh/` is the source-based reference contract for **一念逍遥**, confirmed by the user. YNJH is a retained directory identifier, not 一念江湖. Read DESIGN.md, SCREENS.md, FLOWS.md and AUDIT.md before UI changes. Sources are GAMEUI community screenshots; flow edges are inferred, not recorded gameplay. Do not overwrite the generic pinned skill for game-specific rules.
 
 `public/ynjh/` is an original schematic index with source links. Do not redistribute third-party screenshots/art as project assets. `src/rehearsal.js` supplies deterministic simulated UI feedback; the rehearsal's wooden dummy and 100→64 health are not engine hit logic. Preserve studio controls and original V2 runtime package. Validate rehearsal prepare/cancel/enter/cast/result/retry/back and mobile canvas/HUD separation as well as studio controls.
+
+## Dynamic VFX verification priority
+
+The user focuses on skill motion, not additional UI. `/verify` must load its `references/dynamic-vfx-checklist.md` and `references/yinian-vfx-sources.md`. Use actual continuous effects playback and phase/layer evidence; keep source video metadata, watched footage, technical acceptance and art approval separate. One main sword/six flying swords and 3.2s timing are our contract, not measured Yinian values. Documentation-only protocol changes do not establish fresh visual parity.

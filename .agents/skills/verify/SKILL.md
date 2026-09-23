@@ -7,6 +7,12 @@ description: Verify Qinglan game assets, the runtime ZIP, and the exact local or
 
 Report machine checks and real-browser acceptance separately. Start with the current `AGENTS.md`, `docs/handoff.md`, git status, and intended target URL. Do not reuse a historical PASS as evidence for changed code.
 
+## 0. Scope: dynamic skill VFX first
+
+用户当前关注技能动态特效。先读 [动态验证协议](references/dynamic-vfx-checklist.md) 与 [一念逍遥来源及证据边界](references/yinian-vfx-sources.md)。默认在特效工作台验证运动/层次/时序；演练HUD只作为可读性上下文和集成回归，不作为美术质量替代品。不为验证任务扩展UI功能。
+
+Technical PASS、dynamic observation PASS、reference parity、user art approval分别记录。资料检索完成不等于原视频已观看；未完成参考片段验证时reference parity必须为NOT_RUN。
+
 ## 1. Repeatable machine checks
 
 On a new checkout run `npm ci`, then `npm run verify`.

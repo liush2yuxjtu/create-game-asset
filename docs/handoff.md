@@ -53,3 +53,7 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 验收见 `docs/verification/2026-09-22-ynjh.md`。基线真实游戏跳转、全409图覆盖、Godot、真机、美术批准仍未验证。对比范围是布局/信息/流程适配，非原技能逐帧复刻。
 
 下一步验收：真实参考游戏流程确认、用户美术反馈、目标引擎/设备确定后再做命中与性能验收。不要把模拟木人气血当作正式游戏逻辑。
+
+## 2026-09-23 动态特效验证协议
+
+用户收窄关注点为技能动态特效。`/verify`新增动态检查矩阵、参考片段证据流程和报告模板；参考来源在`.agents/skills/verify/references/yinian-vfx-sources.md`。Exa核验17173官方来源转载与TapTap历史玩家资料；视频候选未播放，动态对标仍NOT_RUN。下一步按协议录制青岚完整释放、实际观看基准片段，逐项对照运动/峰值/余韵；不扩展HUD。此轮不修改runtime或原始资产。
