@@ -73,3 +73,7 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 ### 外部资产控制器
 
 新增 `public/asset-lab/`：14项全局默认与单实例覆盖，未来JS通过supports/draw合同接入；当前两个听雨借锋实例用于对比。现有纸鹤与青岚不接入。配置保存在本机，可JSON交换；无Airtable同步。制作/接入说明见同目录README，实际验收见控制器报告。
+
+### 江湖三十六式
+
+`public/asset-lab/catalog.js` / `variants.json` 注册36个新变体，十二机制各三种；每项独立JS描述，共用variant-engine绘制层。/asset-lab/现支持目录、搜索、门类、A/B选择、惊喜配对和精确百分比采样。控制覆盖按资产ID保存，旧纸鹤与原双雨锋文件保留。尚未作为最终游戏美术批准，未接Godot/命中/真机性能。真实浏览器证据和逐项采样结论见36变体验收报告。
