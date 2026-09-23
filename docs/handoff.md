@@ -65,3 +65,7 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 ### 江湖十六念俯视动画修订
 
 最新方向：去掉山水大景，俯视、单个技能范围。新增 `public/jianghu-sixteen/animation.html`、`crane.js` 和 `animations/paper-cranes-v0.2.gif`。原16张概念图保留，05-v2单独增量。验证边界见 `docs/jianghu-sixteen/VERIFY.md`；没有发布或验收新的公共Pages。Airtable17项待用户选择，下一步按选择打磨，不把题材偏好标成生成图通过。
+
+### 项目级 /verify 制作手册
+
+新增 `.agents/skills/verify/references/procedural-2d-vfx.md`，由项目级SKILL.md加载。记录纸鹤JS形变/路径/时序/播放器制作方法、4193真实浏览器操作、倒退采样相邻探针、GIF截图裁切修复及发布边界。此次仅增补文档，runtime verdict为SKIP；历史原型验证仍以其记录的候选为准。用户已授权提交、推送及直接合并PR #3，不代表全部概念美术选择通过。
