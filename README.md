@@ -58,3 +58,11 @@ V2 着色器与后期必须使用运行时；源 GLB 本身仍是 V1 结构模�
 ## 独立设计系统技能
 
 已接入 [design-system](.agents/skills/design-system/SKILL.md)，上游为 [design-system-skill](https://github.com/liush2yuxjtu/design-system-skill)。它负责可追溯的视觉规则、设计变量、组件、屏幕和可选游戏/VFX合同；与现有 create-game-asset 技能配合。版本与文件指纹见 [skills.lock.json](skills.lock.json)。
+
+## 俯瞰特效试验场
+
+[打开 Playground](https://liush2yuxjtu.github.io/create-game-asset/playground/) · [设计合同](design.md) · [来源台账](public/playground/sources.json)
+
+40个透明Canvas技能入口（36个既有变体、1个初版雨锋、3个原创空间研究），5种原创mock地形，落点/角色移动、时序采样与本地自包含JS插入。全仓库JS构建索引保留纸鹤、四项动作研究和青岚WebGL的独立运行入口。
+
+本次参考天羽游戏《一念江湖》，不覆盖既有《一念逍遥》ynjh基线。没有分发游戏素材、没有实际命中或原游戏动态parity。新增JS接入合同、安全限制与复验命令见design.md。

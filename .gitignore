@@ -4,3 +4,6 @@ dist/
 /verification/
 public/build-info.json
 .asset-package-tmp/
+
+public/playground/source-index.json
+public/playground/design.md
