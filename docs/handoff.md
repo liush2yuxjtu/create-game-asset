@@ -69,3 +69,15 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 ### 项目级 /verify 制作手册
 
 新增 `.agents/skills/verify/references/procedural-2d-vfx.md`，由项目级SKILL.md加载。记录纸鹤JS形变/路径/时序/播放器制作方法、4193真实浏览器操作、倒退采样相邻探针、GIF截图裁切修复及发布边界。此次仅增补文档，runtime verdict为SKIP；历史原型验证仍以其记录的候选为准。用户已授权提交、推送及直接合并PR #3，不代表全部概念美术选择通过。
+
+### 外部资产控制器
+
+新增 `public/asset-lab/`：14项全局默认与单实例覆盖，未来JS通过supports/draw合同接入；当前两个听雨借锋实例用于对比。现有纸鹤与青岚不接入。配置保存在本机，可JSON交换；无Airtable同步。制作/接入说明见同目录README，实际验收见控制器报告。
+
+### 江湖三十六式
+
+`public/asset-lab/catalog.js` / `variants.json` 注册36个新变体，十二机制各三种；每项独立JS描述，共用variant-engine绘制层。/asset-lab/现支持目录、搜索、门类、A/B选择、惊喜配对和精确百分比采样。控制覆盖按资产ID保存，旧纸鹤与原双雨锋文件保留。尚未作为最终游戏美术批准，未接Godot/命中/真机性能。真实浏览器证据和逐项采样结论见36变体验收报告。
+
+### PR #4 发布审查修复
+
+目录预览接入字段由 `public/asset-lab/catalog-contract.js` 在初始化前校验，完整合同见README；`persistence.js`报告真实写入结果，保存失败不会再被导入成功提示覆盖。新增回归检查后13项测试通过。36式绘制算法未变；公开版本仍需发布后按build-info与浏览器实测确认。
