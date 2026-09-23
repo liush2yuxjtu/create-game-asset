@@ -69,3 +69,7 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 ### 项目级 /verify 制作手册
 
 新增 `.agents/skills/verify/references/procedural-2d-vfx.md`，由项目级SKILL.md加载。记录纸鹤JS形变/路径/时序/播放器制作方法、4193真实浏览器操作、倒退采样相邻探针、GIF截图裁切修复及发布边界。此次仅增补文档，runtime verdict为SKIP；历史原型验证仍以其记录的候选为准。用户已授权提交、推送及直接合并PR #3，不代表全部概念美术选择通过。
+
+### 外部资产控制器
+
+新增 `public/asset-lab/`：14项全局默认与单实例覆盖，未来JS通过supports/draw合同接入；当前两个听雨借锋实例用于对比。现有纸鹤与青岚不接入。配置保存在本机，可JSON交换；无Airtable同步。制作/接入说明见同目录README，实际验收见控制器报告。
