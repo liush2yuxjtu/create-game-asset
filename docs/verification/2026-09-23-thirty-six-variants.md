@@ -24,3 +24,13 @@ Runtime verdict: PASS — 范围为36项实际渲染、四阶段采样、末帧�
 12种共享绘制机制 × 3种结构/动作变体；36个模块依赖共享引擎，不是36个复制的独立渲染器。均为原创程序化2D动作样件。图形细节、叙事动作的保真、参考parity、美术批准、Godot、游戏命中、真机性能仍待验。没有生成新AI静态原图或复制第三方GIF。
 
 保留用户预览标签与4193服务；恢复测试视口。目录选择及控制保存本机，无Airtable新选择记录。旧crane.js及雨锋初版未修改。公共Pages未在此报告验收。
+
+## Ship review follow-up
+
+PR #4 review identified two host-contract defects: omitted catalog metadata in the
+integration example, and a successful-save notice overriding a storage failure.
+The catalog metadata is now documented and validated before clocks initialize;
+persistence reports success only after both writes succeed. New regression tests
+cover missing metadata/non-finite preview times and first/second storage-write
+failures. All 13 tests pass. These changes do not alter asset drawing algorithms.
+Public release verification remains a separate post-merge check.

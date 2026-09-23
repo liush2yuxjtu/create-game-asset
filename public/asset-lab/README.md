@@ -1,6 +1,6 @@
 # 外部技能控制器 v1
 
-入口：`/asset-lab/`。不改现有纸鹤或青岚；两个雨锋实例展示同一模块可以分别控制。
+入口：`/asset-lab/`。不改现有纸鹤或青岚；36项目录中的两个当前资产可分别控制。
 
 - `controller.js`：纯状态与参数校验，不操作DOM、不拥有动画时钟。
 - `assets/rain-blades.js`：原创俯视技能，接收 `(context, time, options)`，只绘制当前时刻。
@@ -13,6 +13,12 @@ export const myAsset = {
   id: 'unique-instance-id',
   name: '技能名称',
   duration: 4.2,
+  number: 37,
+  family: 'custom',
+  familyName: '自定义',
+  description: '描述这招的动作与阶段。',
+  motion: '聚拢 → 发力 → 消散',
+  previewAt: 0.49,
   supports: ['visible', 'body', 'particles', 'speed', 'motion'],
   draw(context, time, options) {
     if (!options.visible) return;
@@ -22,7 +28,7 @@ export const myAsset = {
 };
 ```
 
-导入并加入preview.js的assets数组；实例id必须唯一。添加支持项前先在features注册类型、默认值、范围/枚举，然后在renderer或宿主实现对应行为。不能声明却不实现。当前speed/motion由宿主消费，其他项由雨锋renderer消费。不支持的单项控制不展示，也拒绝通过API覆盖。
+导入并加入catalog.js的catalog数组；实例id必须唯一。上述字段均为预览接入的必填项，启动时由catalog-contract.js校验；previewAt为0–1的预览进度，duration为正有限秒数，number为正整数。id/family仅使用小写字母、数字和连字符；源码文件按variants/{id}-{family}.js保存。新增目录项时同步variants.json、目录数量文案与测试预期。添加支持项前先在features注册类型、默认值、范围/枚举，然后在renderer或宿主实现对应行为。不能声明却不实现。当前speed/motion由宿主消费，其他项由雨锋renderer消费。不支持的单项控制不展示，也拒绝通过API覆盖。
 
 最终值 = 单资产覆盖（包括false/0）或全局值。`setAsset(id,key,null)`取消该项覆盖；`clearAsset(id)`恢复整项继承；`reset()`重置所有实例及全局。全局visible是可被单项覆盖的默认值，不是强制总静音；预览“暂停”才停止整体时间推进。隐藏不停止时钟；motion=false冻结该实例，但seek仍显式设置时间。
 

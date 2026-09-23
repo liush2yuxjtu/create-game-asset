@@ -1,13 +1,15 @@
 import {AssetController,features} from './controller.js';
 import {catalog} from './catalog.js';
+import {validateCatalog} from './catalog-contract.js';
+import {saveConfiguration} from './persistence.js';
 const $=id=>document.getElementById(id),key='jianghu-36-controller-v1';
-const assets=catalog,byId=new Map(assets.map(a=>[a.id,a]));
+const assets=validateCatalog(catalog),byId=new Map(assets.map(a=>[a.id,a]));
 const controller=new AssetController(assets),times=new Map(assets.map(a=>[a.id,a.duration*a.previewAt]));
 let scope='global',playing=false,last=0,slots=['v01','v25'];
 function active(){return slots.map(id=>byId.get(id));}
 function notify(message){$('notice').textContent=message;}
 try{const saved=localStorage.getItem(key);if(saved)controller.restore(JSON.parse(saved));const ids=JSON.parse(localStorage.getItem(key+'-slots'));if(Array.isArray(ids)&&ids.length===2&&ids[0]!==ids[1]&&ids.every(id=>byId.has(id)))slots=ids;}catch{notify('本机配置无法读取，已使用可用设置。');}
-function persist(){try{localStorage.setItem(key,JSON.stringify(controller.snapshot()));localStorage.setItem(key+'-slots',JSON.stringify(slots));notify('已保存到此浏览器。');}catch{notify('浏览器禁止保存；当前调整仍然有效。');}}
+function persist(){let saved=false;try{saved=saveConfiguration(localStorage,key,controller.snapshot(),slots);}catch{/* Access to localStorage itself may be denied. */}notify(saved?'已保存到此浏览器。':'本机保存失败；当前调整仍然有效，刷新后可能丢失。');return saved;}
 const views=[0,1].map(slot=>{
  const card=document.createElement('article');card.className='card';card.innerHTML=`<div class="card-top"><label>${slot?'B':'A'}<select aria-label="预览 ${slot?'B':'A'} 技能"></select></label><span class="family-tag"></span></div><canvas width="720" height="480"></canvas><p class="asset-story"></p><div class="card-info" role="status"></div><a class="source-link" target="_blank" rel="noopener">查看独立 JS ↗</a>`;
  const select=card.querySelector('select');for(const a of assets)select.add(new Option(String(a.number).padStart(2,'0')+' · '+a.name,a.id));select.onchange=()=>selectAsset(slot,select.value);
@@ -46,7 +48,7 @@ $('play').onclick=()=>{if(!playing&&active().every(a=>times.get(a.id)>=a.duratio
 $('restart').onclick=()=>{active().forEach(a=>times.set(a.id,0));setPlaying(true);render();};
 function seek(percent){setPlaying(false);active().forEach(a=>times.set(a.id,a.duration*Math.max(0,Math.min(1,percent/100))));render();}
 $('sample').onclick=()=>seek(Number($('exact-progress').value)||0);$('seek').oninput=()=>seek(Number($('seek').value));$('peak').onclick=()=>seek(49);
-function apply(text){try{controller.restore(JSON.parse(text));persist();controls();render();notify('配置已应用并保存。');}catch(error){notify('未应用：'+error.message+'。当前设置保持不变。');}}
+function apply(text){try{controller.restore(JSON.parse(text));const saved=persist();controls();render();notify(saved?'配置已应用并保存。':'配置已应用，但本机保存失败；刷新后可能丢失。');}catch(error){notify('未应用：'+error.message+'。当前设置保持不变。');}}
 $('apply').onclick=()=>apply($('config').value);
 $('import').onchange=async()=>{const f=$('import').files[0];if(!f)return;if(f.size>64000){notify('未应用：配置文件超过64KB。');return;}const text=await f.text();$('config').value=text;apply(text);$('import').value='';};
 $('export').onclick=()=>{const text=JSON.stringify(controller.snapshot(),null,2);$('config').value=text;const url=URL.createObjectURL(new Blob([text],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='jianghu-36-controls-v1.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);notify('已导出配置，下面也可复制JSON。');};

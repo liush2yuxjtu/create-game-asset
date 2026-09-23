@@ -77,3 +77,7 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 ### 江湖三十六式
 
 `public/asset-lab/catalog.js` / `variants.json` 注册36个新变体，十二机制各三种；每项独立JS描述，共用variant-engine绘制层。/asset-lab/现支持目录、搜索、门类、A/B选择、惊喜配对和精确百分比采样。控制覆盖按资产ID保存，旧纸鹤与原双雨锋文件保留。尚未作为最终游戏美术批准，未接Godot/命中/真机性能。真实浏览器证据和逐项采样结论见36变体验收报告。
+
+### PR #4 发布审查修复
+
+目录预览接入字段由 `public/asset-lab/catalog-contract.js` 在初始化前校验，完整合同见README；`persistence.js`报告真实写入结果，保存失败不会再被导入成功提示覆盖。新增回归检查后13项测试通过。36式绘制算法未变；公开版本仍需发布后按build-info与浏览器实测确认。

@@ -9,3 +9,20 @@ function recorder(){let depth=0;const calls=[];const gradient={addColorStop(...a
 test('36 unique modules, 12 families of three, manifest and control contract agree',()=>{assert.equal(catalog.length,36);assert.equal(new Set(catalog.map(a=>a.id)).size,36);assert.equal(new Set(catalog.map(a=>a.name)).size,36);const manifest=JSON.parse(fs.readFileSync(new URL('../public/asset-lab/variants.json',import.meta.url)));assert.equal(manifest.count,36);assert.deepEqual(manifest.assets.map(a=>a.id),catalog.map(a=>a.id));for(const f of new Set(catalog.map(a=>a.family)))assert.equal(catalog.filter(a=>a.family===f).length,3);for(const a of catalog){assert.ok(a.duration>0);assert.equal(typeof a.draw,'function');assert.deepEqual(a.supports,Object.keys(features));}});
 test('all variants seek deterministically, balance canvas state, clean endpoints and respect zero/hidden',()=>{const signatures=new Set();for(const a of catalog){for(const p of [.1,.25,.49,.56,.75,.9]){const r=recorder();a.draw(r.ctx,a.duration*p,defaults);assert.equal(r.depth(),0,a.id);const repeat=recorder();a.draw(repeat.ctx,a.duration*p,defaults);assert.deepEqual(r.calls,repeat.calls);if(p===.49)signatures.add(JSON.stringify(r.calls));}for(const [t,o]of [[0,defaults],[a.duration,defaults],[a.duration/2,{...defaults,visible:false}],[a.duration/2,{...defaults,intensity:0}]]){const r=recorder();a.draw(r.ctx,t,o);assert.equal(r.calls.length,0,a.id+' must leave host background intact');}}assert.equal(signatures.size,36);});
 test('saved override follows asset identity, not A/B selection order',()=>{const c=new AssetController(catalog);c.setAsset('v01','palette','cinnabar');c.setGlobal('palette','moon');assert.equal(c.resolve('v01').palette,'cinnabar');assert.equal(c.resolve('v36').palette,'moon');const d=new AssetController([...catalog].reverse());d.restore(c.snapshot());assert.equal(d.resolve('v01').palette,'cinnabar');assert.equal(d.resolve('v36').palette,'moon');});
+
+ test('preview contract rejects missing metadata and non-finite initial clocks',async()=>{
+ const {validateCatalog}=await import('../public/asset-lab/catalog-contract.js');
+ assert.equal(validateCatalog(catalog),catalog);
+ for(const field of ['previewAt','number','family','familyName','description','motion']) {const a={...catalog[0]};delete a[field];assert.throws(()=>validateCatalog([a]),TypeError);}
+ for(const previewAt of [NaN,Infinity,-1,2]) assert.throws(()=>validateCatalog([{...catalog[0],previewAt}]),TypeError);
+ });
+
+test('storage failures remain failures and successful writes round-trip',async()=>{
+ const {saveConfiguration}=await import('../public/asset-lab/persistence.js');
+ const state=new AssetController(catalog).snapshot(),slots=['v01','v25'],data=new Map();
+ assert.equal(saveConfiguration({setItem:(k,v)=>data.set(k,v)},'test',state,slots),true);
+ assert.deepEqual(JSON.parse(data.get('test')),state);
+ assert.deepEqual(JSON.parse(data.get('test-slots')),slots);
+ assert.equal(saveConfiguration({setItem(){throw new Error('QuotaExceededError');}},'test',state,slots),false);
+ let writes=0;assert.equal(saveConfiguration({setItem(){if(++writes===2)throw new Error('denied');}},'test',state,slots),false);
+});
