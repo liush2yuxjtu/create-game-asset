@@ -1,0 +1,73 @@
+{
+  "checked_at": "2026-09-23T03:26:02.223360+00:00",
+  "scope": "Archive byte integrity only; no browser or reference-parity re-verification",
+  "files_checked": 12,
+  "checks": [
+    {
+      "path": "README.md",
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "path": "assets/slash-spritesheet-4x4.png",
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "path": "assets/slash-transparent.png",
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "path": "evidence/desktop.png",
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "path": "evidence/mobile.png",
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "path": "evidence/verification.json",
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "path": "index.html",
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "path": "preview.gif",
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "path": "preview.mp4",
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "path": "raw-links.txt",
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "path": "sources.json",
+      "bytes_match": true,
+      "sha256_match": true
+    },
+    {
+      "path": "verify.py",
+      "bytes_match": true,
+      "sha256_match": true
+    }
+  ],
+  "original_attachment_match_count": 5,
+  "runtime_modified": false,
+  "historical_browser_checks": 32,
+  "browser_rerun": "NOT_RUN",
+  "reference_parity": "NOT_VERIFIED",
+  "git_full_archive_includes_original_zip": true
+}

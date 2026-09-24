@@ -1,0 +1,90 @@
+from pathlib import Path
+import base64, json, hashlib, time
+from playwright.sync_api import sync_playwright
+ROOT=Path(__file__).resolve().parent
+out=ROOT/'evidence';out.mkdir(exist_ok=True)
+checks=[]
+def record(name, passed, detail=None):
+    checks.append({'check':name,'pass':bool(passed),'detail':detail})
+with sync_playwright() as p:
+    browser=p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox','--disable-dev-shm-usage'])
+    page=browser.new_page(viewport={'width':1360,'height':980},device_scale_factor=1)
+    errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+    page.set_content((ROOT/'index.html').read_text(),wait_until='load')
+    page.evaluate('vfxStudy.seek(.55)')
+    page.screenshot(path=str(out/'desktop.png'),full_page=True)
+    record('initial render + valid canvas',page.locator('#vfx').evaluate('(c)=>c.width>0&&c.height>0'))
+    # Non-empty animation and deterministic sampling.
+    peak=page.evaluate('vfxStudy.getAlphaSum()')
+    record('effects contain visible pixels',peak>5000,peak)
+    a=page.locator('#vfx').evaluate('(c)=>c.toDataURL()')
+    page.evaluate('vfxStudy.seek(.2);vfxStudy.seek(.55)')
+    b=page.locator('#vfx').evaluate('(c)=>c.toDataURL()')
+    record('deterministic same-time render',a==b)
+    page.locator('#play').click();page.wait_for_timeout(170);t1=page.evaluate('vfxStudy.state.time')
+    record('play advances time',t1>.55,t1)
+    page.locator('#play').click();before=page.evaluate('vfxStudy.state.time');page.wait_for_timeout(120)
+    record('pause freezes time',abs(page.evaluate('vfxStudy.state.time')-before)<1e-8)
+    page.locator('#step-next').click();after=page.evaluate('vfxStudy.state.time')
+    record('step forward 1/60 s',abs(after-before-1/60)<1e-6)
+    page.locator('#step-back').click();record('step backward',abs(page.evaluate('vfxStudy.state.time')-before)<1e-6)
+    page.locator('#timeline').evaluate("el=>{el.value='1.1';el.dispatchEvent(new Event('input',{bubbles:true}))}")
+    record('timeline scrubbing pauses at requested time',page.evaluate('vfxStudy.state.time===1.1&&!vfxStudy.state.playing'))
+    page.locator('[data-phase="charge"]').click();record('charge jump',page.evaluate('vfxStudy.state.time===.21'))
+    page.locator('[data-phase="strike"]').click();record('strike jump',page.evaluate('vfxStudy.state.time===.55'))
+    page.locator('[data-phase="fade"]').click();record('fade jump',page.evaluate('vfxStudy.state.time===1.05'))
+    page.evaluate('vfxStudy.seek(.70)');whole=page.evaluate('vfxStudy.getAlphaSum()')
+    page.locator('[data-layer="blade"]').uncheck();without=page.evaluate('vfxStudy.getAlphaSum()')
+    record('blade layer changes actual pixels',abs(whole-without)>1000,[whole,without])
+    for e in page.locator('[data-layer]').all():e.uncheck()
+    record('all layers hidden yields transparent render',page.evaluate('vfxStudy.getAlphaSum()')==0)
+    for e in page.locator('[data-layer]').all():e.check()
+    page.evaluate('vfxStudy.seek(0)');record('time zero has no effects',page.evaluate('vfxStudy.getAlphaSum()')==0)
+    page.evaluate('vfxStudy.seek(vfxStudy.duration)');record('last frame clears effects',page.evaluate('vfxStudy.getAlphaSum()')==0)
+    page.locator('#loop').uncheck();page.evaluate('vfxStudy.seek(1.60)');page.locator('#play').click();page.wait_for_timeout(250)
+    record('one-shot stops at duration',page.evaluate('vfxStudy.state.time===vfxStudy.duration&&!vfxStudy.state.playing'))
+    page.locator('#loop').check();page.locator('#replay').click();page.wait_for_timeout(70);record('replay resets and plays',page.evaluate('vfxStudy.state.playing&&vfxStudy.state.time<.3'))
+    page.evaluate('vfxStudy.seek(.2)');page.locator('#speed').select_option('0.25');page.locator('#play').click();page.wait_for_timeout(400);slow=page.evaluate('vfxStudy.state.time')-.2
+    page.evaluate('vfxStudy.seek(.2)');page.locator('#speed').select_option('1');page.locator('#play').click();page.wait_for_timeout(400);normal=page.evaluate('vfxStudy.state.time')-.2
+    record('quarter-speed runtime',3.0<normal/slow<5.1,{'slowDelta':slow,'normalDelta':normal,'ratio':normal/slow})
+    page.evaluate('vfxStudy.seek(.55)');page.locator('#background').select_option('paper');paper=page.locator('#vfx').evaluate('(c)=>c.toDataURL()');record('paper background alters render',paper!=a)
+    page.locator('#background').select_option('grid');record('checkerboard background selection',page.evaluate('vfxStudy.state.background==="grid"'))
+    page.locator('#background').select_option('dark');page.locator('#target').uncheck();record('target toggle',page.evaluate('!vfxStudy.state.target'));page.locator('#target').check()
+    page.locator('#intensity').evaluate("el=>{el.value='1.3';el.dispatchEvent(new Event('input',{bubbles:true}))}");record('intensity adjusts parameter + label',page.evaluate('vfxStudy.state.intensity===1.3') and page.locator('#intensity-display').inner_text()=='130%')
+    page.locator('#intensity').evaluate("el=>{el.value='1';el.dispatchEvent(new Event('input',{bubbles:true}))}")
+    with page.expect_download() as dl:page.locator('#export-frame').click()
+    dl.value.save_as(str(ROOT/'assets/slash-transparent.png'))
+    with page.expect_download() as dl:page.locator('#export-sheet').click()
+    dl.value.save_as(str(ROOT/'assets/slash-spritesheet-4x4.png'))
+    from PIL import Image
+    frame=Image.open(ROOT/'assets/slash-transparent.png');sheet=Image.open(ROOT/'assets/slash-spritesheet-4x4.png')
+    record('transparent PNG export',frame.mode=='RGBA' and frame.getextrema()[3][0]==0 and frame.getextrema()[3][1]>0,frame.size)
+    record('4x4 sprite sheet export',sheet.size==(1536,1536) and sheet.mode=='RGBA',sheet.size)
+    # The following only verifies failure UX, not official image retrieval.
+    page.route('https://*.tapimg.com/**',lambda route:route.abort('internetdisconnected'))
+    page.locator('#tab-compare').click();page.wait_for_timeout(180)
+    record('comparison shows separate original + generated surfaces',page.locator('.reference').is_visible() and page.locator('.visual').is_visible())
+    record('unavailable reference is not replaced with fake image',page.locator('#ref-status').inner_text()=='原图未载入' and not page.locator('#reference-image').is_visible())
+    page.locator('#reference-skill').select_option('fire');page.wait_for_timeout(100)
+    record('source selector preserves exact fire GIF URL',page.locator('#raw-link').get_attribute('href')=='https://img2.tapimg.com/bbcode/images/df3b27e20e0026d9a5e80f21c2f851a1.gif')
+    page.locator('#tab-reference').click();record('reference-only surface hides generated effects',page.locator('.reference').is_visible() and not page.locator('.visual').is_visible())
+    page.locator('#tab-study').click();page.evaluate('vfxStudy.seek(.55)')
+    page.screenshot(path=str(out/'desktop.png'),full_page=True)
+    for width in [390,768]:
+        page.set_viewport_size({'width':width,'height':844});page.wait_for_timeout(80)
+        record(f'{width}px no horizontal overflow',page.evaluate('document.documentElement.scrollWidth<=innerWidth'))
+        if width==390:page.screenshot(path=str(out/'mobile.png'),full_page=True)
+    page.set_viewport_size({'width':1100,'height':900});page.wait_for_timeout(80)
+    # Export original-generated animation at fixed samples, not simulated UI screenshots.
+    frames=out/'frames';frames.mkdir(exist_ok=True)
+    for i in range(51):
+        t=1.68*i/50
+        page.evaluate('(t)=>vfxStudy.seek(t)',t)
+        data=page.evaluate('''()=>{const c=document.createElement('canvas');c.width=800;c.height=480;const g=c.getContext('2d');vfxStudy.renderTo(g,800,480,vfxStudy.state.time);g.font='16px system-ui';g.fillStyle='#f0eee6';g.fillText('原创代码试作 v0.1 · 非官方素材',24,34);g.font='12px system-ui';g.fillStyle='#a8acaa';g.fillText('一念逍遥 / 修罗斩参考目标 · 待视觉对标',24,456);return c.toDataURL('image/png')}''')
+        (frames/f'{i:03d}.png').write_bytes(base64.b64decode(data.split(',')[1]))
+    record('page has no uncaught JS errors',not errors,errors)
+    rm=browser.new_page(viewport={'width':1100,'height':800},reduced_motion='reduce');rm.set_content((ROOT/'index.html').read_text());record('reduced-motion starts paused',rm.evaluate('vfxStudy.state.playing===false'));rm.close()
+    browser.close()
+report={'scope':'Chromium inline HTML real UI and deterministic generated render; file navigation blocked by browser policy; official GIF network playback NOT VERIFIED','reference_playback':'NOT_VERIFIED_NETWORK_UNAVAILABLE','visual_parity':'NOT_VERIFIED','source_sha256':hashlib.sha256((ROOT/'index.html').read_bytes()).hexdigest(),'checks':checks,'pass':all(x['pass'] for x in checks)}
+(out/'verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+print(json.dumps({'pass':report['pass'],'passed':sum(c['pass'] for c in checks),'total':len(checks),'failed':[c for c in checks if not c['pass']]},ensure_ascii=False))

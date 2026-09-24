@@ -1,0 +1,70 @@
+{
+  "name": "刀光试作 01",
+  "version": "0.1",
+  "created_at": "2026-09-23T02:43:14.529655+00:00",
+  "entry": "index.html",
+  "reference_playback": "NOT_VERIFIED",
+  "visual_parity": "NOT_VERIFIED",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3840,
+      "sha256": "6ffca9bf2b33cde34727ad02fa5812b9d0c2d2ca74877121b7a1e15de44b557b"
+    },
+    {
+      "path": "assets/slash-spritesheet-4x4.png",
+      "bytes": 231196,
+      "sha256": "0fb811336b9939a9bd78fa926c382d973ad89f0d39844f565789f546fd715624"
+    },
+    {
+      "path": "assets/slash-transparent.png",
+      "bytes": 154067,
+      "sha256": "f445e0448979e171346df6199160922ca8cca24d8d58f58fad1b8a42fd61f0fe"
+    },
+    {
+      "path": "evidence/desktop.png",
+      "bytes": 193212,
+      "sha256": "2d89956e1eaa61092364164c49dd56ac04c017435dfc9fdf8e04c29cfc189464"
+    },
+    {
+      "path": "evidence/mobile.png",
+      "bytes": 124325,
+      "sha256": "0d077370d89f5d828456252af39c53c960f7e08b07b69fad6f9430d0498ee6d3"
+    },
+    {
+      "path": "evidence/verification.json",
+      "bytes": 3854,
+      "sha256": "da1410e0a6cc71cb7498fc36e38e9c9a45e8c9b778dad9c9d901ea4c9f4b3743"
+    },
+    {
+      "path": "index.html",
+      "bytes": 30446,
+      "sha256": "7161333eb3c89fbc065cb1701dbae95b2b3d6c91a0de3045149f844191355901"
+    },
+    {
+      "path": "preview.gif",
+      "bytes": 368316,
+      "sha256": "476e1b373b21ba7e5de8c1aee513a7c427ff670729286ff8e2dca79c6568185d"
+    },
+    {
+      "path": "preview.mp4",
+      "bytes": 54455,
+      "sha256": "82a071ead87d7015e506bf1c7d8d420367d11a1283accdb7e881d5b315b26895"
+    },
+    {
+      "path": "raw-links.txt",
+      "bytes": 331,
+      "sha256": "d41372583854aebec088d3828acf38361c9f567d2cab84da9abb06e853a4d4ec"
+    },
+    {
+      "path": "sources.json",
+      "bytes": 3969,
+      "sha256": "422c7144bfd4c28b77cbf148ef15ba0071da6cdd46f2e214d29604caea9ba2c0"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 8980,
+      "sha256": "4a8b49a78bcc6f6167bb0c5c99ac649c6b88ba983ec0142626f07b945fbdae3a"
+    }
+  ]
+}
