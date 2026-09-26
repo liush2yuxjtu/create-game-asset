@@ -89,3 +89,7 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 本次参考**天羽游戏的一念江湖**，12项来源台账在`public/playground/sources.json`；既有ynjh仍为一念逍遥，未覆盖。三项空间研究的图形/时长均原创，不冒充原游戏动画。
 
 本地19项机器测试和245项浏览器断言PASS，报告见`verification/2026-09-23-topdown-playground.md`。新增`scripts/verify-playground.py`；Pages工作流在PR/main执行真实浏览器门禁并上传证据。发布后必须重新核对live SHA并运行公开页面脚本。动态parity、用户美术、真实引擎及真机性能未验收。
+
+### 2026-09-27 games/ 目录与魔门人材 v1
+
+新增 `games/`（完整游戏，每版一个目录）与 `public/games/momen-rencai/v1/`（Godot 4.4.1 Web nothreads 导出，随 Pages 发布）。源码、剧情数据、视频渲染器与实机录像在 `games/momen-rencai/v1/`，验证记录见其 `VERSION.md`。`scripts/build-playground.mjs` 的源码索引跳过 `public/games`，避免把 Godot 引擎 JS 计入技能源码全景；其余构建与门禁未改。桌面安装包（Windows ≈100 MB）不入库。本地 Godot 自测 PASS；线上 Pages 页面需合并后按 `/verify` 用 build-info SHA 验收，手机真机、Haiku 真 key、Win/mac 真机未验收。
