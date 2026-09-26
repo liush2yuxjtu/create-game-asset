@@ -7,3 +7,4 @@ public/build-info.json
 
 public/playground/source-index.json
 public/playground/design.md
+__pycache__/

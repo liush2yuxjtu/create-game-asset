@@ -48,6 +48,13 @@
 
 验证：`--autotest` PASS、`--storytest` PASS、`verify_story.py` 8 结局可达；Web 重新导出（仅 `index.pck` 与 `index.html` 的文件大小变更）。
 
+### v1.1 补充：回归加严 + CI 门禁（2026-09-27 北京时间）
+
+- autotest §2a 新增掉落计时器三项：被设置面板盖住的掉落超时仍结算、超时不关掉后打开的面板、旧计时器不结算/关闭新的掉落选择。§4 与 storytest §0 新增「验收只写隔离存档」断言。
+- 红→绿：把新测试放到修复前的 `2b3910e` 代码上跑，✘ 掉落超时不会关掉后打开的面板、✘ 旧计时器不会结算/关闭新的掉落选择、✘ 验收只写隔离存档、✘ 吐纳自动化已拥有时不再扣费；v1.1 代码上全部 ✔。
+- 测试脚本打进 pck，因此重新导出 `index.pck` 并同步 `index.html` 的 `fileSizes`。
+- `npm run verify:games` 进入 Pages 工作流（见仓库 `references/godot-games.md` §A2）。
+
 ## 许可与来源
 
 像素素材 Kenney Tiny Dungeon/Tiny Town（CC0）；字体 Fusion Pixel 12px（OFL 1.1，`assets/fonts/OFL.txt`）；AI 角色协议参考 OpenGameAgent（Apache-2.0）。小说仅借设定气质，无原文与原角色名。

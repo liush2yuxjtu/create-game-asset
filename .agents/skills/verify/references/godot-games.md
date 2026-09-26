@@ -22,6 +22,10 @@ python3 tools/verify_story.py                        # 穷举剧情，8 结局�
 
 改视频（`video/render_viral.py` 或 `data/viral_script.json`）：重渲染后抽帧（`ffmpeg -ss <t> -frames:v 1`）逐镜头查看，并跑 `--autotest` 第 3 节，确认录屏模式时长仍与视频一致（±0.3 s）。
 
+### A2. 一键机器门禁（CI 同款）
+
+仓库根目录 `GODOT=<Godot 4.4.1 路径> npm run verify:games`：按 `games/verify.json` 逐版本跑 `verify_story.py`、`--import`、`--storytest`/`--autotest`（出现 `ERROR`/`SCRIPT ERROR` 行即 FAIL；单步 8 分钟超时——Godot 脚本报错后进程可能挂住不退出），再重新 `--export-pack "Web"` 并要求与已提交的 `public/games/…/index.pck` 逐字节一致。报告 `verification/games.json`。`.github/workflows/pages.yml` 在浏览器门禁前跑同一命令，失败即阻断部署。新增游戏版本时加进 `games/verify.json`，不要在脚本里特判。
+
 ## B. Web 导出
 
 ```bash
