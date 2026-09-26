@@ -39,6 +39,7 @@ Godot 4.4 · 竖屏 270×480（×4 = 1080×1920，与抖音/TikTok 视频同构�
 
 ## 运行
 ```bash
+npm run verify:games               # 仓库根目录：本游戏全部机器检查（CI 同款，需 GODOT=Godot 4.4.1）
 godot --path .                     # 桌面
 godot --headless --path . -- --autotest   # 自动验收（引导全流程 + 轮回 + 录屏时间轴）
 godot --headless --path . -- --storytest  # 剧情验收（8 结局路线回放 + UI 冒烟）

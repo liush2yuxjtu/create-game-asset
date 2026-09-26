@@ -9,7 +9,8 @@
     "preview": "vite preview --host 127.0.0.1",
     "test": "node --test scripts/*.test.mjs",
     "package:asset": "node scripts/package-asset.mjs",
-    "verify": "node scripts/verify.mjs"
+    "verify": "node scripts/verify.mjs",
+    "verify:games": "node scripts/verify-games.mjs"
   },
   "dependencies": {
     "three": "0.170.0"
