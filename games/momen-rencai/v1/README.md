@@ -39,6 +39,7 @@ Godot 4.4 · 竖屏 270×480（×4 = 1080×1920，与抖音/TikTok 视频同构�
 
 ## 运行
 ```bash
+npm run verify:games               # 仓库根目录：本游戏全部机器检查（CI 同款，需 GODOT=Godot 4.4.1）
 godot --path .                     # 桌面
 godot --headless --path . -- --autotest   # 自动验收（引导全流程 + 轮回 + 录屏时间轴）
 godot --headless --path . -- --storytest  # 剧情验收（8 结局路线回放 + UI 冒烟）
@@ -47,6 +48,7 @@ python3 tools/build_story.py && python3 tools/verify_story.py   # 改剧情后�
 godot --path . -- --record         # 直接进录屏模式
 godot --headless --path . --export-release "Web" build/web/index.html  # Web（nothreads，任意静态托管）
 python3 video/render_viral.py      # 重新渲染视频（需 ffmpeg / Pillow / numpy）
+godot --headless --path . --export-pack "Web" ../../../public/games/momen-rencai/v1/index.pck  # 改了脚本/数据后同步 Web 包，并更新 index.html 的 fileSizes（CI 会校验）
 ```
 
 ## 素材与许可

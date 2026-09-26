@@ -17,6 +17,8 @@ func wait(sec: float) -> void:
 
 
 func run(m) -> void:
+	print("== 0. 存档隔离")
+	check(GS.SAVE_PATH == GS.TEST_SAVE_PATH, "剧情验收只写隔离存档 (%s)" % GS.SAVE_PATH)
 	print("== 1. 8 条结局路线回放")
 	var routes: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/story_routes.json"))
 	for end_id in routes:

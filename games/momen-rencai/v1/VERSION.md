@@ -48,6 +48,13 @@
 
 验证：`--autotest` PASS、`--storytest` PASS、`verify_story.py` 8 结局可达；Web 重新导出（仅 `index.pck` 与 `index.html` 的文件大小变更）。
 
+## CI 左移（2026-09-27，吸收 PR #8）
+
+- `npm run verify:games` 进入 Pages 工作流，失败即阻断部署：剧情穷举、headless `--storytest`/`--autotest`、Web `.pck` 与源码逐字节一致、`index.html` 的 fileSizes 一致。
+- 存档隔离常量化：`TEST_SAVE_PATH`、`TEST_FLAGS`；两套自测开头断言，`--autotest` 断言不过即退出。
+- `verify_story.py` 不再把结局状态入队（结局是终点），峰值内存 6.0 GB → 4.5 GB，8 条路线逐字节不变。
+- `index.pck` 用 `--export-pack` 重新导出（与 CI 同一命令），`index.html` 的 fileSizes 同步更新。
+
 ## 许可与来源
 
 像素素材 Kenney Tiny Dungeon/Tiny Town（CC0）；字体 Fusion Pixel 12px（OFL 1.1，`assets/fonts/OFL.txt`）；AI 角色协议参考 OpenGameAgent（Apache-2.0）。小说仅借设定气质，无原文与原角色名。

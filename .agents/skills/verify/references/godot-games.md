@@ -4,6 +4,14 @@
 
 ## A. 工程内自测（本地，需要 Godot 4.4.1）
 
+一条命令跑完全部机器检查（与 CI 相同），在仓库根目录执行：
+
+```bash
+GODOT=/path/to/Godot_v4.4.1-stable_linux.x86_64 npm run verify:games   # 报告写到 verification/games.json
+```
+
+它按 `games/verify.json` 依次执行下面这些命令，再重新导出 Web `.pck`，要求与已提交的逐字节一致，并检查 `index.html` 的 `fileSizes`。剧情穷举峰值约 4.5 GB 内存：某一步退出码为 null 通常是被 OOM 杀掉了，可以查 `dmesg`。不要用 `timeout npm …` 包一层，那会让子进程拿不到前台终端。单独排查时：
+
 在 `games/<游戏>/<版本>/` 下：
 
 ```bash
@@ -16,7 +24,7 @@ python3 tools/verify_story.py                        # 穷举剧情，8 结局�
 
 判定：输出行 `RESULT: AUTOTEST PASS` / `RESULT: STORYTEST PASS`，`verify_story.py` 每个结局都是 ✔。只看退出码不够：Godot 的 `SCRIPT ERROR` 可能不影响退出码，要 grep `ERROR`。
 
-存档隔离：`--autotest/--storytest/--storydemo` 写 `user://momen_save_test.json`，不碰玩家存档。改到存档代码时，先放一份哨兵 `momen_save.json`，跑完两套自测对比 md5 不变。
+存档隔离：`TEST_FLAGS` 里的验收模式只写 `GS.TEST_SAVE_PATH`（`user://momen_save_test.json`），两套自测开头都会断言这一点；`--autotest` 断言不过就退出，绝不在玩家存档上执行清档。新增验收模式要加进 `TEST_FLAGS`。改到存档代码时，先放一份哨兵 `momen_save.json`，跑完两套自测对比 md5 不变。
 
 改剧情：先 `python3 tools/build_story.py` 再 `verify_story.py`，最后 `--storytest`（它读取新的 `story_routes.json`）。
 
@@ -28,7 +36,7 @@ python3 tools/verify_story.py                        # 穷举剧情，8 结局�
 $G --headless --path . --export-release "Web" <out>/index.html   # nothreads，不需要 COOP/COEP
 ```
 
-复制到 `public/games/<游戏>/<版本>/`。通常只有 `index.pck` 和 `index.html`（其中的 fileSizes）会变；`index.wasm` 是引擎本体，引擎版本不变时它也不应变化，变了要查原因。
+复制到 `public/games/<游戏>/<版本>/`。只改脚本或数据时，也可以只导 pck：`--export-pack "Web" public/games/<游戏>/<版本>/index.pck`，然后同步 `index.html` 里的 `fileSizes`，`verify:games` 会检查两者一致。通常只有 `index.pck` 和 `index.html`（其中的 fileSizes）会变；`index.wasm` 是引擎本体，引擎版本不变时它也不应变化，变了要查原因。
 
 ## C. 浏览器验收（本地预览与线上 Pages 各跑一次）
 

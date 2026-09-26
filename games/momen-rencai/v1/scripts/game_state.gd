@@ -9,7 +9,9 @@ signal ending_reached
 # Paperclips 式尺度跃迁：魔种把世界一层层「炼化」成魔元
 const PHASES := [["外门", 1.0e3], ["魔门", 1.0e6], ["修仙界", 1.0e10], ["三千世界", 1.0e15]]
 
-var SAVE_PATH := "user://momen_save.json"  # 测试运行改为 momen_save_test.json，不碰玩家存档
+const TEST_SAVE_PATH := "user://momen_save_test.json"
+const TEST_FLAGS := ["--autotest", "--storytest", "--storydemo"]  # 新增验收模式时把参数加到这里
+var SAVE_PATH := "user://momen_save.json"  # 验收模式改写 TEST_SAVE_PATH，不碰玩家存档
 const REALMS := ["炼气", "筑基", "金丹", "元婴", "化神", "炼虚", "合体", "大乘", "渡劫", "飞升"]
 
 # Paperclips 式：每个升级在「累计魔元」到达 reveal 时才出现
@@ -48,8 +50,9 @@ var ended := false
 
 func _ready() -> void:
 	var a := OS.get_cmdline_user_args()
-	if a.has("--autotest") or a.has("--storytest") or a.has("--storydemo"):
-		SAVE_PATH = "user://momen_save_test.json"
+	for f in TEST_FLAGS:
+		if a.has(f):
+			SAVE_PATH = TEST_SAVE_PATH
 	load_game()
 
 

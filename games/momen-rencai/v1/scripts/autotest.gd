@@ -18,6 +18,10 @@ func wait(sec: float) -> void:
 
 func run(main) -> void:
 	m = main
+	check(GS.SAVE_PATH == GS.TEST_SAVE_PATH, "自测只写隔离存档 (%s)" % GS.SAVE_PATH)
+	if GS.SAVE_PATH != GS.TEST_SAVE_PATH:
+		get_tree().quit(1)  # 绝不在玩家存档上执行 wipe
+		return
 	GS.wipe()
 	GS.driver_key = ""
 	Engine.time_scale = 4.0
