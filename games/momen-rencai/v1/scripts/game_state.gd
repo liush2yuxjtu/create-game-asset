@@ -9,7 +9,7 @@ signal ending_reached
 # Paperclips 式尺度跃迁：魔种把世界一层层「炼化」成魔元
 const PHASES := [["外门", 1.0e3], ["魔门", 1.0e6], ["修仙界", 1.0e10], ["三千世界", 1.0e15]]
 
-const SAVE_PATH := "user://momen_save.json"
+var SAVE_PATH := "user://momen_save.json"  # 测试运行改为 momen_save_test.json，不碰玩家存档
 const REALMS := ["炼气", "筑基", "金丹", "元婴", "化神", "炼虚", "合体", "大乘", "渡劫", "飞升"]
 
 # Paperclips 式：每个升级在「累计魔元」到达 reveal 时才出现
@@ -47,6 +47,9 @@ var ended := false
 
 
 func _ready() -> void:
+	var a := OS.get_cmdline_user_args()
+	if a.has("--autotest") or a.has("--storytest") or a.has("--storydemo"):
+		SAVE_PATH = "user://momen_save_test.json"
 	load_game()
 
 
@@ -189,6 +192,8 @@ func upgrade_visible(id: String) -> bool:
 
 
 func buy(id: String) -> bool:
+	if id == "tuna_auto" and level(id) > 0:
+		return false  # 一次性升级，已拥有不再扣费
 	var c := upgrade_cost(id)
 	if qi < c:
 		return false
@@ -344,5 +349,6 @@ func wipe() -> void:
 	seeds = 0; conv = 0; ledger = []; milestones = {}; ended = false; dao_marks = 0; perks = []; pills = 0; tutorial_done = false
 	driver_key = dk
 	Mem.reset()
+	Story.reset_state(false)  # 清档也清剧情进度（当前节点/章节/结局/流程图）
 	save_game()
 	changed.emit()
