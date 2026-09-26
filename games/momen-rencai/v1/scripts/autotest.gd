@@ -116,5 +116,22 @@ func run(main) -> void:
 	beats_hit.erase("ledger_ok")
 	check(beats_hit.size() == rd.S.beats.size(), "8 个镜头全部播放: %s" % str(beats_hit.keys()))
 	check(absf(rd.t - rd.S.duration) < 0.3, "时长与视频一致 (%.2fs)" % rd.t)
+	print("== 4. 回归：清档 / 一次性升级 / 掉落计时器")
+	GS.add_qi(1e3)
+	if GS.level("tuna_auto") == 0:
+		GS.buy("tuna_auto")
+	var q0: float = GS.qi
+	check(not GS.buy("tuna_auto") and GS.qi == q0, "吐纳自动化已拥有时不再扣费")
+	m._loot_choice()
+	var first_seq: int = m.loot_seq
+	m.loot_waiting = false  # 模拟玩家已选
+	m._close_overlay()
+	m._loot_choice()
+	await wait(6.5)
+	check(m.loot_seq == first_seq + 1 and not m.loot_waiting, "新一次掉落由自己的计时器结算")
+	Story.st.active = true
+	Story.st.endings["end_true"] = true
+	GS.wipe()
+	check(not Story.st.active and Story.st.endings.is_empty(), "清空存档同时清空剧情进度")
 	print("RESULT: %s" % ("AUTOTEST PASS" if fails.is_empty() else "FAIL " + str(fails)))
 	get_tree().quit(0 if fails.is_empty() else 1)

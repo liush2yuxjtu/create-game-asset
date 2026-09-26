@@ -32,6 +32,22 @@
 
 未验证：Windows/macOS 桌面包未在真机运行（macOS 未签名）；Haiku 4.5 真实 key 下的台词质量；手机真机触控与性能；GitHub Pages 线上页面（需合并后按 `/verify` 流程验收）。
 
+## v1.1 修复（2026-09-27，原地修补，未开新目录）
+
+来自 PR #6 的 CodeRabbit / Codex 审查：
+
+| 问题 | 修复 | 回归检查 |
+|---|---|---|
+| 设置里「清空存档」不清剧情进度 | `GS.wipe()` 调 `Story.reset_state(false)` | autotest §4 |
+| 战利品 6 秒计时器可能结算后一次掉落、或关掉记忆/设置面板 | 每次掉落带编号 `loot_seq`，只关自己的面板 | autotest §4 |
+| 「吐纳自动化」已拥有后再点仍扣 30 魔元 | `buy()` 拒绝重复购买 | autotest §4 |
+| 自测会覆盖玩家存档和 key | `--autotest/--storytest/--storydemo` 改写 `user://momen_save_test.json` | 放一份哨兵存档跑完两套自测，md5 不变 |
+| 视频 CTA 淡入被整帧清空 | 删去覆盖整帧的 `rectangle`；淡入透明度对齐游戏的 0.9 | 重渲染，逐帧查看 24.6 s / 26.5 s |
+
+未采纳：「验证日期是未来日期」——执行日期确为 2026-09-27，审查机器人时区判断有误。
+
+验证：`--autotest` PASS、`--storytest` PASS、`verify_story.py` 8 结局可达；Web 重新导出（仅 `index.pck` 与 `index.html` 的文件大小变更）。
+
 ## 许可与来源
 
 像素素材 Kenney Tiny Dungeon/Tiny Town（CC0）；字体 Fusion Pixel 12px（OFL 1.1，`assets/fonts/OFL.txt`）；AI 角色协议参考 OpenGameAgent（Apache-2.0）。小说仅借设定气质，无原文与原角色名。
