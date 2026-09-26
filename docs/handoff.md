@@ -95,3 +95,5 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 新增 `games/`（完整游戏，每版一个目录）与 `public/games/momen-rencai/v1/`（Godot 4.4.1 Web nothreads 导出，随 Pages 发布）。源码、剧情数据、视频渲染器与实机录像在 `games/momen-rencai/v1/`，验证记录见其 `VERSION.md`。`scripts/build-playground.mjs` 的源码索引跳过 `public/games`，避免把 Godot 引擎 JS 计入技能源码全景；其余构建与门禁未改。桌面安装包（Windows ≈100 MB）不入库。本地 Godot 自测 PASS；线上 Pages 页面需合并后按 `/verify` 用 build-info SHA 验收，手机真机、Haiku 真 key、Win/mac 真机未验收。
 
 评审修复与测试左移：PR #6 的 5 个功能问题已修复并加入自动回归（见 `games/momen-rencai/v1/VERSION.md`）。新增 `npm run verify:games`（`scripts/verify-games.mjs` + `games/verify.json`）：剧情穷举、Godot headless `--storytest`/`--autotest`、Web `.pck` 与源码同步；Pages 工作流在 `npm run verify` 之后、浏览器门禁之前执行，失败即阻断部署。`/verify` 技能新增「Games route」。线上 `/games/momen-rencai/v1/` 仍需合并后验收。
+
+线上验收第 1 轮（2026-09-27，已合并的未修复版 `2b3910e`）：build-info SHA 一致、引擎启动、无控制台报错、标题页可点、新手引导过第一个 gate，全部 PASS，见 [报告](verification/2026-09-27-momen-rencai-v1-live.md)。下一步：修复 PR 合并后确认 Actions 里 `verify:games` 与部署成功，再按同一报告做第 2 轮。
