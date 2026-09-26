@@ -1,6 +1,6 @@
 ---
 name: verify
-description: Verify Qinglan game assets, the runtime ZIP, and the exact local or GitHub Pages preview. Use for /verify, release validation, and handoff acceptance.
+description: Verify Qinglan game assets, the runtime ZIP, full Godot games under games/, and the exact local or GitHub Pages preview. Use for /verify, release validation, and handoff acceptance.
 ---
 
 # /verify — Qinglan asset and preview verification
@@ -78,3 +78,7 @@ The current lab uses 36 catalog IDs (`v01`–`v36`), not rain-a/rain-b. Read `pu
 ## Top-down playground route
 
 For `/playground/`, read root `design.md` and `public/playground/sources.json`. Run `npm run verify`, start a production preview on an available port, then run `python3 scripts/verify-playground.py --url http://127.0.0.1:4196/playground/ --out verification/playground-local`. The browser script writes fresh pixel samples and continuous playback evidence; it is not a source-video parity test. Repeat against the actual Pages URL and match build-info.json to the deployment SHA. Keep the five mock fixtures, original-game evidence, previous ynjh (一念逍遥) baseline, and user art approval separate. Legacy crane and Qinglan remain independent renderers, not transparent Canvas plugins.
+
+## Full Godot games route (games/)
+
+For `games/<game>/<ver>/` and its web export `public/games/<game>/<ver>/`, read [Godot 游戏验证手册](references/godot-games.md). Run the project's own headless self-tests (`--autotest`, `--storytest`, `tools/verify_story.py` for 魔门人材) and grep their `RESULT:` lines. Re-export Web only from committed source; normally only `index.pck`/`index.html` change. Then run `python3 scripts/verify-game-web.py` against the production preview, and after merge against the Pages URL with `--sha <merge SHA>` once `build-info.json` shows that SHA. Open the saved screenshots; pixel change alone is not content proof. Record gameplay, mobile device/performance, live-LLM character quality, desktop builds and user art/story approval as separate NOT_RUN/PENDING fields unless actually exercised.
