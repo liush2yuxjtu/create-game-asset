@@ -1,0 +1,65 @@
+{
+ "url": "https://liush2yuxjtu.github.io/create-game-asset/games/momen-rencai/v1/",
+ "startedAt": "2026-09-26T18:27:27Z",
+ "checks": [
+  {
+   "name": "build-info sourceSha",
+   "status": "PASS",
+   "detail": "0929eb00a8b2820703aaaec3117aaf4e042c8854"
+  },
+  {
+   "name": "build-info not dirty",
+   "status": "PASS",
+   "detail": "False"
+  },
+  {
+   "name": "index.html 200 and size",
+   "status": "PASS",
+   "detail": "5488 vs committed 5488"
+  },
+  {
+   "name": "index.js 200 and size",
+   "status": "PASS",
+   "detail": "317142 vs committed 317142"
+  },
+  {
+   "name": "index.wasm 200 and size",
+   "status": "PASS",
+   "detail": "43699190 vs committed 43699190"
+  },
+  {
+   "name": "wasm MIME",
+   "status": "PASS",
+   "detail": "application/wasm"
+  },
+  {
+   "name": "index.pck 200 and size",
+   "status": "PASS",
+   "detail": "2354016 vs committed 2354016"
+  },
+  {
+   "name": "Godot engine boots (status overlay removed)",
+   "status": "PASS",
+   "detail": "1.8s"
+  },
+  {
+   "name": "title canvas not blank",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "name": "first menu button responds",
+   "status": "PASS",
+   "detail": "439880 px changed"
+  },
+  {
+   "name": "no console/page errors",
+   "status": "PASS",
+   "detail": "[]"
+  }
+ ],
+ "gameplay": "NOT_RUN",
+ "devicePerformance": "NOT_RUN",
+ "artApproval": "PENDING",
+ "runtime": "PASS"
+}

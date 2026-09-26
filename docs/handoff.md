@@ -90,6 +90,10 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 
 本地19项机器测试和245项浏览器断言PASS，报告见`verification/2026-09-23-topdown-playground.md`。新增`scripts/verify-playground.py`；Pages工作流在PR/main执行真实浏览器门禁并上传证据。发布后必须重新核对live SHA并运行公开页面脚本。动态parity、用户美术、真实引擎及真机性能未验收。
 
+### 2026-09-27 /verify 增加 Godot 完整游戏路线
+
+`.agents/skills/verify/SKILL.md` 新增「Full Godot games route」，细节见 `references/godot-games.md`（工程自测、Web 导出、浏览器验收、证据边界、推送受阻时的 bundle 中转）。新增 `scripts/verify-game-web.py`：build-info SHA/dirty、四个导出文件大小与已提交一致、wasm MIME、引擎启动、标题非空白、首个按钮有反应、无控制台报错。对线上 0929eb0 实跑 RUNTIME PASS；用旧 SHA 做反例正确 FAIL。
+
 ### 2026-09-27 魔门人材 v1.1 修补
 
 PR #6 合并后线上 Pages 已按 build-info SHA `2b3910e` 验收（引擎启动、可进入序幕）。随后原地修补审查指出的 5 个问题：清档清剧情、掉落计时器按编号结算、自动化不重复扣费、自测用独立存档、视频 CTA 淡入；细节与回归检查见 `games/momen-rencai/v1/VERSION.md`。本地 Godot 自测 PASS；本次合并后的线上页面仍需按 `/verify` 验收。
