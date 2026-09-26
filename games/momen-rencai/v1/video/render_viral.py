@@ -418,7 +418,6 @@ def draw_frame(t):
                 cap = txt
     if b["id"] == "cta":
         k = t - b["t0"]
-        d.rectangle((0, 0, W, H), fill=(14, 10, 22, 0))
         overlay = Image.new("RGBA", (W, H), (14, 10, 22, int(200 * ease(k / 0.4))))
         cv.alpha_composite(overlay)
         tt = text_img(S["title"], GOLD, 4)

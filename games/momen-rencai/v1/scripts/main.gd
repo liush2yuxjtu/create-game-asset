@@ -45,6 +45,7 @@ var display := {}              # Director 的显示覆盖（录屏/引导时不�
 var script_data: Dictionary
 var next_wave_timer := -1.0
 var loot_waiting := false
+var loot_token := 0  # 每次掉落选择一个编号，旧计时器不能结算新的选择
 var ui_refresh := 0.0
 
 
@@ -598,15 +599,19 @@ func _loot_choice() -> void:
 	loot_waiting = true
 	GS.paused = false
 	var o := _overlay_panel(Rect2(20, 150, 230, 76), "掉落【筑基丹】×1，师兄在看你。")
+	loot_token += 1
+	var token := loot_token
+	var loot_overlay_id := overlay.get_instance_id()  # 存 id，不捕获节点本身（节点释放后捕获会变 null）
 	var row := HBoxContainer.new()
 	row.position = Vector2(12, 40)
 	row.add_theme_constant_override("separation", 8)
 	o.add_child(row)
 	var done := func(shared: bool):
-		if not loot_waiting:
+		if not loot_waiting or token != loot_token:
 			return
 		loot_waiting = false
-		_close_overlay()
+		if overlay != null and overlay.get_instance_id() == loot_overlay_id:  # 已被记忆/设置面板替换时不去关别人的面板
+			_close_overlay()
 		next_wave_timer = 0.8
 		if shared:
 			Mem.remember("senior", "第%d世师弟把丹药分给我" % GS.life, 3, 2)

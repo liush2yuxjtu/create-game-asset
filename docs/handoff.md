@@ -90,6 +90,8 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 
 本地19项机器测试和245项浏览器断言PASS，报告见`verification/2026-09-23-topdown-playground.md`。新增`scripts/verify-playground.py`；Pages工作流在PR/main执行真实浏览器门禁并上传证据。发布后必须重新核对live SHA并运行公开页面脚本。动态parity、用户美术、真实引擎及真机性能未验收。
 
-### 2026-09-27 games/ 目录与魔门人材 v1
+### 2026-09-27（北京时间）games/ 目录与魔门人材 v1
 
 新增 `games/`（完整游戏，每版一个目录）与 `public/games/momen-rencai/v1/`（Godot 4.4.1 Web nothreads 导出，随 Pages 发布）。源码、剧情数据、视频渲染器与实机录像在 `games/momen-rencai/v1/`，验证记录见其 `VERSION.md`。`scripts/build-playground.mjs` 的源码索引跳过 `public/games`，避免把 Godot 引擎 JS 计入技能源码全景；其余构建与门禁未改。桌面安装包（Windows ≈100 MB）不入库。本地 Godot 自测 PASS；线上 Pages 页面需合并后按 `/verify` 用 build-info SHA 验收，手机真机、Haiku 真 key、Win/mac 真机未验收。
+
+评审修复与测试左移：PR #6 的 5 个功能问题已修复并加入自动回归（见 `games/momen-rencai/v1/VERSION.md`）。新增 `npm run verify:games`（`scripts/verify-games.mjs` + `games/verify.json`）：剧情穷举、Godot headless `--storytest`/`--autotest`、Web `.pck` 与源码同步；Pages 工作流在 `npm run verify` 之后、浏览器门禁之前执行，失败即阻断部署。`/verify` 技能新增「Games route」。线上 `/games/momen-rencai/v1/` 仍需合并后验收。

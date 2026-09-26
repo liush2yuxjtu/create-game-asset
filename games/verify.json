@@ -1,0 +1,11 @@
+{
+  "godotVersion": "4.4.1",
+  "games": [
+    {
+      "path": "games/momen-rencai/v1",
+      "python": [["tools/verify_story.py"]],
+      "godot": [["--storytest"], ["--autotest"]],
+      "webPack": {"preset": "Web", "committed": "public/games/momen-rencai/v1/index.pck"}
+    }
+  ]
+}

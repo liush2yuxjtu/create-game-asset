@@ -62,6 +62,30 @@ func run(main) -> void:
 	check(GS.wave >= 4, "不买升级也能打到第 4 波以上 (wave=%d mode=%s)" % [GS.wave, m.mode])
 	check(Agent.tick >= 1, "师兄 agent 被调用 %d 次 (离线兜底)" % Agent.tick)
 	check(Mem.npc.has("senior"), "师兄有记忆条目 %d" % Mem.npc.get("senior", []).size())
+
+	print("== 2a. 掉落计时器只结算自己的那次选择")
+	Engine.time_scale = 1.0
+	if m.loot_waiting:
+		await wait(7.0)
+	m._loot_choice()
+	m._overlay_panel(Rect2(20, 150, 230, 76), "（验收）模拟打开设置面板")
+	var other = m.overlay
+	await wait(6.5)
+	check(not m.loot_waiting, "被设置面板盖住的掉落选择超时后仍会结算")
+	check(is_instance_valid(other) and m.overlay == other, "掉落超时不会关掉后打开的面板")
+	m._close_overlay()
+	m._loot_choice()
+	await wait(1.0)
+	var btns: Array = m.overlay.find_children("*", "Button", true, false)
+	btns[1].pressed.emit()  # 快速选「分给师兄」
+	check(not m.loot_waiting, "手动选择立即结算")
+	m._loot_choice()  # 紧接着下一次掉落
+	var second = m.overlay
+	await wait(5.5)  # 第一次的 6 秒计时器此时已触发
+	check(m.loot_waiting and is_instance_valid(second) and m.overlay == second, "旧计时器不会结算/关闭新的掉落选择")
+	await wait(1.5)
+	check(not m.loot_waiting, "新的掉落选择按自己的计时器结算")
+	Engine.time_scale = 6.0
 	GS.pills = 0
 	m.battle._hit(m.battle.hero, 1e12, Color.RED)
 	await wait(2.0)
@@ -116,5 +140,18 @@ func run(main) -> void:
 	beats_hit.erase("ledger_ok")
 	check(beats_hit.size() == rd.S.beats.size(), "8 个镜头全部播放: %s" % str(beats_hit.keys()))
 	check(absf(rd.t - rd.S.duration) < 0.3, "时长与视频一致 (%.2fs)" % rd.t)
+	print("== 4. 回归：存档隔离 / 清档 / 一次性升级")
+	check(GS.SAVE_PATH == GS.TEST_SAVE_PATH, "验收只写隔离存档 (%s)" % GS.SAVE_PATH)
+	Story.st.active = true
+	Story.st.node = "ch2_open"
+	Story.st.endings = {"true": 1}
+	GS.wipe()
+	check(Story.st.node == "" and not Story.st.active and Story.st.endings.is_empty(), "清空存档同时清空剧情进度")
+	var saved = JSON.parse_string(FileAccess.get_file_as_string(GS.SAVE_PATH))
+	check(typeof(saved) == TYPE_DICTIONARY and str(saved.get("story", {}).get("node", "?")) == "", "清档后写盘的剧情进度为空")
+	GS.add_qi(1e6)
+	check(GS.buy("tuna_auto"), "首次购买自动吐纳")
+	var q_before: float = GS.qi
+	check(not GS.buy("tuna_auto") and GS.qi == q_before and GS.level("tuna_auto") == 1, "已拥有的自动吐纳不再扣费")
 	print("RESULT: %s" % ("AUTOTEST PASS" if fails.is_empty() else "FAIL " + str(fails)))
 	get_tree().quit(0 if fails.is_empty() else 1)
