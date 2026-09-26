@@ -37,6 +37,7 @@ def apply(state, sets):
             f[k] = v
         else:
             f[k] = f.get(k, S["flags"].get(k, 0)) + v
+    f = {k: v for k, v in f.items() if k in COND_FLAGS}  # 只保留条件里用到的标记，状态完全由键决定，省内存
     return {"f": f, "mem": frozenset(mem), "snap": state["snap"]}
 
 
@@ -112,6 +113,15 @@ def explore():
             if n.get("timeout_next"):
                 succs.append((n["timeout_next"], st, nid + ":超时"))
         for nx, s2, label in succs:
+            if NODES[nx]["type"] == "ending":  # 结局是终点：只记第一条（BFS 即最短）路线，不入队，省掉约 1/4 状态
+                if nx not in found:
+                    steps, k = [label], k0
+                    while k is not None:
+                        pk, lb = parent[k]
+                        steps.append(lb)
+                        k = pk
+                    found[nx] = [x for x in reversed(steps) if x] + [nx]
+                continue
             k2 = key(nx, s2)
             if k2 not in parent:
                 parent[k2] = (k0, label)
