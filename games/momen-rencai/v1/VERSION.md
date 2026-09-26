@@ -55,6 +55,12 @@
 - 测试脚本打进 pck，因此重新导出 `index.pck` 并同步 `index.html` 的 `fileSizes`。
 - `npm run verify:games` 进入 Pages 工作流（见仓库 `references/godot-games.md` §A2）。
 
+## 加固（2026-09-27）
+
+- `--autotest` 开头先断言在隔离存档上，不满足直接退出，之后才会清档（原先断言在清档之后，拦不住误删）。
+- `verify_story.py` 不再把结局状态入队（结局是终点），峰值内存 6.0 GB → 4.5 GB，8 条路线逐字节不变；此前在 8 GB 沙箱里经 `npm run` 运行时曾被 OOM 杀掉（退出码 null）。
+- 补入 PR #8 的第 1 轮线上验收报告（2b3910e），作为历史记录。
+
 ## 许可与来源
 
 像素素材 Kenney Tiny Dungeon/Tiny Town（CC0）；字体 Fusion Pixel 12px（OFL 1.1，`assets/fonts/OFL.txt`）；AI 角色协议参考 OpenGameAgent（Apache-2.0）。小说仅借设定气质，无原文与原角色名。

@@ -14,6 +14,8 @@ $G --headless --path . -- --storytest                # 8 条结局路线回放 +
 python3 tools/verify_story.py                        # 穷举剧情，8 结局可达，写 data/story_routes.json
 ```
 
+剧情穷举峰值约 4.5 GB 内存；`verify:games` 某一步退出码为 null 且没有报错信息，通常是被 OOM 杀掉了，可以查 `dmesg`。不要用 `timeout npm …` 包一层来跑。
+
 判定：输出行 `RESULT: AUTOTEST PASS` / `RESULT: STORYTEST PASS`，`verify_story.py` 每个结局都是 ✔。只看退出码不够：Godot 的 `SCRIPT ERROR` 可能不影响退出码，要 grep `ERROR`。
 
 存档隔离：`--autotest/--storytest/--storydemo` 写 `user://momen_save_test.json`，不碰玩家存档。改到存档代码时，先放一份哨兵 `momen_save.json`，跑完两套自测对比 md5 不变。

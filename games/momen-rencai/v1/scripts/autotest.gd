@@ -18,6 +18,12 @@ func wait(sec: float) -> void:
 
 func run(main) -> void:
 	m = main
+	# 必须先确认在隔离存档上，再清档：否则一次本地自测就会抹掉玩家存档和 key
+	check(GS.SAVE_PATH == "user://momen_save_test.json", "自测开始前确认隔离存档 (%s)" % GS.SAVE_PATH)
+	if not fails.is_empty():
+		print("RESULT: FAIL " + str(fails))
+		get_tree().quit(1)
+		return
 	GS.wipe()
 	GS.driver_key = ""
 	Engine.time_scale = 4.0

@@ -90,6 +90,10 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 
 本地19项机器测试和245项浏览器断言PASS，报告见`verification/2026-09-23-topdown-playground.md`。新增`scripts/verify-playground.py`；Pages工作流在PR/main执行真实浏览器门禁并上传证据。发布后必须重新核对live SHA并运行公开页面脚本。动态parity、用户美术、真实引擎及真机性能未验收。
 
+### 2026-09-27 魔门人材自测加固
+
+`--autotest` 先确认在隔离存档上才清档；`verify_story.py` 结局不入队，峰值内存 6.0→4.5 GB，路线不变；补入 PR #8 的第 1 轮线上验收报告。PR #13（与已合并的 #11 重复）已关闭，改由本 PR 只提交独有部分。本地 `verify` 与 `verify:games` 全部 PASS。
+
 ### 2026-09-27 线上验收：CI 门禁合并后（f35f64b）
 
 PR #11 合并提交 `f35f64b` 已部署。`verify-game-web.py` RUNTIME PASS，手动过新手引导第一个 gate，报告见 [verification/2026-09-27-momen-rencai-ci-gate-live.md](verification/2026-09-27-momen-rencai-ci-gate-live.md)。CI 首次在 runner 上跑 `verify:games` 全部 PASS。
