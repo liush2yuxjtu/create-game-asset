@@ -90,6 +90,10 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 
 本地19项机器测试和245项浏览器断言PASS，报告见`verification/2026-09-23-topdown-playground.md`。新增`scripts/verify-playground.py`；Pages工作流在PR/main执行真实浏览器门禁并上传证据。发布后必须重新核对live SHA并运行公开页面脚本。动态parity、用户美术、真实引擎及真机性能未验收。
 
+### 2026-09-27 线上验收：CI 门禁合并后（f35f64b）
+
+PR #11 合并提交 `f35f64b` 已部署。`verify-game-web.py` RUNTIME PASS，手动过新手引导第一个 gate，报告见 [verification/2026-09-27-momen-rencai-ci-gate-live.md](verification/2026-09-27-momen-rencai-ci-gate-live.md)。CI 首次在 runner 上跑 `verify:games` 全部 PASS。
+
 ### 2026-09-27 游戏机器门禁进 CI（verify:games）
 
 新增 `npm run verify:games`（`scripts/verify-games.mjs` + `games/verify.json`），Pages 工作流在浏览器门禁前运行，失败阻断部署：剧情穷举、`--import`、headless `--storytest`/`--autotest`（`ERROR` 行即 FAIL，单步 8 分钟超时）、Web `.pck` 与源码重导逐字节一致、`index.html` 的 `fileSizes` 与 pck 大小一致。魔门人材 autotest 加严掉落计时器与存档隔离回归（修复前代码 FAIL、v1.1 PASS），重新导出 pck。手册见 `references/godot-games.md` §A2。合并后按 §C 对新 SHA 跑线上验收。
