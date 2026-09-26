@@ -41,7 +41,7 @@ python3 scripts/verify-game-web.py --url https://liush2yuxjtu.github.io/create-g
   --local public/games/<游戏>/<版本> --sha <合并提交完整 SHA> --out verification/game-live
 ```
 
-脚本检查：build-info 的 SHA 与 dirty 标记、四个文件 200 且大小与已提交文件一致、wasm MIME、引擎启动（Godot 的 `#status` 加载层被移除）、标题画面不是空白、点第一个菜单按钮后画面变化、控制台无报错。最后输出 `RUNTIME PASS/FAIL`，报告写到 `report.json`，截图为 `title.png` 和 `after-click.png`。**必须打开截图看一眼**：像素变化只能证明画面有反应，不能证明内容正确。
+脚本检查：build-info 的 SHA 与 dirty 标记、四个文件 200 且大小与已提交文件一致、wasm MIME、引擎启动（Godot 的 `#status` 加载层被移除）、标题画面不是空白、点第一个菜单按钮后画面变化、控制台无报错。最后输出 `RUNTIME PASS/FAIL/BLOCKED`（退出码 0/1/2）。验证机自己的网络中断（下载不完整、`net::ERR_*`）会先重试，仍失败则判 BLOCKED：这时重跑即可，不要当成站点 FAIL 上报。报告写到 `report.json`，截图为 `title.png` 和 `after-click.png`。**必须打开截图看一眼**：像素变化只能证明画面有反应，不能证明内容正确。
 
 Pages 部署后生效需要 1–3 分钟。先轮询 `build-info.json?t=<随机数>`，等到目标 SHA 出现再跑；不要拿缓存里的旧 SHA 判 FAIL。
 
