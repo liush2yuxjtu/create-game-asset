@@ -66,3 +66,9 @@ V2 着色器与后期必须使用运行时；源 GLB 本身仍是 V1 结构模�
 40个透明Canvas技能入口（36个既有变体、1个初版雨锋、3个原创空间研究），5种原创mock地形，落点/角色移动、时序采样与本地自包含JS插入。全仓库JS构建索引保留纸鹤、四项动作研究和青岚WebGL的独立运行入口。
 
 本次参考天羽游戏《一念江湖》，不覆盖既有《一念逍遥》ynjh基线。没有分发游戏素材、没有实际命中或原游戏动态parity。新增JS接入合同、安全限制与复验命令见design.md。
+
+## 完整小游戏（games/）
+
+[games/](games/README.md) 收录按本流程做出的完整游戏，每个版本一个目录、旧版保留。
+
+- [魔门人材 v1](games/momen-rencai/v1/)：Godot 4.4 GBA 像素竖屏挂机修仙，7 章 90 节点 8 结局、死亡即线索的轮回记忆、Paperclips 账本、Haiku 4.5 驱动角色、可复刻爆款视频的新手引导。[浏览器试玩](https://liush2yuxjtu.github.io/create-game-asset/games/momen-rencai/v1/) · [版本记录](games/momen-rencai/v1/VERSION.md)

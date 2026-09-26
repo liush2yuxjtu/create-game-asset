@@ -1,0 +1,296 @@
+{
+ "title": "魔门人材",
+ "tagline": "带着记忆，苟到飞升",
+ "canvas": [
+  270,
+  480
+ ],
+ "fps": 30,
+ "duration": 28.0,
+ "hashtags": [
+  "#魔门人材",
+  "#修仙",
+  "#像素游戏",
+  "#AI游戏",
+  "#重生",
+  "#GBA"
+ ],
+ "beats": [
+  {
+   "id": "hook",
+   "t0": 0.0,
+   "t1": 2.2,
+   "caption": "我在魔门\n死了 99 次",
+   "sub": "第 99 世",
+   "actions": [
+    "hero_idle",
+    "slash_kill_hero@1.1",
+    "shake@1.1"
+   ]
+  },
+  {
+   "id": "memory",
+   "t0": 2.2,
+   "t1": 4.8,
+   "caption": "但每一世\n都带着记忆",
+   "sub": "第 100 世",
+   "actions": [
+    "memory_shards",
+    "life_counter:99>100",
+    "memory_cards"
+   ],
+   "gate": {
+    "type": "pick_card",
+    "at": "post",
+    "hint": "点一张记忆卡，带进这一世"
+   }
+  },
+  {
+   "id": "agent",
+   "t0": 4.8,
+   "t1": 8.5,
+   "caption": "师兄由 AI 驱动\n他也有记忆",
+   "sub": "Haiku 4.5 · 实时决策",
+   "actions": [
+    "npc_enter:senior",
+    "npc_say:senior:师弟，这一波我掩护你~@5.3",
+    "npc_think:senior:上一世你抢了我的丹药@7.0"
+   ]
+  },
+  {
+   "id": "betray",
+   "t0": 8.5,
+   "t1": 12.5,
+   "caption": "第 3 波\n他果然背刺了",
+   "sub": "但我记得",
+   "actions": [
+    "wave:6",
+    "hero_autobattle",
+    "npc_betray:senior@10.3",
+    "hero_dodge@10.6",
+    "caption_swap:我记得。@10.9",
+    "counter_hit:senior@11.3"
+   ]
+  },
+  {
+   "id": "breakthrough",
+   "t0": 12.5,
+   "t1": 14.5,
+   "caption": "炼气 → 金丹",
+   "sub": "一世顶十世",
+   "actions": [
+    "realm:炼气>金丹",
+    "gold_flash",
+    "shake@12.8"
+   ],
+   "gate": {
+    "type": "tap_break",
+    "at": "pre",
+    "hint": "点【突破】"
+   }
+  },
+  {
+   "id": "elder",
+   "t0": 14.5,
+   "t1": 17.0,
+   "caption": "",
+   "sub": "",
+   "actions": [
+    "npc_enter:elder",
+    "npc_say:elder:你……为何知道本座的秘密？@14.7",
+    "hero_say:因为你杀过我 99 次。@15.8"
+   ]
+  },
+  {
+   "id": "paperclips",
+   "t0": 17.0,
+   "t1": 24.5,
+   "caption": "从一次吐纳开始",
+   "sub": "",
+   "actions": [
+    "ledger_open",
+    "caption_swap:把整个修仙界\n炼成魔元@20.0",
+    "caption_swap:万物皆成魔元。\n只有我还记得它们。@23.3"
+   ],
+   "gate": {
+    "type": "tap_tuna",
+    "count": 3,
+    "at": "pre",
+    "hint": "连点 3 下【吐纳】"
+   },
+   "ledger": {
+    "taps": [
+     0.2,
+     0.5,
+     0.8,
+     1.0
+    ],
+    "rows": [
+     [
+      1.2,
+      "吐纳",
+      "已自动化"
+     ],
+     [
+      1.8,
+      "聚灵阵",
+      "×12"
+     ],
+     [
+      2.4,
+      "魔种",
+      "自我复制"
+     ],
+     [
+      3.0,
+      "弟子 agent",
+      "×1,024"
+     ]
+    ],
+    "phases": [
+     [
+      "外门",
+      3.0,
+      3.6
+     ],
+     [
+      "魔门",
+      3.4,
+      4.4
+     ],
+     [
+      "修仙界",
+      4.2,
+      5.6
+     ],
+     [
+      "三千世界",
+      5.0,
+      6.2
+     ]
+    ],
+    "log": [
+     [
+      0.2,
+      "你吐纳了一次。"
+     ],
+     [
+      1.2,
+      "吐纳已自动化。"
+     ],
+     [
+      1.8,
+      "聚灵阵成。"
+     ],
+     [
+      2.4,
+      "魔种开始自我复制。"
+     ],
+     [
+      3.0,
+      "外门弟子已全部转化为魔种。"
+     ],
+     [
+      3.6,
+      "外门：炼化完毕。"
+     ],
+     [
+      4.4,
+      "魔门：炼化完毕。"
+     ],
+     [
+      5.6,
+      "修仙界：炼化完毕。"
+     ],
+     [
+      6.2,
+      "三千世界：炼化完毕。"
+     ]
+    ]
+   }
+  },
+  {
+   "id": "cta",
+   "t0": 24.5,
+   "t1": 28.0,
+   "caption": "你能活到第几世？",
+   "sub": "评论区：你会带哪条记忆",
+   "actions": [
+    "title_card",
+    "cta_tutorial"
+   ],
+   "gate": {
+    "type": "choose_start",
+    "at": "post",
+    "hint": ""
+   }
+  }
+ ],
+ "memory_cards": [
+  {
+   "id": "senior_betrays_w3",
+   "text": "师兄会在第3波背刺",
+   "perk": "dodge_betrayal"
+  },
+  {
+   "id": "elder_fears_fire",
+   "text": "长老怕火",
+   "perk": "fire_vs_elder"
+  },
+  {
+   "id": "pill_cave",
+   "text": "后山洞里有丹药",
+   "perk": "start_pill"
+  }
+ ],
+ "ledger_layout": {
+  "paper": "#efebdf",
+  "ink": "#1c1a22",
+  "dim": "#7a7486",
+  "accent": "#b0741c",
+  "track": "#d8d2c2",
+  "qi": [
+   12,
+   8
+  ],
+  "rate": [
+   12,
+   38
+  ],
+  "seeds": [
+   150,
+   38
+  ],
+  "button": [
+   12,
+   54,
+   78,
+   18
+  ],
+  "rows_hdr": [
+   12,
+   80
+  ],
+  "rows_y": 96,
+  "row_h": 14,
+  "phases_hdr": [
+   12,
+   156
+  ],
+  "phases_y": 172,
+  "phase_h": 16,
+  "bar": [
+   84,
+   212,
+   6
+  ],
+  "log_hdr": [
+   12,
+   242
+  ],
+  "log_y": 258,
+  "log_h": 14,
+  "log_n": 6,
+  "caption_y": 352
+ }
+}

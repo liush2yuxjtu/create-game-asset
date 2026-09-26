@@ -1,0 +1,4068 @@
+{
+ "title": "魔门人材",
+ "reference": "Detroit: Become Human 式章节流程图：分支 → 收束点；轮回记忆 = 线索解锁；8 结局由累计标记 + 终章选择决定",
+ "flags": {
+  "senior": "none",
+  "senior_rel": 0,
+  "suwan": "none",
+  "elder": "none",
+  "elder_respect": 0,
+  "gu": "none",
+  "seed": "none",
+  "seed_feed": 0,
+  "master": "alive",
+  "know_seed": false,
+  "ruthless": 0,
+  "kindness": 0,
+  "master_favor": 0,
+  "trust": 0
+ },
+ "memories": {
+  "mem_betray": "师兄会在第3波背刺",
+  "mem_fire": "长老怕火",
+  "mem_pill": "后山洞里有丹药",
+  "mem_patrol": "巡夜弟子子时换岗",
+  "mem_elder37": "长老是第三十七世的我",
+  "mem_gu": "顾长风是苏晚的哥哥",
+  "mem_master": "宗主的魔种在左胸"
+ },
+ "characters": {
+  "你": {
+   "tile": 88,
+   "color": "#f4f0e6",
+   "desc": "外门弟子，死过九十九次"
+  },
+  "魔种": {
+   "tile": null,
+   "color": "#b0741c",
+   "desc": "体内的声音，只会记账"
+  },
+  "厉寒": {
+   "tile": 111,
+   "color": "#7fb3ff",
+   "desc": "外门师兄，记仇，也记恩"
+  },
+  "苏晚": {
+   "tile": 99,
+   "color": "#ff9ecb",
+   "desc": "药堂师妹，血月祭的炉鼎"
+  },
+  "血骨": {
+   "tile": 84,
+   "color": "#c792ff",
+   "desc": "考核长老，怕火，藏着秘密"
+  },
+  "夜无归": {
+   "tile": 110,
+   "color": "#e23440",
+   "desc": "血河宗主，轮回的主人"
+  },
+  "顾长风": {
+   "tile": 97,
+   "color": "#9be7ff",
+   "desc": "天衍剑宗弟子，潜入者"
+  },
+  "旁白": {
+   "tile": null,
+   "color": "#968caa",
+   "desc": ""
+  }
+ },
+ "chapters": [
+  {
+   "id": "ch1",
+   "title": "第九十九次",
+   "subtitle": "序章 · 新手引导",
+   "realm_req": 0,
+   "nodes": [
+    {
+     "id": "ch1_open",
+     "type": "scene",
+     "title": "外门石台",
+     "lines": [
+      [
+       "旁白",
+       "血河宗，外门石台。"
+      ],
+      [
+       "魔种",
+       "你死了九十九次。"
+      ],
+      [
+       "魔种",
+       "这是第一百次。"
+      ]
+     ],
+     "next": "ch1_fight"
+    },
+    {
+     "id": "ch1_fight",
+     "type": "battle",
+     "title": "第九十九次死亡",
+     "battle": {
+      "waves": 1,
+      "scripted_death": true
+     },
+     "win": "ch1_wake",
+     "lose": "ch1_wake"
+    },
+    {
+     "id": "ch1_wake",
+     "type": "scene",
+     "title": "醒来",
+     "lines": [
+      [
+       "旁白",
+       "你又醒了。"
+      ],
+      [
+       "旁白",
+       "这一次，你带着一些东西。"
+      ],
+      [
+       "旁白",
+       "石台边躺着一具外门弟子的尸体，和你穿着同样的衣服。"
+      ]
+     ],
+     "next": "ch1_body"
+    },
+    {
+     "id": "ch1_body",
+     "type": "choice",
+     "title": "石台边的尸体",
+     "prompt": "他的储物袋还鼓着。",
+     "options": [
+      {
+       "label": "翻他的储物袋",
+       "next": "ch1_body_loot",
+       "set": {
+        "pills": 1,
+        "ruthless": 1
+       }
+      },
+      {
+       "label": "替他合上眼",
+       "next": "ch1_body_close",
+       "set": {
+        "kindness": 1
+       }
+      }
+     ]
+    },
+    {
+     "id": "ch1_body_loot",
+     "type": "scene",
+     "title": "翻找",
+     "lines": [
+      [
+       "旁白",
+       "一颗回气丹，半块灵石。"
+      ],
+      [
+       "魔种",
+       "苟住的第一课：死人的东西，也是东西。"
+      ]
+     ],
+     "next": "ch1_mem"
+    },
+    {
+     "id": "ch1_body_close",
+     "type": "scene",
+     "title": "合眼",
+     "lines": [
+      [
+       "旁白",
+       "你替他合上了眼。"
+      ],
+      [
+       "旁白",
+       "那张脸，和你第三十世时一模一样。"
+      ]
+     ],
+     "next": "ch1_mem"
+    },
+    {
+     "id": "ch1_mem",
+     "type": "choice",
+     "title": "带哪条记忆",
+     "prompt": "九十九世留下三段记忆，这一世只能带一段：",
+     "options": [
+      {
+       "label": "「师兄会在第3波背刺」",
+       "next": "ch1_senior",
+       "set": {
+        "+mem": "mem_betray"
+       }
+      },
+      {
+       "label": "「长老怕火」",
+       "next": "ch1_senior",
+       "set": {
+        "+mem": "mem_fire"
+       }
+      },
+      {
+       "label": "「后山洞里有丹药」",
+       "next": "ch1_senior",
+       "set": {
+        "+mem": "mem_pill",
+        "pills": 1
+       }
+      }
+     ]
+    },
+    {
+     "id": "ch1_senior",
+     "type": "scene",
+     "title": "师兄厉寒",
+     "lines": [
+      [
+       "厉寒",
+       "师弟，醒了？这一波我掩护你~"
+      ]
+     ],
+     "next": "ch1_battle"
+    },
+    {
+     "id": "ch1_battle",
+     "type": "battle",
+     "title": "外门试炼",
+     "battle": {
+      "waves": 2,
+      "senior": "ally"
+     },
+     "win": "ch1_loot",
+     "lose": "ch1_loot"
+    },
+    {
+     "id": "ch1_loot",
+     "type": "choice",
+     "title": "丹药",
+     "prompt": "掉落【筑基丹】×1。厉寒在看你。",
+     "options": [
+      {
+       "label": "独吞（苟道）",
+       "next": "ch1_end",
+       "set": {
+        "pills": 1,
+        "senior_rel": -2,
+        "ruthless": 1
+       }
+      },
+      {
+       "label": "分给师兄",
+       "next": "ch1_end",
+       "set": {
+        "senior_rel": 1,
+        "kindness": 1
+       }
+      },
+      {
+       "label": "「后山洞里还有，这颗给你。」",
+       "next": "ch1_end",
+       "req": [
+        [
+         "mem",
+         "has",
+         "mem_pill"
+        ]
+       ],
+       "set": {
+        "senior_rel": 2,
+        "pills": 1,
+        "trust": 1
+       }
+      }
+     ]
+    },
+    {
+     "id": "ch1_end",
+     "type": "converge",
+     "title": "收束 · 考核将至",
+     "lines": [
+      [
+       "旁白",
+       "三日后，外门考核。"
+      ]
+     ],
+     "next": "ch2_open"
+    }
+   ],
+   "layout": {
+    "nodes": [
+     {
+      "vid": "ch1_open",
+      "kind": "node",
+      "ref": "ch1_open",
+      "x": 0.0,
+      "y": 0
+     },
+     {
+      "vid": "ch1_fight",
+      "kind": "node",
+      "ref": "ch1_fight",
+      "x": 0.0,
+      "y": 1
+     },
+     {
+      "vid": "ch1_wake",
+      "kind": "node",
+      "ref": "ch1_wake",
+      "x": 0.0,
+      "y": 2
+     },
+     {
+      "vid": "ch1_body",
+      "kind": "node",
+      "ref": "ch1_body",
+      "x": 0.0,
+      "y": 3
+     },
+     {
+      "vid": "ch1_body#0",
+      "kind": "option",
+      "ref": "ch1_body",
+      "opt": 0,
+      "x": -0.5,
+      "y": 4
+     },
+     {
+      "vid": "ch1_body#1",
+      "kind": "option",
+      "ref": "ch1_body",
+      "opt": 1,
+      "x": 0.5,
+      "y": 4
+     },
+     {
+      "vid": "ch1_body_loot",
+      "kind": "node",
+      "ref": "ch1_body_loot",
+      "x": -0.5,
+      "y": 5
+     },
+     {
+      "vid": "ch1_body_close",
+      "kind": "node",
+      "ref": "ch1_body_close",
+      "x": 0.5,
+      "y": 5
+     },
+     {
+      "vid": "ch1_mem",
+      "kind": "node",
+      "ref": "ch1_mem",
+      "x": 0.0,
+      "y": 6
+     },
+     {
+      "vid": "ch1_mem#0",
+      "kind": "option",
+      "ref": "ch1_mem",
+      "opt": 0,
+      "x": -1.0,
+      "y": 7
+     },
+     {
+      "vid": "ch1_mem#1",
+      "kind": "option",
+      "ref": "ch1_mem",
+      "opt": 1,
+      "x": 0.0,
+      "y": 7
+     },
+     {
+      "vid": "ch1_mem#2",
+      "kind": "option",
+      "ref": "ch1_mem",
+      "opt": 2,
+      "x": 1.0,
+      "y": 7
+     },
+     {
+      "vid": "ch1_senior",
+      "kind": "node",
+      "ref": "ch1_senior",
+      "x": 0.0,
+      "y": 8
+     },
+     {
+      "vid": "ch1_battle",
+      "kind": "node",
+      "ref": "ch1_battle",
+      "x": 0.0,
+      "y": 9
+     },
+     {
+      "vid": "ch1_loot",
+      "kind": "node",
+      "ref": "ch1_loot",
+      "x": 0.0,
+      "y": 10
+     },
+     {
+      "vid": "ch1_loot#0",
+      "kind": "option",
+      "ref": "ch1_loot",
+      "opt": 0,
+      "x": -1.0,
+      "y": 11
+     },
+     {
+      "vid": "ch1_loot#1",
+      "kind": "option",
+      "ref": "ch1_loot",
+      "opt": 1,
+      "x": 0.0,
+      "y": 11
+     },
+     {
+      "vid": "ch1_loot#2",
+      "kind": "option",
+      "ref": "ch1_loot",
+      "opt": 2,
+      "x": 1.0,
+      "y": 11
+     },
+     {
+      "vid": "ch1_end",
+      "kind": "node",
+      "ref": "ch1_end",
+      "x": 0.0,
+      "y": 12
+     }
+    ],
+    "edges": [
+     [
+      "ch1_open",
+      "ch1_fight",
+      "solid"
+     ],
+     [
+      "ch1_fight",
+      "ch1_wake",
+      "win"
+     ],
+     [
+      "ch1_wake",
+      "ch1_body",
+      "solid"
+     ],
+     [
+      "ch1_body",
+      "ch1_body#0",
+      "solid"
+     ],
+     [
+      "ch1_body#0",
+      "ch1_body_loot",
+      "solid"
+     ],
+     [
+      "ch1_body",
+      "ch1_body#1",
+      "solid"
+     ],
+     [
+      "ch1_body#1",
+      "ch1_body_close",
+      "solid"
+     ],
+     [
+      "ch1_body_loot",
+      "ch1_mem",
+      "solid"
+     ],
+     [
+      "ch1_body_close",
+      "ch1_mem",
+      "solid"
+     ],
+     [
+      "ch1_mem",
+      "ch1_mem#0",
+      "solid"
+     ],
+     [
+      "ch1_mem#0",
+      "ch1_senior",
+      "solid"
+     ],
+     [
+      "ch1_mem",
+      "ch1_mem#1",
+      "solid"
+     ],
+     [
+      "ch1_mem#1",
+      "ch1_senior",
+      "solid"
+     ],
+     [
+      "ch1_mem",
+      "ch1_mem#2",
+      "solid"
+     ],
+     [
+      "ch1_mem#2",
+      "ch1_senior",
+      "solid"
+     ],
+     [
+      "ch1_senior",
+      "ch1_battle",
+      "solid"
+     ],
+     [
+      "ch1_battle",
+      "ch1_loot",
+      "win"
+     ],
+     [
+      "ch1_loot",
+      "ch1_loot#0",
+      "solid"
+     ],
+     [
+      "ch1_loot#0",
+      "ch1_end",
+      "solid"
+     ],
+     [
+      "ch1_loot",
+      "ch1_loot#1",
+      "solid"
+     ],
+     [
+      "ch1_loot#1",
+      "ch1_end",
+      "solid"
+     ],
+     [
+      "ch1_loot",
+      "ch1_loot#2",
+      "solid"
+     ],
+     [
+      "ch1_loot#2",
+      "ch1_end",
+      "solid"
+     ]
+    ],
+    "rows": 13,
+    "cols": 3
+   }
+  },
+  {
+   "id": "ch2",
+   "title": "外门考核",
+   "subtitle": "第三波",
+   "realm_req": 0,
+   "nodes": [
+    {
+     "id": "ch2_open",
+     "type": "scene",
+     "title": "考核台",
+     "lines": [
+      [
+       "血骨",
+       "外门弟子，活下来的，才算人材。"
+      ],
+      [
+       "厉寒",
+       "（低声）师弟，跟紧我。"
+      ]
+     ],
+     "next": "ch2_vanguard"
+    },
+    {
+     "id": "ch2_vanguard",
+     "type": "choice",
+     "title": "谁打头阵",
+     "prompt": "血骨：「谁愿意打头阵？」",
+     "options": [
+      {
+       "label": "上前一步：「弟子愿往。」",
+       "next": "ch2_front",
+       "set": {
+        "elder_respect": 1
+       }
+      },
+      {
+       "label": "往人群里缩（苟道）",
+       "next": "ch2_back",
+       "set": {
+        "ruthless": 1
+       }
+      }
+     ]
+    },
+    {
+     "id": "ch2_front",
+     "type": "scene",
+     "title": "请缨",
+     "lines": [
+      [
+       "血骨",
+       "有胆。本座记住你了。"
+      ],
+      [
+       "厉寒",
+       "（皱眉）你疯了？"
+      ]
+     ],
+     "next": "ch2_waves"
+    },
+    {
+     "id": "ch2_back",
+     "type": "scene",
+     "title": "缩后",
+     "lines": [
+      [
+       "旁白",
+       "三个抢着出头的弟子，第一波就没了。"
+      ],
+      [
+       "魔种",
+       "很好。活着才能记账。"
+      ]
+     ],
+     "next": "ch2_waves"
+    },
+    {
+     "id": "ch2_waves",
+     "type": "battle",
+     "title": "第一、二波",
+     "battle": {
+      "waves": 2,
+      "senior": "ally"
+     },
+     "win": "ch2_w3",
+     "lose": "ch2_w3"
+    },
+    {
+     "id": "ch2_w3",
+     "type": "choice",
+     "title": "第三波",
+     "prompt": "第三波。厉寒站到了你身后。",
+     "options": [
+      {
+       "label": "闪身，反杀厉寒",
+       "next": "ch2_kill",
+       "req": [
+        [
+         "mem",
+         "has",
+         "mem_betray"
+        ]
+       ],
+       "set": {
+        "senior": "dead",
+        "ruthless": 2
+       },
+       "key": true
+      },
+      {
+       "label": "闪身，饶他一命",
+       "next": "ch2_spare",
+       "req": [
+        [
+         "mem",
+         "has",
+         "mem_betray"
+        ]
+       ],
+       "set": {
+        "senior": "debt",
+        "kindness": 1
+       },
+       "key": true
+      },
+      {
+       "label": "「长老，他要背刺我。」",
+       "next": "ch2_report",
+       "req": [
+        [
+         "mem",
+         "has",
+         "mem_betray"
+        ]
+       ],
+       "set": {
+        "senior": "enemy",
+        "elder_respect": 1
+       }
+      },
+      {
+       "label": "背对他，继续杀敌",
+       "next": "ch2_trust",
+       "set": {
+        "senior": "loyal"
+       },
+       "next_if": [
+        [
+         [
+          [
+           "senior_rel",
+           "<",
+           0
+          ]
+         ],
+         "ch2_death"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ch2_death",
+     "type": "death",
+     "title": "背后一凉",
+     "lines": [
+      [
+       "厉寒",
+       "师弟，魔门的规矩你懂的。"
+      ],
+      [
+       "旁白",
+       "背后一凉。"
+      ]
+     ],
+     "grant": "mem_betray",
+     "rewind": "ch2_open"
+    },
+    {
+     "id": "ch2_kill",
+     "type": "scene",
+     "title": "反杀",
+     "lines": [
+      [
+       "旁白",
+       "厉寒倒下，眼里全是不解。"
+      ],
+      [
+       "血骨",
+       "有意思。"
+      ]
+     ],
+     "next": "ch2_end"
+    },
+    {
+     "id": "ch2_spare",
+     "type": "scene",
+     "title": "饶命",
+     "lines": [
+      [
+       "厉寒",
+       "……你怎么知道？"
+      ],
+      [
+       "你",
+       "我记得。"
+      ],
+      [
+       "厉寒",
+       "你记得？记得什么？"
+      ],
+      [
+       "你",
+       "记得你每一次都会后悔。"
+      ],
+      [
+       "厉寒",
+       "这条命，算我欠你的。"
+      ]
+     ],
+     "next": "ch2_end"
+    },
+    {
+     "id": "ch2_report",
+     "type": "scene",
+     "title": "揭发",
+     "lines": [
+      [
+       "血骨",
+       "背后出手，也得有本事。你，不错。"
+      ],
+      [
+       "厉寒",
+       "（被拖走）我记住你了。"
+      ]
+     ],
+     "next": "ch2_end"
+    },
+    {
+     "id": "ch2_trust",
+     "type": "scene",
+     "title": "他没有出手",
+     "lines": [
+      [
+       "旁白",
+       "他没有出手。"
+      ],
+      [
+       "厉寒",
+       "丹药的事……我记着你的好。"
+      ]
+     ],
+     "next": "ch2_end"
+    },
+    {
+     "id": "ch2_end",
+     "type": "converge",
+     "title": "收束 · 入内门",
+     "lines": [
+      [
+       "旁白",
+       "你成了内门弟子。"
+      ],
+      [
+       "旁白",
+       "血骨长老多看了你一眼。"
+      ]
+     ],
+     "next": "ch3_open"
+    }
+   ],
+   "layout": {
+    "nodes": [
+     {
+      "vid": "ch2_open",
+      "kind": "node",
+      "ref": "ch2_open",
+      "x": 0.0,
+      "y": 0
+     },
+     {
+      "vid": "ch2_vanguard",
+      "kind": "node",
+      "ref": "ch2_vanguard",
+      "x": 0.0,
+      "y": 1
+     },
+     {
+      "vid": "ch2_vanguard#0",
+      "kind": "option",
+      "ref": "ch2_vanguard",
+      "opt": 0,
+      "x": -0.5,
+      "y": 2
+     },
+     {
+      "vid": "ch2_vanguard#1",
+      "kind": "option",
+      "ref": "ch2_vanguard",
+      "opt": 1,
+      "x": 0.5,
+      "y": 2
+     },
+     {
+      "vid": "ch2_front",
+      "kind": "node",
+      "ref": "ch2_front",
+      "x": -0.5,
+      "y": 3
+     },
+     {
+      "vid": "ch2_back",
+      "kind": "node",
+      "ref": "ch2_back",
+      "x": 0.5,
+      "y": 3
+     },
+     {
+      "vid": "ch2_waves",
+      "kind": "node",
+      "ref": "ch2_waves",
+      "x": 0.0,
+      "y": 4
+     },
+     {
+      "vid": "ch2_w3",
+      "kind": "node",
+      "ref": "ch2_w3",
+      "x": 0.0,
+      "y": 5
+     },
+     {
+      "vid": "ch2_w3#0",
+      "kind": "option",
+      "ref": "ch2_w3",
+      "opt": 0,
+      "x": -1.5,
+      "y": 6
+     },
+     {
+      "vid": "ch2_w3#1",
+      "kind": "option",
+      "ref": "ch2_w3",
+      "opt": 1,
+      "x": -0.5,
+      "y": 6
+     },
+     {
+      "vid": "ch2_w3#2",
+      "kind": "option",
+      "ref": "ch2_w3",
+      "opt": 2,
+      "x": 0.5,
+      "y": 6
+     },
+     {
+      "vid": "ch2_w3#3",
+      "kind": "option",
+      "ref": "ch2_w3",
+      "opt": 3,
+      "x": 1.5,
+      "y": 6
+     },
+     {
+      "vid": "ch2_death",
+      "kind": "node",
+      "ref": "ch2_death",
+      "x": 2.0,
+      "y": 7
+     },
+     {
+      "vid": "ch2_kill",
+      "kind": "node",
+      "ref": "ch2_kill",
+      "x": -2.0,
+      "y": 7
+     },
+     {
+      "vid": "ch2_spare",
+      "kind": "node",
+      "ref": "ch2_spare",
+      "x": -1.0,
+      "y": 7
+     },
+     {
+      "vid": "ch2_report",
+      "kind": "node",
+      "ref": "ch2_report",
+      "x": 0.0,
+      "y": 7
+     },
+     {
+      "vid": "ch2_trust",
+      "kind": "node",
+      "ref": "ch2_trust",
+      "x": 1.0,
+      "y": 7
+     },
+     {
+      "vid": "ch2_end",
+      "kind": "node",
+      "ref": "ch2_end",
+      "x": 0.0,
+      "y": 8
+     }
+    ],
+    "edges": [
+     [
+      "ch2_open",
+      "ch2_vanguard",
+      "solid"
+     ],
+     [
+      "ch2_vanguard",
+      "ch2_vanguard#0",
+      "solid"
+     ],
+     [
+      "ch2_vanguard#0",
+      "ch2_front",
+      "solid"
+     ],
+     [
+      "ch2_vanguard",
+      "ch2_vanguard#1",
+      "solid"
+     ],
+     [
+      "ch2_vanguard#1",
+      "ch2_back",
+      "solid"
+     ],
+     [
+      "ch2_front",
+      "ch2_waves",
+      "solid"
+     ],
+     [
+      "ch2_back",
+      "ch2_waves",
+      "solid"
+     ],
+     [
+      "ch2_waves",
+      "ch2_w3",
+      "win"
+     ],
+     [
+      "ch2_w3",
+      "ch2_w3#0",
+      "solid"
+     ],
+     [
+      "ch2_w3#0",
+      "ch2_kill",
+      "solid"
+     ],
+     [
+      "ch2_w3",
+      "ch2_w3#1",
+      "solid"
+     ],
+     [
+      "ch2_w3#1",
+      "ch2_spare",
+      "solid"
+     ],
+     [
+      "ch2_w3",
+      "ch2_w3#2",
+      "solid"
+     ],
+     [
+      "ch2_w3#2",
+      "ch2_report",
+      "solid"
+     ],
+     [
+      "ch2_w3",
+      "ch2_w3#3",
+      "solid"
+     ],
+     [
+      "ch2_w3#3",
+      "ch2_death",
+      "cond"
+     ],
+     [
+      "ch2_w3#3",
+      "ch2_trust",
+      "solid"
+     ],
+     [
+      "ch2_death",
+      "ch2_open",
+      "rewind"
+     ],
+     [
+      "ch2_kill",
+      "ch2_end",
+      "solid"
+     ],
+     [
+      "ch2_spare",
+      "ch2_end",
+      "solid"
+     ],
+     [
+      "ch2_report",
+      "ch2_end",
+      "solid"
+     ],
+     [
+      "ch2_trust",
+      "ch2_end",
+      "solid"
+     ]
+    ],
+    "rows": 9,
+    "cols": 5
+   }
+  },
+  {
+   "id": "ch3",
+   "title": "药堂之夜",
+   "subtitle": "炉鼎",
+   "realm_req": 1,
+   "nodes": [
+    {
+     "id": "ch3_open",
+     "type": "scene",
+     "title": "子夜药堂",
+     "lines": [
+      [
+       "旁白",
+       "内门药堂，子夜。"
+      ],
+      [
+       "苏晚",
+       "师兄……血月祭，要用我做炉鼎。"
+      ],
+      [
+       "苏晚",
+       "我还没见过药堂外面的春天。"
+      ],
+      [
+       "苏晚",
+       "你能……带我走吗？"
+      ]
+     ],
+     "next": "ch3_gift"
+    },
+    {
+     "id": "ch3_gift",
+     "type": "choice",
+     "title": "一包药",
+     "prompt": "苏晚塞给你一个小药包：「若出事，吃这个。」",
+     "options": [
+      {
+       "label": "收下",
+       "next": "ch3_gift_take",
+       "set": {
+        "pills": 1,
+        "trust": 1
+       }
+      },
+      {
+       "label": "推回去：「你比我更需要。」",
+       "next": "ch3_gift_back",
+       "set": {
+        "kindness": 1
+       }
+      }
+     ]
+    },
+    {
+     "id": "ch3_gift_take",
+     "type": "scene",
+     "title": "收下",
+     "lines": [
+      [
+       "苏晚",
+       "……谢谢你肯收。"
+      ]
+     ],
+     "next": "ch3_choice"
+    },
+    {
+     "id": "ch3_gift_back",
+     "type": "scene",
+     "title": "推回",
+     "lines": [
+      [
+       "苏晚",
+       "（愣了一下）你和别的师兄不一样。"
+      ]
+     ],
+     "next": "ch3_choice"
+    },
+    {
+     "id": "ch3_choice",
+     "type": "choice",
+     "title": "苏晚的请求",
+     "prompt": "药炉咕嘟作响。",
+     "options": [
+      {
+       "label": "「我带你走。」",
+       "next": "ch3_route",
+       "set": {
+        "suwan": "escape",
+        "kindness": 1
+       },
+       "key": true
+      },
+      {
+       "label": "「厉寒会帮我们。」",
+       "next": "ch3_route_senior",
+       "req": [
+        [
+         "senior",
+         "in",
+         [
+          "debt",
+          "loyal"
+         ]
+        ]
+       ],
+       "set": {
+        "suwan": "escape",
+        "senior": "loyal"
+       }
+      },
+      {
+       "label": "装作没听见",
+       "next": "ch3_ignore",
+       "set": {
+        "suwan": "ignored"
+       }
+      },
+      {
+       "label": "向长老告密",
+       "next": "ch3_report",
+       "set": {
+        "suwan": "sacrificed",
+        "ruthless": 1,
+        "elder_respect": 1
+       },
+       "key": true
+      }
+     ]
+    },
+    {
+     "id": "ch3_route",
+     "type": "choice",
+     "title": "后山的路",
+     "prompt": "后山只有一条路，巡夜弟子来回走。",
+     "options": [
+      {
+       "label": "趁子时换岗溜过去",
+       "next": "ch3_saved",
+       "req": [
+        [
+         "mem",
+         "has",
+         "mem_patrol"
+        ]
+       ],
+       "set": {
+        "suwan": "saved"
+       }
+      },
+      {
+       "label": "硬闯",
+       "next": "ch3_fight"
+      }
+     ]
+    },
+    {
+     "id": "ch3_route_senior",
+     "type": "scene",
+     "title": "厉寒引开巡夜",
+     "lines": [
+      [
+       "厉寒",
+       "巡夜的我来引开。"
+      ],
+      [
+       "厉寒",
+       "师弟，这回换我还你。"
+      ]
+     ],
+     "next": "ch3_saved",
+     "set": {
+      "suwan": "saved"
+     }
+    },
+    {
+     "id": "ch3_fight",
+     "type": "battle",
+     "title": "硬闯巡夜",
+     "battle": {
+      "waves": 1,
+      "count": 8,
+      "escort": "苏晚"
+     },
+     "win": "ch3_saved_fight",
+     "lose": "ch3_death"
+    },
+    {
+     "id": "ch3_saved_fight",
+     "type": "scene",
+     "title": "杀出一条路",
+     "lines": [
+      [
+       "旁白",
+       "血染了后山的雾。"
+      ]
+     ],
+     "next": "ch3_saved",
+     "set": {
+      "suwan": "saved",
+      "ruthless": 1
+     }
+    },
+    {
+     "id": "ch3_death",
+     "type": "death",
+     "title": "巡夜的剑",
+     "lines": [
+      [
+       "旁白",
+       "巡夜弟子的剑穿过你们两个。"
+      ],
+      [
+       "旁白",
+       "倒下前你看清了——他们子时换岗。"
+      ]
+     ],
+     "grant": "mem_patrol",
+     "rewind": "ch3_open"
+    },
+    {
+     "id": "ch3_saved",
+     "type": "scene",
+     "title": "苏晚离开",
+     "lines": [
+      [
+       "苏晚",
+       "我会回来找你的。"
+      ],
+      [
+       "苏晚",
+       "带着春天回来。"
+      ],
+      [
+       "旁白",
+       "她消失在后山的雾里。"
+      ]
+     ],
+     "next": "ch3_end"
+    },
+    {
+     "id": "ch3_ignore",
+     "type": "scene",
+     "title": "转身",
+     "lines": [
+      [
+       "旁白",
+       "你转身。药炉咕嘟作响。"
+      ],
+      [
+       "魔种",
+       "苟住，很好。"
+      ]
+     ],
+     "next": "ch3_end"
+    },
+    {
+     "id": "ch3_report",
+     "type": "scene",
+     "title": "告密",
+     "lines": [
+      [
+       "血骨",
+       "炉鼎跑不了。你，赏。"
+      ],
+      [
+       "旁白",
+       "苏晚被带走时，没有看你。"
+      ]
+     ],
+     "next": "ch3_end"
+    },
+    {
+     "id": "ch3_end",
+     "type": "converge",
+     "title": "收束 · 四十九天",
+     "lines": [
+      [
+       "旁白",
+       "血月祭，还有四十九天。"
+      ]
+     ],
+     "next": "ch4_open"
+    }
+   ],
+   "layout": {
+    "nodes": [
+     {
+      "vid": "ch3_open",
+      "kind": "node",
+      "ref": "ch3_open",
+      "x": 0.0,
+      "y": 0
+     },
+     {
+      "vid": "ch3_gift",
+      "kind": "node",
+      "ref": "ch3_gift",
+      "x": 0.0,
+      "y": 1
+     },
+     {
+      "vid": "ch3_gift#0",
+      "kind": "option",
+      "ref": "ch3_gift",
+      "opt": 0,
+      "x": -0.5,
+      "y": 2
+     },
+     {
+      "vid": "ch3_gift#1",
+      "kind": "option",
+      "ref": "ch3_gift",
+      "opt": 1,
+      "x": 0.5,
+      "y": 2
+     },
+     {
+      "vid": "ch3_gift_take",
+      "kind": "node",
+      "ref": "ch3_gift_take",
+      "x": -0.5,
+      "y": 3
+     },
+     {
+      "vid": "ch3_gift_back",
+      "kind": "node",
+      "ref": "ch3_gift_back",
+      "x": 0.5,
+      "y": 3
+     },
+     {
+      "vid": "ch3_choice",
+      "kind": "node",
+      "ref": "ch3_choice",
+      "x": 0.0,
+      "y": 4
+     },
+     {
+      "vid": "ch3_choice#0",
+      "kind": "option",
+      "ref": "ch3_choice",
+      "opt": 0,
+      "x": -1.5,
+      "y": 5
+     },
+     {
+      "vid": "ch3_choice#1",
+      "kind": "option",
+      "ref": "ch3_choice",
+      "opt": 1,
+      "x": -0.5,
+      "y": 5
+     },
+     {
+      "vid": "ch3_choice#2",
+      "kind": "option",
+      "ref": "ch3_choice",
+      "opt": 2,
+      "x": 0.5,
+      "y": 5
+     },
+     {
+      "vid": "ch3_choice#3",
+      "kind": "option",
+      "ref": "ch3_choice",
+      "opt": 3,
+      "x": 1.5,
+      "y": 5
+     },
+     {
+      "vid": "ch3_route",
+      "kind": "node",
+      "ref": "ch3_route",
+      "x": -1.5,
+      "y": 6
+     },
+     {
+      "vid": "ch3_route#0",
+      "kind": "option",
+      "ref": "ch3_route",
+      "opt": 0,
+      "x": -0.5,
+      "y": 7
+     },
+     {
+      "vid": "ch3_route#1",
+      "kind": "option",
+      "ref": "ch3_route",
+      "opt": 1,
+      "x": 0.5,
+      "y": 7
+     },
+     {
+      "vid": "ch3_route_senior",
+      "kind": "node",
+      "ref": "ch3_route_senior",
+      "x": -0.5,
+      "y": 6
+     },
+     {
+      "vid": "ch3_fight",
+      "kind": "node",
+      "ref": "ch3_fight",
+      "x": 0.0,
+      "y": 8
+     },
+     {
+      "vid": "ch3_saved_fight",
+      "kind": "node",
+      "ref": "ch3_saved_fight",
+      "x": -0.5,
+      "y": 9
+     },
+     {
+      "vid": "ch3_death",
+      "kind": "node",
+      "ref": "ch3_death",
+      "x": 0.5,
+      "y": 9
+     },
+     {
+      "vid": "ch3_saved",
+      "kind": "node",
+      "ref": "ch3_saved",
+      "x": 0.0,
+      "y": 10
+     },
+     {
+      "vid": "ch3_ignore",
+      "kind": "node",
+      "ref": "ch3_ignore",
+      "x": 0.5,
+      "y": 6
+     },
+     {
+      "vid": "ch3_report",
+      "kind": "node",
+      "ref": "ch3_report",
+      "x": 1.5,
+      "y": 6
+     },
+     {
+      "vid": "ch3_end",
+      "kind": "node",
+      "ref": "ch3_end",
+      "x": 0.0,
+      "y": 11
+     }
+    ],
+    "edges": [
+     [
+      "ch3_open",
+      "ch3_gift",
+      "solid"
+     ],
+     [
+      "ch3_gift",
+      "ch3_gift#0",
+      "solid"
+     ],
+     [
+      "ch3_gift#0",
+      "ch3_gift_take",
+      "solid"
+     ],
+     [
+      "ch3_gift",
+      "ch3_gift#1",
+      "solid"
+     ],
+     [
+      "ch3_gift#1",
+      "ch3_gift_back",
+      "solid"
+     ],
+     [
+      "ch3_gift_take",
+      "ch3_choice",
+      "solid"
+     ],
+     [
+      "ch3_gift_back",
+      "ch3_choice",
+      "solid"
+     ],
+     [
+      "ch3_choice",
+      "ch3_choice#0",
+      "solid"
+     ],
+     [
+      "ch3_choice#0",
+      "ch3_route",
+      "solid"
+     ],
+     [
+      "ch3_choice",
+      "ch3_choice#1",
+      "solid"
+     ],
+     [
+      "ch3_choice#1",
+      "ch3_route_senior",
+      "solid"
+     ],
+     [
+      "ch3_choice",
+      "ch3_choice#2",
+      "solid"
+     ],
+     [
+      "ch3_choice#2",
+      "ch3_ignore",
+      "solid"
+     ],
+     [
+      "ch3_choice",
+      "ch3_choice#3",
+      "solid"
+     ],
+     [
+      "ch3_choice#3",
+      "ch3_report",
+      "solid"
+     ],
+     [
+      "ch3_route",
+      "ch3_route#0",
+      "solid"
+     ],
+     [
+      "ch3_route#0",
+      "ch3_saved",
+      "solid"
+     ],
+     [
+      "ch3_route",
+      "ch3_route#1",
+      "solid"
+     ],
+     [
+      "ch3_route#1",
+      "ch3_fight",
+      "solid"
+     ],
+     [
+      "ch3_route_senior",
+      "ch3_saved",
+      "solid"
+     ],
+     [
+      "ch3_fight",
+      "ch3_saved_fight",
+      "win"
+     ],
+     [
+      "ch3_fight",
+      "ch3_death",
+      "lose"
+     ],
+     [
+      "ch3_saved_fight",
+      "ch3_saved",
+      "solid"
+     ],
+     [
+      "ch3_death",
+      "ch3_open",
+      "rewind"
+     ],
+     [
+      "ch3_saved",
+      "ch3_end",
+      "solid"
+     ],
+     [
+      "ch3_ignore",
+      "ch3_end",
+      "solid"
+     ],
+     [
+      "ch3_report",
+      "ch3_end",
+      "solid"
+     ]
+    ],
+    "rows": 12,
+    "cols": 4
+   }
+  },
+  {
+   "id": "ch4",
+   "title": "血骨",
+   "subtitle": "第三十七次",
+   "realm_req": 2,
+   "nodes": [
+    {
+     "id": "ch4_open",
+     "type": "scene",
+     "title": "独见",
+     "lines": [
+      [
+       "旁白",
+       "长老的洞府里只有一盏灯，离他很远。"
+      ],
+      [
+       "血骨",
+       "坐。喝茶。"
+      ]
+     ],
+     "next": "ch4_tea"
+    },
+    {
+     "id": "ch4_tea",
+     "type": "choice",
+     "title": "一杯茶",
+     "prompt": "茶是红的。",
+     "options": [
+      {
+       "label": "一饮而尽",
+       "next": "ch4_tea_drink",
+       "set": {
+        "elder_respect": 1
+       }
+      },
+      {
+       "label": "不动",
+       "next": "ch4_tea_refuse",
+       "set": {
+        "ruthless": 1
+       }
+      }
+     ]
+    },
+    {
+     "id": "ch4_tea_drink",
+     "type": "scene",
+     "title": "饮",
+     "lines": [
+      [
+       "血骨",
+       "敢喝本座的茶……"
+      ],
+      [
+       "血骨",
+       "你的眼神，本座见过。说吧，你到底是谁？"
+      ]
+     ],
+     "next": "ch4_choice"
+    },
+    {
+     "id": "ch4_tea_refuse",
+     "type": "scene",
+     "title": "不饮",
+     "lines": [
+      [
+       "血骨",
+       "谨慎。好。"
+      ],
+      [
+       "血骨",
+       "你的眼神，本座见过。说吧，你到底是谁？"
+      ]
+     ],
+     "next": "ch4_choice"
+    },
+    {
+     "id": "ch4_choice",
+     "type": "choice",
+     "title": "你到底是谁",
+     "prompt": "长老的指尖，停在你天灵盖上方一寸。",
+     "options": [
+      {
+       "label": "我记得你第三十七世的样子。",
+       "next": "ch4_truth_ally",
+       "req": [
+        [
+         "mem",
+         "has",
+         "mem_elder37"
+        ]
+       ],
+       "set": {
+        "elder": "ally",
+        "know_seed": true
+       },
+       "key": true
+      },
+      {
+       "label": "点燃火折子：「您怕这个。」",
+       "next": "ch4_blackmail",
+       "req": [
+        [
+         "mem",
+         "has",
+         "mem_fire"
+        ]
+       ]
+      },
+      {
+       "label": "「我在轮回。这是第一百世。」",
+       "next": "ch4_truth",
+       "next_if": [
+        [
+         [
+          [
+           "elder_respect",
+           "<",
+           1
+          ]
+         ],
+         "ch4_death_truth"
+        ]
+       ]
+      },
+      {
+       "label": "装傻：「弟子只是运气好。」",
+       "next": "ch4_test"
+      }
+     ]
+    },
+    {
+     "id": "ch4_death_truth",
+     "type": "death",
+     "title": "天灵盖",
+     "lines": [
+      [
+       "血骨",
+       "第三十七次，也是这样开口的。"
+      ],
+      [
+       "旁白",
+       "他的手按了下来。"
+      ]
+     ],
+     "grant": "mem_elder37",
+     "rewind": "ch4_open"
+    },
+    {
+     "id": "ch4_test",
+     "type": "battle",
+     "title": "长老试手",
+     "battle": {
+      "waves": 1,
+      "boss": "elder"
+     },
+     "win": "ch4_pass",
+     "lose": "ch4_death_fire"
+    },
+    {
+     "id": "ch4_death_fire",
+     "type": "death",
+     "title": "火把",
+     "lines": [
+      [
+       "旁白",
+       "你倒下时，火把滚到他脚边——"
+      ],
+      [
+       "旁白",
+       "他退了一步。"
+      ]
+     ],
+     "grant": "mem_fire",
+     "rewind": "ch4_open"
+    },
+    {
+     "id": "ch4_pass",
+     "type": "scene",
+     "title": "运气好",
+     "lines": [
+      [
+       "血骨",
+       "运气好？呵。滚吧。"
+      ]
+     ],
+     "next": "ch4_end",
+     "set": {
+      "elder": "suspicious"
+     }
+    },
+    {
+     "id": "ch4_truth",
+     "type": "scene",
+     "title": "第三十七次的你",
+     "lines": [
+      [
+       "旁白",
+       "血骨沉默了很久。"
+      ],
+      [
+       "血骨",
+       "本座……是第三十七次的你。"
+      ],
+      [
+       "血骨",
+       "那一世，我选择了跪下。"
+      ]
+     ],
+     "next": "ch4_end",
+     "set": {
+      "elder": "ally",
+      "know_seed": true
+     }
+    },
+    {
+     "id": "ch4_truth_ally",
+     "type": "scene",
+     "title": "你竟然记得",
+     "lines": [
+      [
+       "血骨",
+       "……你竟然记得。"
+      ],
+      [
+       "血骨",
+       "轮回的源头，是宗主体内的魔种。"
+      ]
+     ],
+     "next": "ch4_end"
+    },
+    {
+     "id": "ch4_blackmail",
+     "type": "choice",
+     "title": "火光",
+     "prompt": "他盯着火光，额头见汗。",
+     "options": [
+      {
+       "label": "「告诉我轮回的秘密。」",
+       "next": "ch4_end",
+       "set": {
+        "elder": "blackmailed",
+        "know_seed": true
+       }
+      },
+      {
+       "label": "烧了他",
+       "next": "ch4_burn",
+       "set": {
+        "elder": "burned",
+        "ruthless": 2
+       },
+       "key": true
+      }
+     ]
+    },
+    {
+     "id": "ch4_burn",
+     "type": "scene",
+     "title": "焚",
+     "lines": [
+      [
+       "血骨",
+       "（在火里笑）你也会跪下的。"
+      ]
+     ],
+     "next": "ch4_end"
+    },
+    {
+     "id": "ch4_end",
+     "type": "converge",
+     "title": "收束 · 七天",
+     "lines": [
+      [
+       "旁白",
+       "血月祭，还有七天。"
+      ]
+     ],
+     "next": "ch5_open"
+    }
+   ],
+   "layout": {
+    "nodes": [
+     {
+      "vid": "ch4_open",
+      "kind": "node",
+      "ref": "ch4_open",
+      "x": 0.0,
+      "y": 0
+     },
+     {
+      "vid": "ch4_tea",
+      "kind": "node",
+      "ref": "ch4_tea",
+      "x": 0.0,
+      "y": 1
+     },
+     {
+      "vid": "ch4_tea#0",
+      "kind": "option",
+      "ref": "ch4_tea",
+      "opt": 0,
+      "x": -0.5,
+      "y": 2
+     },
+     {
+      "vid": "ch4_tea#1",
+      "kind": "option",
+      "ref": "ch4_tea",
+      "opt": 1,
+      "x": 0.5,
+      "y": 2
+     },
+     {
+      "vid": "ch4_tea_drink",
+      "kind": "node",
+      "ref": "ch4_tea_drink",
+      "x": -0.5,
+      "y": 3
+     },
+     {
+      "vid": "ch4_tea_refuse",
+      "kind": "node",
+      "ref": "ch4_tea_refuse",
+      "x": 0.5,
+      "y": 3
+     },
+     {
+      "vid": "ch4_choice",
+      "kind": "node",
+      "ref": "ch4_choice",
+      "x": 0.0,
+      "y": 4
+     },
+     {
+      "vid": "ch4_choice#0",
+      "kind": "option",
+      "ref": "ch4_choice",
+      "opt": 0,
+      "x": -0.5,
+      "y": 5
+     },
+     {
+      "vid": "ch4_choice#1",
+      "kind": "option",
+      "ref": "ch4_choice",
+      "opt": 1,
+      "x": -1.5,
+      "y": 5
+     },
+     {
+      "vid": "ch4_choice#2",
+      "kind": "option",
+      "ref": "ch4_choice",
+      "opt": 2,
+      "x": 0.5,
+      "y": 5
+     },
+     {
+      "vid": "ch4_choice#3",
+      "kind": "option",
+      "ref": "ch4_choice",
+      "opt": 3,
+      "x": 1.5,
+      "y": 5
+     },
+     {
+      "vid": "ch4_death_truth",
+      "kind": "node",
+      "ref": "ch4_death_truth",
+      "x": 0.0,
+      "y": 6
+     },
+     {
+      "vid": "ch4_test",
+      "kind": "node",
+      "ref": "ch4_test",
+      "x": 2.0,
+      "y": 6
+     },
+     {
+      "vid": "ch4_death_fire",
+      "kind": "node",
+      "ref": "ch4_death_fire",
+      "x": 1.5,
+      "y": 7
+     },
+     {
+      "vid": "ch4_pass",
+      "kind": "node",
+      "ref": "ch4_pass",
+      "x": 0.5,
+      "y": 7
+     },
+     {
+      "vid": "ch4_truth",
+      "kind": "node",
+      "ref": "ch4_truth",
+      "x": 1.0,
+      "y": 6
+     },
+     {
+      "vid": "ch4_truth_ally",
+      "kind": "node",
+      "ref": "ch4_truth_ally",
+      "x": -1.0,
+      "y": 6
+     },
+     {
+      "vid": "ch4_blackmail",
+      "kind": "node",
+      "ref": "ch4_blackmail",
+      "x": -2.0,
+      "y": 6
+     },
+     {
+      "vid": "ch4_blackmail#0",
+      "kind": "option",
+      "ref": "ch4_blackmail",
+      "opt": 0,
+      "x": -1.5,
+      "y": 7
+     },
+     {
+      "vid": "ch4_blackmail#1",
+      "kind": "option",
+      "ref": "ch4_blackmail",
+      "opt": 1,
+      "x": -0.5,
+      "y": 7
+     },
+     {
+      "vid": "ch4_burn",
+      "kind": "node",
+      "ref": "ch4_burn",
+      "x": 0.0,
+      "y": 8
+     },
+     {
+      "vid": "ch4_end",
+      "kind": "node",
+      "ref": "ch4_end",
+      "x": 0.0,
+      "y": 9
+     }
+    ],
+    "edges": [
+     [
+      "ch4_open",
+      "ch4_tea",
+      "solid"
+     ],
+     [
+      "ch4_tea",
+      "ch4_tea#0",
+      "solid"
+     ],
+     [
+      "ch4_tea#0",
+      "ch4_tea_drink",
+      "solid"
+     ],
+     [
+      "ch4_tea",
+      "ch4_tea#1",
+      "solid"
+     ],
+     [
+      "ch4_tea#1",
+      "ch4_tea_refuse",
+      "solid"
+     ],
+     [
+      "ch4_tea_drink",
+      "ch4_choice",
+      "solid"
+     ],
+     [
+      "ch4_tea_refuse",
+      "ch4_choice",
+      "solid"
+     ],
+     [
+      "ch4_choice",
+      "ch4_choice#0",
+      "solid"
+     ],
+     [
+      "ch4_choice#0",
+      "ch4_truth_ally",
+      "solid"
+     ],
+     [
+      "ch4_choice",
+      "ch4_choice#1",
+      "solid"
+     ],
+     [
+      "ch4_choice#1",
+      "ch4_blackmail",
+      "solid"
+     ],
+     [
+      "ch4_choice",
+      "ch4_choice#2",
+      "solid"
+     ],
+     [
+      "ch4_choice#2",
+      "ch4_death_truth",
+      "cond"
+     ],
+     [
+      "ch4_choice#2",
+      "ch4_truth",
+      "solid"
+     ],
+     [
+      "ch4_choice",
+      "ch4_choice#3",
+      "solid"
+     ],
+     [
+      "ch4_choice#3",
+      "ch4_test",
+      "solid"
+     ],
+     [
+      "ch4_death_truth",
+      "ch4_open",
+      "rewind"
+     ],
+     [
+      "ch4_test",
+      "ch4_pass",
+      "win"
+     ],
+     [
+      "ch4_test",
+      "ch4_death_fire",
+      "lose"
+     ],
+     [
+      "ch4_death_fire",
+      "ch4_open",
+      "rewind"
+     ],
+     [
+      "ch4_pass",
+      "ch4_end",
+      "solid"
+     ],
+     [
+      "ch4_truth",
+      "ch4_end",
+      "solid"
+     ],
+     [
+      "ch4_truth_ally",
+      "ch4_end",
+      "solid"
+     ],
+     [
+      "ch4_blackmail",
+      "ch4_blackmail#0",
+      "solid"
+     ],
+     [
+      "ch4_blackmail#0",
+      "ch4_end",
+      "solid"
+     ],
+     [
+      "ch4_blackmail",
+      "ch4_blackmail#1",
+      "solid"
+     ],
+     [
+      "ch4_blackmail#1",
+      "ch4_burn",
+      "solid"
+     ],
+     [
+      "ch4_burn",
+      "ch4_end",
+      "solid"
+     ]
+    ],
+    "rows": 10,
+    "cols": 5
+   }
+  },
+  {
+   "id": "ch5",
+   "title": "正道来客",
+   "subtitle": "白衣",
+   "realm_req": 2,
+   "nodes": [
+    {
+     "id": "ch5_open",
+     "type": "scene",
+     "title": "后山阵眼",
+     "lines": [
+      [
+       "旁白",
+       "后山，一个白衣人在画阵。阵还差最后一笔。"
+      ],
+      [
+       "顾长风",
+       "天衍剑宗，顾长风。魔门弟子，要杀便来。"
+      ]
+     ],
+     "next": "ch5_array"
+    },
+    {
+     "id": "ch5_array",
+     "type": "choice",
+     "title": "未成之阵",
+     "prompt": "阵眼在你脚边。",
+     "options": [
+      {
+       "label": "替他补上最后一笔",
+       "next": "ch5_array_help",
+       "set": {
+        "trust": 1
+       }
+      },
+      {
+       "label": "一脚踩碎阵眼",
+       "next": "ch5_array_break",
+       "set": {
+        "master_favor": 1,
+        "ruthless": 1
+       }
+      },
+      {
+       "label": "看着，不动",
+       "next": "ch5_choice"
+      }
+     ]
+    },
+    {
+     "id": "ch5_array_help",
+     "type": "scene",
+     "title": "补阵",
+     "lines": [
+      [
+       "顾长风",
+       "……魔门弟子，会画天衍剑阵？"
+      ],
+      [
+       "你",
+       "第六十世，我在剑宗扫过三年地。"
+      ]
+     ],
+     "next": "ch5_choice"
+    },
+    {
+     "id": "ch5_array_break",
+     "type": "scene",
+     "title": "碎阵",
+     "lines": [
+      [
+       "顾长风",
+       "（剑已半出鞘）好。"
+      ]
+     ],
+     "next": "ch5_choice"
+    },
+    {
+     "id": "ch5_choice",
+     "type": "choice",
+     "title": "白衣人",
+     "prompt": "他的剑没有出鞘。",
+     "options": [
+      {
+       "label": "苏晚从雾里走出来：「哥？」",
+       "next": "ch5_family",
+       "req": [
+        [
+         "suwan",
+         "==",
+         "saved"
+        ]
+       ],
+       "set": {
+        "gu": "ally",
+        "trust": 1
+       },
+       "key": true
+      },
+      {
+       "label": "「苏晚还活着。」",
+       "next": "ch5_family",
+       "req": [
+        [
+         "mem",
+         "has",
+         "mem_gu"
+        ],
+        [
+         "suwan",
+         "==",
+         "saved"
+        ]
+       ],
+       "set": {
+        "gu": "ally"
+       }
+      },
+      {
+       "label": "「血月祭那天，我给你开门。」",
+       "next": "ch5_ally",
+       "set": {
+        "gu": "ally"
+       }
+      },
+      {
+       "label": "假意结盟，回头禀报宗主",
+       "next": "ch5_used",
+       "set": {
+        "gu": "used",
+        "ruthless": 1,
+        "master_favor": 1
+       },
+       "key": true
+      },
+      {
+       "label": "拔剑",
+       "next": "ch5_fight"
+      }
+     ]
+    },
+    {
+     "id": "ch5_fight",
+     "type": "battle",
+     "title": "剑与魔",
+     "battle": {
+      "waves": 1,
+      "boss": "gu"
+     },
+     "win": "ch5_kill",
+     "lose": "ch5_death"
+    },
+    {
+     "id": "ch5_death",
+     "type": "death",
+     "title": "替我照顾晚儿",
+     "lines": [
+      [
+       "顾长风",
+       "魔门也有不想杀人的……"
+      ],
+      [
+       "顾长风",
+       "替我……照顾晚儿。"
+      ]
+     ],
+     "grant": "mem_gu",
+     "rewind": "ch5_open"
+    },
+    {
+     "id": "ch5_kill",
+     "type": "scene",
+     "title": "白衣染血",
+     "lines": [
+      [
+       "顾长风",
+       "晚儿……对不起。"
+      ],
+      [
+       "旁白",
+       "你不知道他在说谁。"
+      ]
+     ],
+     "next": "ch5_end",
+     "set": {
+      "gu": "dead",
+      "master_favor": 1
+     }
+    },
+    {
+     "id": "ch5_ally",
+     "type": "scene",
+     "title": "盟约",
+     "lines": [
+      [
+       "顾长风",
+       "若你骗我，剑宗会踏平血河。"
+      ]
+     ],
+     "next": "ch5_end"
+    },
+    {
+     "id": "ch5_used",
+     "type": "scene",
+     "title": "传音",
+     "lines": [
+      [
+       "夜无归",
+       "（传音）做得好，人材。"
+      ]
+     ],
+     "next": "ch5_end"
+    },
+    {
+     "id": "ch5_family",
+     "type": "scene",
+     "title": "兄妹",
+     "lines": [
+      [
+       "顾长风",
+       "晚儿……"
+      ],
+      [
+       "苏晚",
+       "哥，他救过我。在这个地方，他救过我。"
+      ],
+      [
+       "顾长风",
+       "这份恩，天衍剑宗记下了。"
+      ]
+     ],
+     "next": "ch5_end"
+    },
+    {
+     "id": "ch5_end",
+     "type": "converge",
+     "title": "收束 · 血月",
+     "lines": [
+      [
+       "旁白",
+       "血月升起。"
+      ]
+     ],
+     "next": "ch6_open"
+    }
+   ],
+   "layout": {
+    "nodes": [
+     {
+      "vid": "ch5_open",
+      "kind": "node",
+      "ref": "ch5_open",
+      "x": 0.0,
+      "y": 0
+     },
+     {
+      "vid": "ch5_array",
+      "kind": "node",
+      "ref": "ch5_array",
+      "x": 0.0,
+      "y": 1
+     },
+     {
+      "vid": "ch5_array#0",
+      "kind": "option",
+      "ref": "ch5_array",
+      "opt": 0,
+      "x": -1.0,
+      "y": 2
+     },
+     {
+      "vid": "ch5_array#1",
+      "kind": "option",
+      "ref": "ch5_array",
+      "opt": 1,
+      "x": 1.0,
+      "y": 2
+     },
+     {
+      "vid": "ch5_array#2",
+      "kind": "option",
+      "ref": "ch5_array",
+      "opt": 2,
+      "x": 0.0,
+      "y": 2
+     },
+     {
+      "vid": "ch5_array_help",
+      "kind": "node",
+      "ref": "ch5_array_help",
+      "x": -0.5,
+      "y": 3
+     },
+     {
+      "vid": "ch5_array_break",
+      "kind": "node",
+      "ref": "ch5_array_break",
+      "x": 0.5,
+      "y": 3
+     },
+     {
+      "vid": "ch5_choice",
+      "kind": "node",
+      "ref": "ch5_choice",
+      "x": 0.0,
+      "y": 4
+     },
+     {
+      "vid": "ch5_choice#0",
+      "kind": "option",
+      "ref": "ch5_choice",
+      "opt": 0,
+      "x": -2.0,
+      "y": 5
+     },
+     {
+      "vid": "ch5_choice#1",
+      "kind": "option",
+      "ref": "ch5_choice",
+      "opt": 1,
+      "x": -1.0,
+      "y": 5
+     },
+     {
+      "vid": "ch5_choice#2",
+      "kind": "option",
+      "ref": "ch5_choice",
+      "opt": 2,
+      "x": 0.0,
+      "y": 5
+     },
+     {
+      "vid": "ch5_choice#3",
+      "kind": "option",
+      "ref": "ch5_choice",
+      "opt": 3,
+      "x": 1.0,
+      "y": 5
+     },
+     {
+      "vid": "ch5_choice#4",
+      "kind": "option",
+      "ref": "ch5_choice",
+      "opt": 4,
+      "x": 2.0,
+      "y": 5
+     },
+     {
+      "vid": "ch5_fight",
+      "kind": "node",
+      "ref": "ch5_fight",
+      "x": 1.5,
+      "y": 6
+     },
+     {
+      "vid": "ch5_death",
+      "kind": "node",
+      "ref": "ch5_death",
+      "x": -0.5,
+      "y": 7
+     },
+     {
+      "vid": "ch5_kill",
+      "kind": "node",
+      "ref": "ch5_kill",
+      "x": 0.5,
+      "y": 7
+     },
+     {
+      "vid": "ch5_ally",
+      "kind": "node",
+      "ref": "ch5_ally",
+      "x": -0.5,
+      "y": 6
+     },
+     {
+      "vid": "ch5_used",
+      "kind": "node",
+      "ref": "ch5_used",
+      "x": 0.5,
+      "y": 6
+     },
+     {
+      "vid": "ch5_family",
+      "kind": "node",
+      "ref": "ch5_family",
+      "x": -1.5,
+      "y": 6
+     },
+     {
+      "vid": "ch5_end",
+      "kind": "node",
+      "ref": "ch5_end",
+      "x": 0.0,
+      "y": 8
+     }
+    ],
+    "edges": [
+     [
+      "ch5_open",
+      "ch5_array",
+      "solid"
+     ],
+     [
+      "ch5_array",
+      "ch5_array#0",
+      "solid"
+     ],
+     [
+      "ch5_array#0",
+      "ch5_array_help",
+      "solid"
+     ],
+     [
+      "ch5_array",
+      "ch5_array#1",
+      "solid"
+     ],
+     [
+      "ch5_array#1",
+      "ch5_array_break",
+      "solid"
+     ],
+     [
+      "ch5_array",
+      "ch5_array#2",
+      "solid"
+     ],
+     [
+      "ch5_array#2",
+      "ch5_choice",
+      "solid"
+     ],
+     [
+      "ch5_array_help",
+      "ch5_choice",
+      "solid"
+     ],
+     [
+      "ch5_array_break",
+      "ch5_choice",
+      "solid"
+     ],
+     [
+      "ch5_choice",
+      "ch5_choice#0",
+      "solid"
+     ],
+     [
+      "ch5_choice#0",
+      "ch5_family",
+      "solid"
+     ],
+     [
+      "ch5_choice",
+      "ch5_choice#1",
+      "solid"
+     ],
+     [
+      "ch5_choice#1",
+      "ch5_family",
+      "solid"
+     ],
+     [
+      "ch5_choice",
+      "ch5_choice#2",
+      "solid"
+     ],
+     [
+      "ch5_choice#2",
+      "ch5_ally",
+      "solid"
+     ],
+     [
+      "ch5_choice",
+      "ch5_choice#3",
+      "solid"
+     ],
+     [
+      "ch5_choice#3",
+      "ch5_used",
+      "solid"
+     ],
+     [
+      "ch5_choice",
+      "ch5_choice#4",
+      "solid"
+     ],
+     [
+      "ch5_choice#4",
+      "ch5_fight",
+      "solid"
+     ],
+     [
+      "ch5_fight",
+      "ch5_kill",
+      "win"
+     ],
+     [
+      "ch5_fight",
+      "ch5_death",
+      "lose"
+     ],
+     [
+      "ch5_death",
+      "ch5_open",
+      "rewind"
+     ],
+     [
+      "ch5_kill",
+      "ch5_end",
+      "solid"
+     ],
+     [
+      "ch5_ally",
+      "ch5_end",
+      "solid"
+     ],
+     [
+      "ch5_used",
+      "ch5_end",
+      "solid"
+     ],
+     [
+      "ch5_family",
+      "ch5_end",
+      "solid"
+     ]
+    ],
+    "rows": 9,
+    "cols": 5
+   }
+  },
+  {
+   "id": "ch6",
+   "title": "血月祭",
+   "subtitle": "收割",
+   "realm_req": 3,
+   "nodes": [
+    {
+     "id": "ch6_open",
+     "type": "scene",
+     "title": "祭坛",
+     "lines": [
+      [
+       "夜无归",
+       "一百世的魔元，今天收割。"
+      ],
+      [
+       "夜无归",
+       "你以为你在轮回？你只是在替我养种。"
+      ],
+      [
+       "夜无归",
+       "跪下。跪下的人，本座许他不痛。"
+      ]
+     ],
+     "next": "ch6_kneel"
+    },
+    {
+     "id": "ch6_kneel",
+     "type": "choice",
+     "title": "跪下",
+     "prompt": "满坛弟子都跪了下去。",
+     "options": [
+      {
+       "label": "跪",
+       "next": "ch6_kneel_yes",
+       "set": {
+        "master_favor": 1
+       }
+      },
+      {
+       "label": "站着",
+       "next": "ch6_kneel_no",
+       "set": {
+        "trust": 1
+       }
+      }
+     ]
+    },
+    {
+     "id": "ch6_kneel_yes",
+     "type": "scene",
+     "title": "跪",
+     "lines": [
+      [
+       "夜无归",
+       "好人材。"
+      ],
+      [
+       "魔种",
+       "你吐纳了一次。"
+      ]
+     ],
+     "next": "ch6_ledger"
+    },
+    {
+     "id": "ch6_kneel_no",
+     "type": "scene",
+     "title": "不跪",
+     "lines": [
+      [
+       "旁白",
+       "整座祭坛，只有你站着。"
+      ],
+      [
+       "夜无归",
+       "……第一百世，终于有点意思了。"
+      ],
+      [
+       "魔种",
+       "你吐纳了一次。"
+      ]
+     ],
+     "next": "ch6_ledger"
+    },
+    {
+     "id": "ch6_ledger",
+     "type": "ledger",
+     "title": "账本：喂养魔种",
+     "seconds": 12,
+     "lines": [
+      [
+       "魔种",
+       "吐纳吧。每一次，我都会记下。"
+      ]
+     ],
+     "next": "ch6_seed"
+    },
+    {
+     "id": "ch6_seed",
+     "type": "choice",
+     "title": "魔种在跳",
+     "prompt": "魔种在你体内跳动。",
+     "options": [
+      {
+       "label": "把魔种引向宗主左胸",
+       "next": "ch6_allies",
+       "req": [
+        [
+         "know_seed",
+         "==",
+         true
+        ],
+        [
+         "mem",
+         "has",
+         "mem_master"
+        ]
+       ],
+       "set": {
+        "seed": "turned"
+       },
+       "key": true
+      },
+      {
+       "label": "「长老，火！」",
+       "next": "ch6_allies",
+       "req": [
+        [
+         "elder",
+         "==",
+         "ally"
+        ]
+       ],
+       "set": {
+        "seed": "sealed"
+       }
+      },
+      {
+       "label": "抗拒它",
+       "next": "ch6_allies",
+       "set": {
+        "seed": "refused"
+       }
+      },
+      {
+       "label": "与魔种相融",
+       "next": "ch6_merge",
+       "set": {
+        "seed": "merged"
+       },
+       "key": true
+      }
+     ]
+    },
+    {
+     "id": "ch6_merge",
+     "type": "scene",
+     "title": "相融",
+     "lines": [
+      [
+       "魔种",
+       "很好。"
+      ],
+      [
+       "魔种",
+       "我们开始炼化。"
+      ]
+     ],
+     "next": "ch6_boss"
+    },
+    {
+     "id": "ch6_allies",
+     "type": "scene",
+     "title": "有人站到你身边",
+     "lines": [
+      [
+       "旁白",
+       "有人站到了你身边。"
+      ]
+     ],
+     "next": "ch6_boss"
+    },
+    {
+     "id": "ch6_boss",
+     "type": "battle",
+     "title": "宗主夜无归",
+     "battle": {
+      "waves": 1,
+      "boss": "master",
+      "allies_from_flags": true
+     },
+     "win": "ch6_end",
+     "lose": "ch6_death"
+    },
+    {
+     "id": "ch6_death",
+     "type": "death",
+     "title": "第一百零一次",
+     "lines": [
+      [
+       "夜无归",
+       "第一百零一次，我等你。"
+      ],
+      [
+       "旁白",
+       "倒下前你看见——他的魔种，在左胸。"
+      ]
+     ],
+     "grant": "mem_master",
+     "rewind": "ch6_open"
+    },
+    {
+     "id": "ch6_end",
+     "type": "converge",
+     "title": "收束 · 掌心",
+     "lines": [
+      [
+       "旁白",
+       "宗主倒下。"
+      ],
+      [
+       "旁白",
+       "魔种在你掌心跳动。"
+      ]
+     ],
+     "next": "ch7_open"
+    }
+   ],
+   "layout": {
+    "nodes": [
+     {
+      "vid": "ch6_open",
+      "kind": "node",
+      "ref": "ch6_open",
+      "x": 0.0,
+      "y": 0
+     },
+     {
+      "vid": "ch6_kneel",
+      "kind": "node",
+      "ref": "ch6_kneel",
+      "x": 0.0,
+      "y": 1
+     },
+     {
+      "vid": "ch6_kneel#0",
+      "kind": "option",
+      "ref": "ch6_kneel",
+      "opt": 0,
+      "x": -0.5,
+      "y": 2
+     },
+     {
+      "vid": "ch6_kneel#1",
+      "kind": "option",
+      "ref": "ch6_kneel",
+      "opt": 1,
+      "x": 0.5,
+      "y": 2
+     },
+     {
+      "vid": "ch6_kneel_yes",
+      "kind": "node",
+      "ref": "ch6_kneel_yes",
+      "x": -0.5,
+      "y": 3
+     },
+     {
+      "vid": "ch6_kneel_no",
+      "kind": "node",
+      "ref": "ch6_kneel_no",
+      "x": 0.5,
+      "y": 3
+     },
+     {
+      "vid": "ch6_ledger",
+      "kind": "node",
+      "ref": "ch6_ledger",
+      "x": 0.0,
+      "y": 4
+     },
+     {
+      "vid": "ch6_seed",
+      "kind": "node",
+      "ref": "ch6_seed",
+      "x": 0.0,
+      "y": 5
+     },
+     {
+      "vid": "ch6_seed#0",
+      "kind": "option",
+      "ref": "ch6_seed",
+      "opt": 0,
+      "x": -1.5,
+      "y": 6
+     },
+     {
+      "vid": "ch6_seed#1",
+      "kind": "option",
+      "ref": "ch6_seed",
+      "opt": 1,
+      "x": -0.5,
+      "y": 6
+     },
+     {
+      "vid": "ch6_seed#2",
+      "kind": "option",
+      "ref": "ch6_seed",
+      "opt": 2,
+      "x": 0.5,
+      "y": 6
+     },
+     {
+      "vid": "ch6_seed#3",
+      "kind": "option",
+      "ref": "ch6_seed",
+      "opt": 3,
+      "x": 1.5,
+      "y": 6
+     },
+     {
+      "vid": "ch6_merge",
+      "kind": "node",
+      "ref": "ch6_merge",
+      "x": 0.5,
+      "y": 7
+     },
+     {
+      "vid": "ch6_allies",
+      "kind": "node",
+      "ref": "ch6_allies",
+      "x": -0.5,
+      "y": 7
+     },
+     {
+      "vid": "ch6_boss",
+      "kind": "node",
+      "ref": "ch6_boss",
+      "x": 0.0,
+      "y": 8
+     },
+     {
+      "vid": "ch6_death",
+      "kind": "node",
+      "ref": "ch6_death",
+      "x": -0.5,
+      "y": 9
+     },
+     {
+      "vid": "ch6_end",
+      "kind": "node",
+      "ref": "ch6_end",
+      "x": 0.5,
+      "y": 9
+     }
+    ],
+    "edges": [
+     [
+      "ch6_open",
+      "ch6_kneel",
+      "solid"
+     ],
+     [
+      "ch6_kneel",
+      "ch6_kneel#0",
+      "solid"
+     ],
+     [
+      "ch6_kneel#0",
+      "ch6_kneel_yes",
+      "solid"
+     ],
+     [
+      "ch6_kneel",
+      "ch6_kneel#1",
+      "solid"
+     ],
+     [
+      "ch6_kneel#1",
+      "ch6_kneel_no",
+      "solid"
+     ],
+     [
+      "ch6_kneel_yes",
+      "ch6_ledger",
+      "solid"
+     ],
+     [
+      "ch6_kneel_no",
+      "ch6_ledger",
+      "solid"
+     ],
+     [
+      "ch6_ledger",
+      "ch6_seed",
+      "solid"
+     ],
+     [
+      "ch6_seed",
+      "ch6_seed#0",
+      "solid"
+     ],
+     [
+      "ch6_seed#0",
+      "ch6_allies",
+      "solid"
+     ],
+     [
+      "ch6_seed",
+      "ch6_seed#1",
+      "solid"
+     ],
+     [
+      "ch6_seed#1",
+      "ch6_allies",
+      "solid"
+     ],
+     [
+      "ch6_seed",
+      "ch6_seed#2",
+      "solid"
+     ],
+     [
+      "ch6_seed#2",
+      "ch6_allies",
+      "solid"
+     ],
+     [
+      "ch6_seed",
+      "ch6_seed#3",
+      "solid"
+     ],
+     [
+      "ch6_seed#3",
+      "ch6_merge",
+      "solid"
+     ],
+     [
+      "ch6_merge",
+      "ch6_boss",
+      "solid"
+     ],
+     [
+      "ch6_allies",
+      "ch6_boss",
+      "solid"
+     ],
+     [
+      "ch6_boss",
+      "ch6_end",
+      "win"
+     ],
+     [
+      "ch6_boss",
+      "ch6_death",
+      "lose"
+     ],
+     [
+      "ch6_death",
+      "ch6_open",
+      "rewind"
+     ]
+    ],
+    "rows": 10,
+    "cols": 4
+   }
+  },
+  {
+   "id": "ch7",
+   "title": "第一百世",
+   "subtitle": "终章",
+   "realm_req": 0,
+   "nodes": [
+    {
+     "id": "ch7_open",
+     "type": "scene",
+     "title": "掌心",
+     "lines": [
+      [
+       "魔种",
+       "你吐纳了一次。"
+      ],
+      [
+       "魔种",
+       "选之前，你可以回头看一眼。"
+      ]
+     ],
+     "next": "ch7_look"
+    },
+    {
+     "id": "ch7_look",
+     "type": "choice",
+     "title": "回头看谁",
+     "prompt": "身后站着的人，是你这一世的答案。",
+     "options": [
+      {
+       "label": "看厉寒",
+       "next": "ch7_look_senior",
+       "req": [
+        [
+         "senior",
+         "in",
+         [
+          "loyal",
+          "debt"
+         ]
+        ]
+       ]
+      },
+      {
+       "label": "看苏晚",
+       "next": "ch7_look_suwan",
+       "req": [
+        [
+         "suwan",
+         "==",
+         "saved"
+        ]
+       ]
+      },
+      {
+       "label": "看血骨",
+       "next": "ch7_look_elder",
+       "req": [
+        [
+         "elder",
+         "in",
+         [
+          "ally",
+          "blackmailed"
+         ]
+        ]
+       ]
+      },
+      {
+       "label": "看顾长风",
+       "next": "ch7_look_gu",
+       "req": [
+        [
+         "gu",
+         "==",
+         "ally"
+        ]
+       ]
+      },
+      {
+       "label": "谁也不看",
+       "next": "ch7_look_none"
+      }
+     ]
+    },
+    {
+     "id": "ch7_look_senior",
+     "type": "scene",
+     "title": "厉寒",
+     "lines": [
+      [
+       "厉寒",
+       "师弟，这回别再死了。我可记不住一百次。"
+      ]
+     ],
+     "next": "ch7_final"
+    },
+    {
+     "id": "ch7_look_suwan",
+     "type": "scene",
+     "title": "苏晚",
+     "lines": [
+      [
+       "苏晚",
+       "外面的春天，我看到了。"
+      ]
+     ],
+     "next": "ch7_final"
+    },
+    {
+     "id": "ch7_look_elder",
+     "type": "scene",
+     "title": "血骨",
+     "lines": [
+      [
+       "血骨",
+       "第三十七次的我没选对。第一百次的你，别学我。"
+      ]
+     ],
+     "next": "ch7_final"
+    },
+    {
+     "id": "ch7_look_gu",
+     "type": "scene",
+     "title": "顾长风",
+     "lines": [
+      [
+       "顾长风",
+       "不管你选什么，剑宗欠你一个人情。"
+      ]
+     ],
+     "next": "ch7_final"
+    },
+    {
+     "id": "ch7_look_none",
+     "type": "scene",
+     "title": "无人",
+     "lines": [
+      [
+       "旁白",
+       "你没有回头。"
+      ],
+      [
+       "魔种",
+       "现在，选吧。"
+      ]
+     ],
+     "next": "ch7_final"
+    },
+    {
+     "id": "ch7_final",
+     "type": "choice",
+     "title": "最后的选择",
+     "prompt": "魔种在你掌心。所有人都在看你。",
+     "options": [
+      {
+       "label": "放下魔种，让轮回停止",
+       "next": "end_true",
+       "req": [
+        [
+         "mems",
+         ">=",
+         6
+        ],
+        [
+         "senior",
+         "==",
+         "loyal"
+        ],
+        [
+         "suwan",
+         "==",
+         "saved"
+        ],
+        [
+         "elder",
+         "==",
+         "ally"
+        ],
+        [
+         "seed",
+         "in",
+         [
+          "refused",
+          "sealed",
+          "turned"
+         ]
+        ],
+        [
+         "seed_feed",
+         "<",
+         30
+        ]
+       ],
+       "key": true
+      },
+      {
+       "label": "与血骨一同焚尽魔种",
+       "next": "end_fire",
+       "req": [
+        [
+         "elder",
+         "in",
+         [
+          "ally",
+          "blackmailed"
+         ]
+        ],
+        [
+         "mem",
+         "has",
+         "mem_fire"
+        ],
+        [
+         "seed",
+         "!=",
+         "merged"
+        ]
+       ]
+      },
+      {
+       "label": "把魔种交给顾长风",
+       "next": "end_sword",
+       "req": [
+        [
+         "gu",
+         "==",
+         "ally"
+        ],
+        [
+         "seed",
+         "!=",
+         "merged"
+        ]
+       ]
+      },
+      {
+       "label": "坐上宗主之位",
+       "next": "end_lord",
+       "req": [
+        [
+         "seed",
+         "!=",
+         "merged"
+        ]
+       ],
+       "next_if": [
+        [
+         [
+          [
+           "senior",
+           "==",
+           "loyal"
+          ],
+          [
+           "suwan",
+           "==",
+           "saved"
+          ]
+         ],
+         "end_family"
+        ]
+       ]
+      },
+      {
+       "label": "跪下，成为下一个血骨",
+       "next": "end_kneel"
+      },
+      {
+       "label": "吞下魔种，炼化万物",
+       "next": "end_all"
+      }
+     ],
+     "timer": 20,
+     "timeout_next": "end_loop"
+    },
+    {
+     "id": "end_all",
+     "type": "ending",
+     "title": "万物皆魔元",
+     "lines": [
+      [
+       "魔种",
+       "外门：炼化完毕。"
+      ],
+      [
+       "魔种",
+       "魔门：炼化完毕。"
+      ],
+      [
+       "魔种",
+       "三千世界：炼化完毕。"
+      ],
+      [
+       "你",
+       "万物皆成魔元。只有我还记得它们。"
+      ]
+     ],
+     "epilogue": "账本最后一行：你吐纳了一次。",
+     "tone": "dark"
+    },
+    {
+     "id": "end_lord",
+     "type": "ending",
+     "title": "新宗主",
+     "lines": [
+      [
+       "旁白",
+       "你坐上了血河宗主之位。"
+      ],
+      [
+       "旁白",
+       "身边没有人。"
+      ],
+      [
+       "魔种",
+       "苟住，很好。"
+      ]
+     ],
+     "epilogue": "血河宗换了宗主，炉鼎照旧。",
+     "tone": "dark"
+    },
+    {
+     "id": "end_family",
+     "type": "ending",
+     "title": "同门",
+     "lines": [
+      [
+       "厉寒",
+       "宗主？叫师兄。"
+      ],
+      [
+       "苏晚",
+       "药堂，我来管。"
+      ],
+      [
+       "旁白",
+       "血河宗第一次，没有炉鼎。"
+      ]
+     ],
+     "epilogue": "魔门里，也可以有同门。",
+     "tone": "warm"
+    },
+    {
+     "id": "end_sword",
+     "type": "ending",
+     "title": "正道之剑",
+     "lines": [
+      [
+       "旁白",
+       "顾长风的剑斩碎魔种，也斩下了你的头。"
+      ],
+      [
+       "顾长风",
+       "魔门弟子，终究是魔门弟子。"
+      ]
+     ],
+     "epilogue": "后山有一块无字碑，每年血月，有人来扫。",
+     "tone": "bitter"
+    },
+    {
+     "id": "end_fire",
+     "type": "ending",
+     "title": "焚火",
+     "lines": [
+      [
+       "旁白",
+       "火从血骨身上烧到你身上。"
+      ],
+      [
+       "血骨",
+       "第三十七次，第一百次——够了。"
+      ],
+      [
+       "旁白",
+       "轮回，烧断了。"
+      ]
+     ],
+     "epilogue": "没有第一百零一次。",
+     "tone": "bitter"
+    },
+    {
+     "id": "end_loop",
+     "type": "ending",
+     "title": "第一百零一次",
+     "lines": [
+      [
+       "旁白",
+       "你犹豫了。"
+      ],
+      [
+       "魔种",
+       "你死了一百次。"
+      ],
+      [
+       "魔种",
+       "这是第一百零一次。"
+      ]
+     ],
+     "epilogue": "带着全部记忆，从外门石台重新开始。",
+     "tone": "loop"
+    },
+    {
+     "id": "end_kneel",
+     "type": "ending",
+     "title": "替身",
+     "lines": [
+      [
+       "旁白",
+       "你跪下。"
+      ],
+      [
+       "夜无归",
+       "（魔种里传来笑声）好人材。"
+      ],
+      [
+       "旁白",
+       "外门石台上，一个新弟子第一次死去。"
+      ]
+     ],
+     "epilogue": "你成了下一个血骨。",
+     "tone": "dark"
+    },
+    {
+     "id": "end_true",
+     "type": "ending",
+     "title": "真 · 飞升",
+     "lines": [
+      [
+       "旁白",
+       "你放下魔种。"
+      ],
+      [
+       "旁白",
+       "厉寒、苏晚、血骨、顾长风……每一世的他们，都在这里。"
+      ],
+      [
+       "魔种",
+       "你吐纳了一次。"
+      ],
+      [
+       "旁白",
+       "这一次，只是吐纳。"
+      ]
+     ],
+     "epilogue": "轮回停了。你第一次，没有记账。",
+     "tone": "true"
+    }
+   ],
+   "layout": {
+    "nodes": [
+     {
+      "vid": "ch7_open",
+      "kind": "node",
+      "ref": "ch7_open",
+      "x": 0.0,
+      "y": 0
+     },
+     {
+      "vid": "ch7_look",
+      "kind": "node",
+      "ref": "ch7_look",
+      "x": 0.0,
+      "y": 1
+     },
+     {
+      "vid": "ch7_look#0",
+      "kind": "option",
+      "ref": "ch7_look",
+      "opt": 0,
+      "x": -2.0,
+      "y": 2
+     },
+     {
+      "vid": "ch7_look#1",
+      "kind": "option",
+      "ref": "ch7_look",
+      "opt": 1,
+      "x": -1.0,
+      "y": 2
+     },
+     {
+      "vid": "ch7_look#2",
+      "kind": "option",
+      "ref": "ch7_look",
+      "opt": 2,
+      "x": 0.0,
+      "y": 2
+     },
+     {
+      "vid": "ch7_look#3",
+      "kind": "option",
+      "ref": "ch7_look",
+      "opt": 3,
+      "x": 1.0,
+      "y": 2
+     },
+     {
+      "vid": "ch7_look#4",
+      "kind": "option",
+      "ref": "ch7_look",
+      "opt": 4,
+      "x": 2.0,
+      "y": 2
+     },
+     {
+      "vid": "ch7_look_senior",
+      "kind": "node",
+      "ref": "ch7_look_senior",
+      "x": -2.0,
+      "y": 3
+     },
+     {
+      "vid": "ch7_look_suwan",
+      "kind": "node",
+      "ref": "ch7_look_suwan",
+      "x": -1.0,
+      "y": 3
+     },
+     {
+      "vid": "ch7_look_elder",
+      "kind": "node",
+      "ref": "ch7_look_elder",
+      "x": 0.0,
+      "y": 3
+     },
+     {
+      "vid": "ch7_look_gu",
+      "kind": "node",
+      "ref": "ch7_look_gu",
+      "x": 1.0,
+      "y": 3
+     },
+     {
+      "vid": "ch7_look_none",
+      "kind": "node",
+      "ref": "ch7_look_none",
+      "x": 2.0,
+      "y": 3
+     },
+     {
+      "vid": "ch7_final",
+      "kind": "node",
+      "ref": "ch7_final",
+      "x": 0.0,
+      "y": 4
+     },
+     {
+      "vid": "ch7_final#0",
+      "kind": "option",
+      "ref": "ch7_final",
+      "opt": 0,
+      "x": -3.0,
+      "y": 5
+     },
+     {
+      "vid": "ch7_final#1",
+      "kind": "option",
+      "ref": "ch7_final",
+      "opt": 1,
+      "x": -2.0,
+      "y": 5
+     },
+     {
+      "vid": "ch7_final#2",
+      "kind": "option",
+      "ref": "ch7_final",
+      "opt": 2,
+      "x": -1.0,
+      "y": 5
+     },
+     {
+      "vid": "ch7_final#3",
+      "kind": "option",
+      "ref": "ch7_final",
+      "opt": 3,
+      "x": 0.0,
+      "y": 5
+     },
+     {
+      "vid": "ch7_final#4",
+      "kind": "option",
+      "ref": "ch7_final",
+      "opt": 4,
+      "x": 1.0,
+      "y": 5
+     },
+     {
+      "vid": "ch7_final#5",
+      "kind": "option",
+      "ref": "ch7_final",
+      "opt": 5,
+      "x": 2.0,
+      "y": 5
+     },
+     {
+      "vid": "end_all",
+      "kind": "node",
+      "ref": "end_all",
+      "x": 3.0,
+      "y": 6
+     },
+     {
+      "vid": "end_lord",
+      "kind": "node",
+      "ref": "end_lord",
+      "x": 0.0,
+      "y": 6
+     },
+     {
+      "vid": "end_family",
+      "kind": "node",
+      "ref": "end_family",
+      "x": 1.0,
+      "y": 6
+     },
+     {
+      "vid": "end_sword",
+      "kind": "node",
+      "ref": "end_sword",
+      "x": -1.0,
+      "y": 6
+     },
+     {
+      "vid": "end_fire",
+      "kind": "node",
+      "ref": "end_fire",
+      "x": -2.0,
+      "y": 6
+     },
+     {
+      "vid": "end_loop",
+      "kind": "node",
+      "ref": "end_loop",
+      "x": 3.0,
+      "y": 5
+     },
+     {
+      "vid": "end_kneel",
+      "kind": "node",
+      "ref": "end_kneel",
+      "x": 2.0,
+      "y": 6
+     },
+     {
+      "vid": "end_true",
+      "kind": "node",
+      "ref": "end_true",
+      "x": -3.0,
+      "y": 6
+     }
+    ],
+    "edges": [
+     [
+      "ch7_open",
+      "ch7_look",
+      "solid"
+     ],
+     [
+      "ch7_look",
+      "ch7_look#0",
+      "solid"
+     ],
+     [
+      "ch7_look#0",
+      "ch7_look_senior",
+      "solid"
+     ],
+     [
+      "ch7_look",
+      "ch7_look#1",
+      "solid"
+     ],
+     [
+      "ch7_look#1",
+      "ch7_look_suwan",
+      "solid"
+     ],
+     [
+      "ch7_look",
+      "ch7_look#2",
+      "solid"
+     ],
+     [
+      "ch7_look#2",
+      "ch7_look_elder",
+      "solid"
+     ],
+     [
+      "ch7_look",
+      "ch7_look#3",
+      "solid"
+     ],
+     [
+      "ch7_look#3",
+      "ch7_look_gu",
+      "solid"
+     ],
+     [
+      "ch7_look",
+      "ch7_look#4",
+      "solid"
+     ],
+     [
+      "ch7_look#4",
+      "ch7_look_none",
+      "solid"
+     ],
+     [
+      "ch7_look_senior",
+      "ch7_final",
+      "solid"
+     ],
+     [
+      "ch7_look_suwan",
+      "ch7_final",
+      "solid"
+     ],
+     [
+      "ch7_look_elder",
+      "ch7_final",
+      "solid"
+     ],
+     [
+      "ch7_look_gu",
+      "ch7_final",
+      "solid"
+     ],
+     [
+      "ch7_look_none",
+      "ch7_final",
+      "solid"
+     ],
+     [
+      "ch7_final",
+      "ch7_final#0",
+      "solid"
+     ],
+     [
+      "ch7_final#0",
+      "end_true",
+      "solid"
+     ],
+     [
+      "ch7_final",
+      "ch7_final#1",
+      "solid"
+     ],
+     [
+      "ch7_final#1",
+      "end_fire",
+      "solid"
+     ],
+     [
+      "ch7_final",
+      "ch7_final#2",
+      "solid"
+     ],
+     [
+      "ch7_final#2",
+      "end_sword",
+      "solid"
+     ],
+     [
+      "ch7_final",
+      "ch7_final#3",
+      "solid"
+     ],
+     [
+      "ch7_final#3",
+      "end_family",
+      "cond"
+     ],
+     [
+      "ch7_final#3",
+      "end_lord",
+      "solid"
+     ],
+     [
+      "ch7_final",
+      "ch7_final#4",
+      "solid"
+     ],
+     [
+      "ch7_final#4",
+      "end_kneel",
+      "solid"
+     ],
+     [
+      "ch7_final",
+      "ch7_final#5",
+      "solid"
+     ],
+     [
+      "ch7_final#5",
+      "end_all",
+      "solid"
+     ],
+     [
+      "ch7_final",
+      "end_loop",
+      "timeout"
+     ]
+    ],
+    "rows": 7,
+    "cols": 7
+   }
+  }
+ ]
+}
