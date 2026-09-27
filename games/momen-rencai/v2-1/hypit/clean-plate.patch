@@ -1,0 +1,13 @@
+diff --git a/games/momen-rencai/v2/scripts/director.gd b/games/momen-rencai/v2/scripts/director.gd
+index 303387c..872c320 100644
+--- a/games/momen-rencai/v2/scripts/director.gd
++++ b/games/momen-rencai/v2/scripts/director.gd
+@@ -64,6 +64,8 @@ func _build() -> void:
+ 	cap_label.position = Vector2(0, 26)
+ 	cap_label.custom_minimum_size = Vector2(m.W, 60)
+ 	cap_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
++	# --clean：录「净画面」（不画分镜字幕），供 hypit 等后期二次剪辑叠自己的字幕
++	cap_label.visible = not OS.get_cmdline_user_args().has("--clean")
+ 	L.add_child(cap_label)
+ 	hl = Panel.new()
+ 	var sb := StyleBoxFlat.new()

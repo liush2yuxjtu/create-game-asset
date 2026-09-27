@@ -1,0 +1,12 @@
+{
+  "name": "momen-v2-douyin",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@momen/douyin-overlay": "file:packages/douyin-overlay"
+  },
+  "devDependencies": {
+    "@hypit/hypit": "0.2.16"
+  }
+}
