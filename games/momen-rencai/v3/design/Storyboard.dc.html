@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>分镜 · 故事修订版</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:"FusionPixel";src:url(/_blob/3422090d96b56e667e9a9672d43864c0) format("woff2");font-weight:400;font-style:normal;font-display:block}
+body{margin:0;background:#120D1A;font-family:"Noto Sans SC",sans-serif;color:#F4EFE6}
+a{color:#F2C14E}a:hover{color:#FFD978}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1960px; box-sizing: border-box; padding: 56px; background: #120D1A; display: flex; flex-direction: column; gap: 32px">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end">
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="font-size: 14px; letter-spacing: 0.16em; color: #A89CB8">STORYBOARD · 故事修订 v2 · 仅设计稿，未重新渲染（帧仍取自 cut-2）</div>
+      <h2 style="margin: 0; font-family: FusionPixel, 'Noto Sans SC', sans-serif; font-weight: 400; font-size: 52px; color: #F2C14E">冷开场 → 倒叙 → 记忆 → 反转 → 留问题</h2>
+      <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #D9D1E4; max-width: 900px">第一秒就给最强的一刻：他愣住。再倒回去讲为什么。每句字幕尽量引用游戏里真实出现的台词，用「他说了什么」代替「我告诉你他是AI」。</p>
+    </div>
+    <div style="display: flex; gap: 18px; font-size: 14px; color: #D9D1E4">
+      <div style="display: flex; gap: 8px; align-items: center"><div style="width: 12px; height: 12px; border-radius: 3px; background: #FFFFFF"></div>冷开场</div>
+      <div style="display: flex; gap: 8px; align-items: center"><div style="width: 12px; height: 12px; border-radius: 3px; background: #E5484D"></div>倒叙钩子</div>
+      <div style="display: flex; gap: 8px; align-items: center"><div style="width: 12px; height: 12px; border-radius: 3px; background: #A89CB8"></div>铺垫</div>
+      <div style="display: flex; gap: 8px; align-items: center"><div style="width: 12px; height: 12px; border-radius: 3px; background: #F2C14E"></div>反转</div>
+      <div style="display: flex; gap: 8px; align-items: center"><div style="width: 12px; height: 12px; border-radius: 3px; background: #4FB8A6"></div>留问题</div>
+    </div>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px">
+    <sc-for list="{{beats}}" as="b" hint-placeholder-count="13">
+      <div style="display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 14px; background: #1C1528; border: 1px solid {{b.frame}}">
+        <div style="display: flex; justify-content: space-between; align-items: center">
+          <div style="display: flex; gap: 8px; align-items: center"><div style="width: 10px; height: 10px; border-radius: 3px; background: {{b.color}}"></div><div style="font-family: FusionPixel, sans-serif; font-size: 20px; color: #F4EFE6">{{b.n}}</div><div style="font-size: 11px; color: #A89CB8">{{b.orig}}</div></div>
+          <div style="font-size: 13px; color: #A89CB8">{{b.t}}</div>
+        </div>
+        <img src="{{b.img}}" alt="{{b.alt}}" style="width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 8px; display: block">
+        <div style="font-family: FusionPixel, 'Noto Sans SC', sans-serif; font-size: 19px; line-height: 1.35; color: #FFFFFF; white-space: pre-line; min-height: 52px">{{b.cap}}</div>
+        <div style="font-size: 12px; line-height: 1.55; color: #D9D1E4">{{b.shot}}</div>
+        <div style="font-size: 12px; line-height: 1.55; color: #A89CB8">{{b.sfx}}</div>
+        <sc-if value="{{b.hasFix}}" hint-placeholder-val="{{ true }}">
+          <div style="font-size: 12px; line-height: 1.55; color: #F2C14E; border-top: 1px solid #3A2E4D; padding-top: 8px">改：{{b.fix}}</div>
+        </sc-if>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1960}}'>
+class Component extends DCLogic {
+renderVals() {
+var cold = '#FFFFFF', hook = '#E5484D', build = '#A89CB8', turn = '#F2C14E', ask = '#4FB8A6';
+var edge = '#3A2E4D', changed = '#8A6D2A';
+var raw = [
+{ n: '01', orig: '新 · 取自原#07', t: '0.0–2.0s', color: cold, img: '/_blob/2194f49b697fca6c2c9d286dd4005f0f', alt: '厉寒盯着我：你到底知道多少', cap: '「我也死过99次」\n杀了我99次的师兄，愣住了', shot: '冷开场：直接切在反转的瞬间 · 推近他那句「你到底知道多少？」', sfx: '音效：心跳 ×2，BGM 压低', fix: '不再从「师兄杀了我」开场；先给结果，让观众想知道为什么' },
+{ n: '02', orig: '原#01', t: '2.0–4.0s', color: hook, img: '/_blob/cef831a5d1b00ea36c7646ed0fd1165b', alt: '第99世被背刺，全屏压暗', cap: '倒回第99世\n他从背后捅了我', shot: '倒带转场 → 全屏压暗 · 背刺瞬间', sfx: '音效：倒带 + 撞击', fix: '「99次」大字挪到冷开场，这里只交代一次死亡' },
+{ n: '03', orig: '原#02', t: '4.0–6.8s', color: build, img: '/_blob/d8ff99b0670e67ccf53a610a23ae0aa4', alt: '铭刻记忆碎片 袖口的朱砂', cap: '每次死前\n我只能记住一件事', shot: '缩进金边手机框 · zoom 1', sfx: '音效：whoosh', fix: '' },
+{ n: '04', orig: '原#03', t: '6.8–10.2s', color: build, img: '/_blob/8b7ef5c82ea3f523b9b47fa71c8115b0', alt: '第100世 厉寒说后山出了只妖狐', cap: '第100世\n他又说了那句：「后山出了只妖狐」', shot: '推近他的台词 + 金色「◆ 似曾相识」提示', sfx: '音效：whoosh + 叮', fix: '原来只写「他又来约我」，没有证据；改用一字不差的原台词证明这是循环' },
+{ n: '05', orig: '原#04', t: '10.2–12.6s', color: turn, img: '/_blob/71f36156156ae3f193da51c33fd3a51a', alt: '隐藏选项出现', cap: '这一次\n我用上了那段记忆', shot: '推近选项 1→1.3', sfx: '音效：whoosh', fix: '' },
+{ n: '06', orig: '原#05', t: '12.6–15.8s', color: turn, img: '/_blob/622f0930a8c68d27defc345e2dce219d', alt: '第一章第2层 师兄的命押在药堂', cap: '他的秘密\n被我说中了', shot: '层卡 1.16→1.1 · 顶对齐', sfx: '音效：reveal', fix: '' },
+{ n: '07', orig: '原#06', t: '15.8–19.2s', color: turn, img: '/_blob/d5439547141fe539e46baf77da77463f', alt: '输入框里自己打字', cap: '选项里没有这句\n是我自己打的', shot: '推近输入框：逐字出现「我也死过99次」', sfx: '音效：打字声', fix: '台词已在冷开场给过，这里讲新信息：可以自由输入，不是选项' },
+{ n: '08', orig: '原#07', t: '19.2–20.6s', color: turn, img: '/_blob/2194f49b697fca6c2c9d286dd4005f0f', alt: '厉寒 你到底知道多少', cap: '回到开头那一刻\n他问：「你到底知道多少？」', shot: '与 01 同一帧，接上冷开场，闭环', sfx: '音效：心跳', fix: '「他……愣住了」只是旁白；改为引用他的原话，并和冷开场首尾呼应' },
+{ n: '09', orig: '原#08', t: '20.6–23.4s', color: turn, img: '/_blob/6ddfcfe8577d29d38479e3ada99e63fd', alt: '战斗舞台 上一世的账先记着', cap: '打起来，他却说\n「上一世的账，先记着」', shot: '舞台 1.5→1.6 · 顶对齐 · 放大他头顶的气泡', sfx: '音效：whoosh', fix: '不再说「他是AI驱动的」；让他自己说出「上一世」，证明他记得' },
+{ n: '10', orig: '原#09', t: '23.4–26.4s', color: turn, img: '/_blob/11a3bbb2f2124cec0265b85f537722e4', alt: '这一世 就算了', cap: '这一世\n他没有下手', shot: '回到 zoom 1 · 台词「这一世，就算了」', sfx: '音效：whoosh', fix: '' },
+{ n: '11', orig: '原#10', t: '26.4–27.9s', color: ask, img: '/_blob/7471ff20e2666eedc1b81651b0772cca', alt: '第一章完 两层未见', cap: '4层真相\n我只挖到2层', shot: '章末 ■■□□', sfx: '音效：whoosh', fix: '字幕缩短，1.5 秒内读得完' },
+{ n: '12', orig: '原#11', t: '27.9–29.2s', color: ask, img: '/_blob/6ce46638d91fded04e1df4f4beeec336', alt: '第二章 药堂之夜 新数字 情', cap: '下一章\n多了一个没解释的数字', shot: '第二章标题卡「情」', sfx: '音效：whoosh', fix: '' },
+{ n: '13', orig: '原#12', t: '29.2–33.4s', color: ask, img: '/_blob/5674c6b81de0fe1aaacdf7c0e36cf058', alt: '结尾卡 魔门人材 忆', cap: '你能挖到第几层？\n评论区见', shot: '游戏结尾卡 · 结尾 0.3 秒接回 01 画面，可无缝循环', sfx: '音效：撞击', fix: '加一行评论引导；结尾接回冷开场，形成循环' }
+];
+var beats = raw.map(function (b) { return Object.assign({}, b, { hasFix: !!b.fix, frame: b.fix ? changed : edge }); });
+return { beats: beats };
+}
+}
+</script>
+</body>
+</html>

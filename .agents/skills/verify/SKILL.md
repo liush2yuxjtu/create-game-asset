@@ -1,6 +1,6 @@
 ---
 name: verify
-description: Verify Qinglan game assets, the runtime ZIP, full Godot games under games/, Hypit promo videos (caption layout and timing), and the exact local or GitHub Pages preview. Use for /verify, release validation, and handoff acceptance.
+description: Verify Qinglan game assets, the runtime ZIP, full Godot games under games/, Hypit promo videos (caption layout/timing, voice-over, design sync), and the exact local or GitHub Pages preview. Use for /verify, release validation, and handoff acceptance.
 ---
 
 # /verify — Qinglan asset and preview verification
@@ -85,4 +85,11 @@ For `games/<game>/<ver>/` and its web export `public/games/<game>/<ver>/`, read 
 
 ## Hypit promo video route (games/*/*/hypit/)
 
-For a Hypit-built vertical video with a `hypit/screens.json` (first: `games/momen-rencai/v3`), read [Hypit 竖屏视频验证手册](references/hypit-videos.md). Run `python3 scripts/verify-hypit-video.py games/<game>/<ver> --video <mp4> --out verification/hypit-<ver>`: it checks that the generated `momen.svml/svs` match `screens.json`, the screens tile the timeline, every caption appears exactly on its labelled source event and ends with its screen with enough reading time, caption/title bands never overlap the gameplay frame, each labelled event frame is the local peak of on-screen change, and — on the rendered file — size/SAR/frame count, loudness and that each caption band is empty just before and filled just after its event. Any FAIL blocks. Then open `caption-sync-sheet.png` and watch the full video with sound: machine PASS proves timing and layout, not that each caption is on-topic. Record device playback and user approval separately as NOT_RUN/PENDING.
+For a Hypit-built vertical video with a `hypit/screens.json` (first: `games/momen-rencai/v3`), read [Hypit 竖屏视频验证手册](references/hypit-videos.md). Run `python3 scripts/verify-hypit-video.py games/<game>/<ver> --video <mp4> --asr --out verification/hypit-<ver>`. Any FAIL blocks. It checks:
+
+- A–E source: generated `momen.svml/svs` match `screens.json`; screens tile the timeline; each caption appears exactly on its labelled source event, ends with its screen, has reading time; caption/title bands never overlap the gameplay frame; each event frame is the local peak of on-screen change.
+- G voice-over (required whenever `screens.json` has `voice`; a spec with `voice` but no per-screen lines FAILs): every screen has exactly one main line starting on the caption frame, every line fits its window (`tools/tts_vo.py` output `assets/vo/vo_timing.json` + wavs, svml `audio:Item` at the same frame), each caption line appears verbatim in its main line, rate ≤ max and ≤ 8 chars/s, quietest voice ≥ 10 LU over the ducked BGM.
+- H design sync (when `<ver>/design/StoryStudio.dc.html` exists): `node scripts/render-story-studio.cjs` renders the canvas defaults headlessly; screen count, captions, full voice text and durations (±0.11 s) must equal the video spec. Change design and video together.
+- F on the rendered file: size/SAR/frames, loudness, caption band empty before / filled after each event (F3), each voice line audible in the mix by envelope correlation r ≥ 0.6 (F4; a silent render scores ≤ 0.52), and with `--asr` faster-whisper hears each line's text in its window (F5, similarity ≥ 0.6).
+
+When adding a check for a new bug, first run it on the old artifact and confirm it FAILs, then fix (recorded regressions are in the reference). Then open `caption-sync-sheet.png` and watch the full video with sound: machine PASS proves timing, layout and audibility, not that captions are on-topic or that the voice sounds right. Record device playback, voice/timbre approval and user approval separately as NOT_RUN/PENDING. Edge-TTS voices have no clear commercial license: flag this before paid ads.
