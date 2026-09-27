@@ -2,7 +2,7 @@
 """Real-browser checks, not screenshot/code self-assessment. Requires Playwright + Pillow.
 Install separately: python3 -m pip install playwright Pillow; python3 -m playwright install chromium.
 """
-import argparse, base64, hashlib, io, json, time
+import argparse, base64, hashlib, io, json, os, time
 from pathlib import Path
 from urllib.parse import urljoin
 from PIL import Image, ImageChops
@@ -27,7 +27,7 @@ def main():
     def seek(page,p):
         page.locator(f'[data-progress="{p}"]').click()
     with sync_playwright() as pw:
-        browser=pw.chromium.launch(headless=True)
+        browser=pw.chromium.launch(headless=True,executable_path=os.environ.get("VERIFY_CHROMIUM") or None)
         context=browser.new_context(viewport={'width':1440,'height':1040},device_scale_factor=1)
         page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
         page.on('console',lambda m: errors.append('console: '+m.text) if m.type=='error' else None)
