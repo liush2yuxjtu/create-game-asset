@@ -38,4 +38,4 @@ if (info.dirty || info.sourceSha !== sha) {
   console.error(`[verify:ci] FAIL: build-info ${JSON.stringify(info)} 与源码 ${sha} 不一致或工作区不干净（先提交再跑）`);
   process.exit(1);
 }
-console.log('\n[verify:ci] PASS（机器 + 游戏 + playground 浏览器 + 发布一致性）。其余真实浏览器验收仍按 SKILL.md 手动完成。');
+console.log('\n[verify:ci] PASS（机器 + 游戏 + Hypit 视频 + playground 浏览器 + 发布一致性）。其余真实浏览器验收仍按 SKILL.md 手动完成。');
