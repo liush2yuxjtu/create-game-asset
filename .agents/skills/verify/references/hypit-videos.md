@@ -7,7 +7,7 @@
 
 ```bash
 pip install faster-whisper   # 仅 --asr（F5）需要；首次会下载 small 模型
-python3 scripts/verify-hypit-video.py games/momen-rencai/v3 \
+python3 .agents/skills/verify/scripts/verify-hypit-video.py games/momen-rencai/v3 \
   --video games/momen-rencai/v3/momen_v3_douyin_9x16.mp4 --asr --out verification/hypit-v3
 ```
 
@@ -26,7 +26,7 @@ python3 scripts/verify-hypit-video.py games/momen-rencai/v3 \
 | G3 字幕即口播 | 每行字幕（去标点）原样出现在同屏主句里 | 字幕和口播说的不是一件事 |
 | G4 语速 | 语速 ≤ `max_rate`（+40%）且 ≤ 8 字/秒 | 为塞进窗口把话说得太快 |
 | G5 人声压过音乐 | 最轻一句口播 LUFS − (BGM LUFS + 20·log10 BGM 增益) ≥ 10 LU | 音乐盖人声 |
-| H 设计同步 | `design/StoryStudio.dc.html` 存在时，`node scripts/render-story-studio.cjs` 按保存默认值无头渲染：屏数、每屏字幕、口播全文（铺垫 + 主句）、时长（±0.11s）与 `screens.json` 一致 | 改了成片没改设计稿（或反之） |
+| H 设计同步 | `design/StoryStudio.dc.html` 存在时，`node .agents/skills/verify/scripts/render-story-studio.cjs` 按保存默认值无头渲染：屏数、每屏字幕、口播全文（铺垫 + 主句）、时长（±0.11s）与 `screens.json` 一致 | 改了成片没改设计稿（或反之） |
 | F4 成片口播可闻 | 每句开口处，成片音频 20ms RMS 包络与该句 wav 包络的 Pearson r ≥ 0.6（±3 帧对齐） | 渲染漏了口播轨、口播被音效/音乐盖住 |
 | F5 转写核对（`--asr`） | faster-whisper small 在每句窗口里转写，与口播稿相似度 ≥ 0.6 | 口播音频错位/错句、听不清 |
 

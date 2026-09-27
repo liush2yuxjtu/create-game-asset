@@ -6,7 +6,7 @@
 
 ## 来源：故事工作台的选定组合
 
-故事在 Claude Design 画布「魔门人材 v2 · 爆款视频设计稿（Hypit）」的**故事工作台**里分四层定稿（L1 一句话 → L2 幕 → L3 节拍 → L4 画面，上层改动下层自动重算）。画布源文件在 [`design/`](design/)；工作台保存的默认值就是这一版成片，完整展开见 [`story-studio.json`](story-studio.json)（由 `node scripts/render-story-studio.cjs` 无头渲染生成），/verify 的 H 检查保证两者逐屏一致：
+故事在 Claude Design 画布「魔门人材 v2 · 爆款视频设计稿（Hypit）」的**故事工作台**里分四层定稿（L1 一句话 → L2 幕 → L3 节拍 → L4 画面，上层改动下层自动重算）。画布源文件在 [`design/`](design/)；工作台保存的默认值就是这一版成片，完整展开见 [`story-studio.json`](story-studio.json)（由 `node .agents/skills/verify/scripts/render-story-studio.cjs` 无头渲染生成），/verify 的 H 检查保证两者逐屏一致：
 
 | 层 | 选择 |
 |---|---|
@@ -67,7 +67,7 @@ tools/master.sh out/v3.mp4 ../momen_v3_douyin_9x16.mp4
 # 3) 验证（字幕版式 + 时间对齐 + 口播 + 设计同步，见 /verify 的 Hypit 视频路线）
 cd ../../../..
 pip install faster-whisper         # 仅 --asr 需要
-python3 scripts/verify-hypit-video.py games/momen-rencai/v3 --video games/momen-rencai/v3/momen_v3_douyin_9x16.mp4 --asr
+python3 .agents/skills/verify/scripts/verify-hypit-video.py games/momen-rencai/v3 --video games/momen-rencai/v3/momen_v3_douyin_9x16.mp4 --asr
 ```
 
 - `clean-plate.patch`：`director.gd` 加 `--clean`（录屏模式不画游戏内字幕）；`record_video.sh` 加 `setsar=1`。未直接改 v2，按需 `git apply`。

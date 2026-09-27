@@ -23,58 +23,28 @@ jobs:
         with:
           python-version: '3.12'
       - run: npm ci
-      - run: npm run verify
       - name: Cache Godot
-        id: godot-cache
         uses: actions/cache@v4
         with:
           path: ~/godot
           key: godot-4.4.1-stable-linux-x86_64
-      - name: Install Godot 4.4.1 (headless tests)
-        if: steps.godot-cache.outputs.cache-hit != 'true'
+      - name: Install verification tools (Godot, ffmpeg, Playwright)
         run: |
-          mkdir -p ~/godot
-          curl -fsSL -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_linux.x86_64.zip
-          unzip -q /tmp/godot.zip -d ~/godot
-      - name: Game machine checks (story, headless acceptance, web pack in sync)
-        env:
-          GODOT: ~/godot/Godot_v4.4.1-stable_linux.x86_64
-        run: |
-          export GODOT="$HOME/godot/Godot_v4.4.1-stable_linux.x86_64"
-          npm run verify:games
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: games-verification
-          path: verification/games.json
-      - name: Install browser acceptance tools
-        run: |
-          python -m pip install -r scripts/browser-requirements.txt
+          command -v ffprobe >/dev/null || { sudo apt-get update && sudo apt-get install -y ffmpeg; }
+          echo "GODOT=$(.agents/skills/verify/scripts/install-godot.sh)" >> "$GITHUB_ENV"
+          python -m pip install -r .agents/skills/verify/scripts/browser-requirements.txt
           python -m playwright install --with-deps chromium
-      - name: Real-browser playground acceptance
-        run: |
-          npm run preview -- --port 4196 --strictPort > /tmp/playground-preview.log 2>&1 &
-          PREVIEW_PID=$!
-          trap 'kill "$PREVIEW_PID" 2>/dev/null || true' EXIT
-          for attempt in $(seq 1 30); do
-            if curl -fsS http://127.0.0.1:4196/playground/ >/dev/null; then break; fi
-            sleep 1
-          done
-          python scripts/verify-playground.py --url http://127.0.0.1:4196/playground/ --out verification/playground-ci
+      # All gates live in the /verify skill; run the same command locally before pushing.
+      - run: npm run verify:ci
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playground-browser-evidence
-          path: verification/playground-ci
-      - name: Require committed reproducible assets
-        run: |
-          git diff --exit-code
-          node --input-type=module -e "import fs from 'node:fs'; const b=JSON.parse(fs.readFileSync('dist/build-info.json')); if(b.dirty || b.sourceSha !== process.env.GITHUB_SHA) process.exit(1);"
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: machine-verification
-          path: verification/latest.json
+          name: verification
+          path: |
+            verification/latest.json
+            verification/games.json
+            verification/playground-ci
+            verification/hypit-*
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

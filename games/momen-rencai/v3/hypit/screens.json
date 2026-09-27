@@ -1,5 +1,5 @@
 {
- "about": "v3 唯一分镜源：tools/gen_svml.py 由它生成 momen.svml / momen.svs；scripts/verify-hypit-video.py 用它校验时间对齐与版式。帧号均为 30fps。src_* 是 assets/footage/gameplay_clean.mp4 的源帧，event_src_f 是该字幕对应画面事件在源片里第一次出现的帧（逐帧人工标注，见 README）。vo 是口播：main=true 的那句包含本屏字幕、在事件帧开口；at=screen 的句子在屏首开口。tools/tts_vo.py 生成 assets/vo/ 与 vo_timing.json。",
+ "about": "v3 唯一分镜源：tools/gen_svml.py 由它生成 momen.svml / momen.svs；.agents/skills/verify/scripts/verify-hypit-video.py 用它校验时间对齐与版式。帧号均为 30fps。src_* 是 assets/footage/gameplay_clean.mp4 的源帧，event_src_f 是该字幕对应画面事件在源片里第一次出现的帧（逐帧人工标注，见 README）。vo 是口播：main=true 的那句包含本屏字幕、在事件帧开口；at=screen 的句子在屏首开口。tools/tts_vo.py 生成 assets/vo/ 与 vo_timing.json。",
  "fps": 30,
  "canvas": [
   1080,

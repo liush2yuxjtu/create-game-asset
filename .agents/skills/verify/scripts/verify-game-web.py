@@ -8,10 +8,10 @@ Checks (each PASS/FAIL, written to <out>/report.json):
   4. Godot engine boots (loading overlay removed), no page errors / console errors
   5. Title canvas renders non-blank; clicking the first menu button changes the canvas
 Exit 0 = PASS, 1 = FAIL, 2 = BLOCKED (network error on the verifying machine; rerun, do not report as site FAIL).
-Requires Playwright + Pillow (see scripts/browser-requirements.txt). Headless Chromium uses SwiftShader WebGL.
+Requires Playwright + Pillow (see .agents/skills/verify/scripts/browser-requirements.txt). Headless Chromium uses SwiftShader WebGL.
 It is a smoke test, not gameplay, device-performance or art acceptance.
 """
-import argparse, io, json, time, urllib.request
+import argparse, io, json, os, time, urllib.request
 from pathlib import Path
 from PIL import Image, ImageChops
 from playwright.sync_api import sync_playwright
@@ -69,7 +69,7 @@ def main():
             check("wasm MIME", "application/wasm" in headers.get("Content-Type", ""), headers.get("Content-Type"))
 
     with sync_playwright() as pw:
-        b = pw.chromium.launch(args=["--use-gl=swiftshader", "--enable-unsafe-swiftshader"])
+        b = pw.chromium.launch(executable_path=os.environ.get("VERIFY_CHROMIUM") or None, args=["--use-gl=swiftshader", "--enable-unsafe-swiftshader"])
         pg = b.new_page(viewport={"width": 540, "height": 960})
         logs, errs = [], []
         pg.on("console", lambda m: (logs.append(m.text), errs.append(m.text) if m.type == "error" else None))

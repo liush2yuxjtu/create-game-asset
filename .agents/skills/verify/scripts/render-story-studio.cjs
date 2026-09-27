@@ -1,4 +1,4 @@
-// 用法：node scripts/render-story-studio.cjs <StoryStudio.dc.html>  → 按画布保存的默认值无头渲染故事工作台，打印 L4 屏（JSON）；verify-hypit-video.py 的 H 检查用它核对设计稿与成片一致
+// 用法：node .agents/skills/verify/scripts/render-story-studio.cjs <StoryStudio.dc.html>  → 按画布保存的默认值无头渲染故事工作台，打印 L4 屏（JSON）；verify-hypit-video.py 的 H 检查用它核对设计稿与成片一致
 const fs = require('fs');
 const html = fs.readFileSync(process.argv[2], 'utf8');
 const m = html.match(/<script type="text\/x-dc" data-dc-script data-props=(["'])([\s\S]*?)\1>([\s\S]*?)<\/script>/);

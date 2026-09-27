@@ -11,6 +11,6 @@
 | `Storyboard.dc.html` | 参考：旧版「他也记得」13 屏（静态） |
 | `canvas.json` | 画板位置与标题 |
 
-- **工作台保存的默认值 = 成片 v3**：`scripts/verify-hypit-video.py` 的 H 检查用 `scripts/render-story-studio.cjs` 按默认值无头渲染工作台，逐屏比对字幕、口播全文、时长与 `hypit/screens.json`。改了画布或改了成片，两边要一起改，否则 H 会 FAIL。
+- **工作台保存的默认值 = 成片 v3**：`.agents/skills/verify/scripts/verify-hypit-video.py` 的 H 检查用 `.agents/skills/verify/scripts/render-story-studio.cjs` 按默认值无头渲染工作台，逐屏比对字幕、口播全文、时长与 `hypit/screens.json`。改了画布或改了成片，两边要一起改，否则 H 会 FAIL。
 - 画板里的截图和字体是画布上传的资源（`/_blob/...`），离线打开这些 `.dc.html` 不会显示；要看效果请打开画布本身（claude.ai 上的私有 artifact，需要所有者分享）。
 - `.dc.html` 是 Claude Design 的画板格式（HTML + `<x-dc>` 模板 + `DCLogic` 脚本），不是本仓库网页构建的一部分。

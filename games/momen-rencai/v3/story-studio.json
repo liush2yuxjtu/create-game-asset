@@ -1,5 +1,5 @@
 {
- "source": "games/momen-rencai/v3/design/StoryStudio.dc.html 的保存默认值（由 scripts/render-story-studio.cjs 无头渲染）",
+ "source": "games/momen-rencai/v3/design/StoryStudio.dc.html 的保存默认值（由 .agents/skills/verify/scripts/render-story-studio.cjs 无头渲染）",
  "settings": {
   "angle": "memory",
   "hook": "cold",

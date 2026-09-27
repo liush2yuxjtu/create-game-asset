@@ -2,11 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {existsSync,readFileSync,readdirSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
-import {effects,defaults,validateEffect} from '../public/playground/registry.js';
-import {fixtures,sceneDefaults,screenToWorld} from '../public/playground/fixtures.js';
+import {effects,defaults,validateEffect} from '../../../../public/playground/registry.js';
+import {fixtures,sceneDefaults,screenToWorld} from '../../../../public/playground/fixtures.js';
 test('all forty compatible modules have unique validated identities and real sources',()=>{
  assert.equal(effects.length,40);assert.equal(new Set(effects.map(a=>a.id)).size,40);
- for(const a of effects){assert.equal(validateEffect(a),a);const u=new URL(a.source,new URL('../public/playground/',import.meta.url));assert.ok(existsSync(u),u.pathname);}
+ for(const a of effects){assert.equal(validateEffect(a),a);const u=new URL(a.source,new URL('../../../../public/playground/',import.meta.url));assert.ok(existsSync(u),u.pathname);}
  const registered=effects.filter(a=>/^v\d\d$/.test(a.id)).map(a=>a.source.split('/').pop()).sort();
  assert.deepEqual(registered,readdirSync('public/asset-lab/variants').filter(s=>s.endsWith('.js')).sort());
 });
