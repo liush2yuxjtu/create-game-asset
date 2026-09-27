@@ -7,6 +7,7 @@ signal node_entered(node: Dictionary)
 signal chapter_started(chapter: Dictionary)
 signal chapter_finished(chapter: Dictionary)
 signal memory_gained(mem_id: String, text: String)
+signal item_gained(item_id: String, name: String, desc: String)
 signal ending_reached(node: Dictionary)
 
 var data: Dictionary
@@ -63,6 +64,19 @@ func chapter_index(ch: Dictionary = {}) -> int:
 	return data.chapters.find(c)
 
 
+func item_name(id: String) -> String:
+	return str(data.get("items", {}).get(id, {}).get("name", id))
+
+
+## 当前持有的关键物品（按剧情顺序）
+func items() -> Array:
+	var out := []
+	for id in data.get("items", {}):
+		if st.flags.get(id, false) == true:
+			out.append(id)
+	return out
+
+
 func mem_text(id: String) -> String:
 	return str(data.memories.get(id, id))
 
@@ -101,6 +115,8 @@ func all_ok(conds) -> bool:
 func cond_text(c: Array) -> String:
 	if c[1] == "has":
 		return "记忆「%s」" % mem_text(c[2])
+	if str(c[0]).begins_with("item_"):
+		return "物品【%s】" % item_name(c[0])
 	var names := {"senior": "厉寒", "suwan": "苏晚", "elder": "血骨", "gu": "顾长风", "seed": "魔种", "seed_feed": "喂养", "mems": "记忆数",
 		"know_seed": "知晓魔种", "elder_respect": "长老青睐", "senior_rel": "厉寒好感"}
 	var vals := {"loyal": "同袍", "debt": "欠命", "saved": "得救", "ally": "盟友", "blackmailed": "被要挟", "merged": "相融",
@@ -186,6 +202,11 @@ func apply_set(sets) -> void:
 			if not st.mem.has(v):
 				st.mem.append(v)
 				memory_gained.emit(v, mem_text(v))
+		elif k == "+item":
+			if st.flags.get(v, false) != true:
+				st.flags[v] = true
+				var it: Dictionary = data.get("items", {}).get(v, {})
+				item_gained.emit(v, str(it.get("name", v)), str(it.get("desc", "")))
 		elif k == "pills":
 			st.pills = int(st.pills) + int(v)
 		elif v is bool or v is String:

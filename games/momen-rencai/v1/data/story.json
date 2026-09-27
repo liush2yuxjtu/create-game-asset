@@ -15,7 +15,12 @@
   "ruthless": 0,
   "kindness": 0,
   "master_favor": 0,
-  "trust": 0
+  "trust": 0,
+  "item_yujian": false,
+  "item_jiansui": false,
+  "item_yupei": false,
+  "item_huozhe": false,
+  "item_jianling": false
  },
  "memories": {
   "mem_betray": "师兄会在第3波背刺",
@@ -25,6 +30,28 @@
   "mem_elder37": "长老是第三十七世的我",
   "mem_gu": "顾长风是苏晚的哥哥",
   "mem_master": "宗主的魔种在左胸"
+ },
+ "items": {
+  "item_yujian": {
+   "name": "染血玉简",
+   "desc": "第三波。别背对他。宗主……"
+  },
+  "item_jiansui": {
+   "name": "厉寒的剑穗",
+   "desc": "厉寒欠你一条命的凭证"
+  },
+  "item_yupei": {
+   "name": "半块玉佩",
+   "desc": "苏晚给的：见到白衣人，给他看"
+  },
+  "item_huozhe": {
+   "name": "火折子",
+   "desc": "血骨长老怕火"
+  },
+  "item_jianling": {
+   "name": "天衍剑令",
+   "desc": "血月那天，顾长风凭它破阵"
+  }
  },
  "characters": {
   "你": {
@@ -156,14 +183,21 @@
      "lines": [
       [
        "旁白",
-       "一颗回气丹，半块灵石。"
+       "一颗回气丹，半块灵石，还有一枚染血的玉简。"
+      ],
+      [
+       "旁白",
+       "玉简上是你自己的字：「第三波。别背对他。宗主……」最后几个字被血糊住了。"
       ],
       [
        "魔种",
        "苟住的第一课：死人的东西，也是东西。"
       ]
      ],
-     "next": "ch1_mem"
+     "next": "ch1_mem",
+     "set": {
+      "+item": "item_yujian"
+     }
     },
     {
      "id": "ch1_body_close",
@@ -177,9 +211,20 @@
       [
        "旁白",
        "那张脸，和你第三十世时一模一样。"
+      ],
+      [
+       "旁白",
+       "他手里滑出一枚染血的玉简。"
+      ],
+      [
+       "旁白",
+       "玉简上是你自己的字：「第三波。别背对他。宗主……」最后几个字被血糊住了。"
       ]
      ],
-     "next": "ch1_mem"
+     "next": "ch1_mem",
+     "set": {
+      "+item": "item_yujian"
+     }
     },
     {
      "id": "ch1_mem",
@@ -644,7 +689,7 @@
      "id": "ch2_w3",
      "type": "choice",
      "title": "第三波",
-     "prompt": "第三波。厉寒站到了你身后。",
+     "prompt": "厉寒：「师弟，站我前面。」玉简上的“第三波”在发烫。",
      "options": [
       {
        "label": "闪身，反杀厉寒",
@@ -771,9 +816,16 @@
       [
        "厉寒",
        "这条命，算我欠你的。"
+      ],
+      [
+       "旁白",
+       "他解下剑穗，塞进你手里。"
       ]
      ],
-     "next": "ch2_end"
+     "next": "ch2_end",
+     "set": {
+      "+item": "item_jiansui"
+     }
     },
     {
      "id": "ch2_report",
@@ -803,9 +855,16 @@
       [
        "厉寒",
        "丹药的事……我记着你的好。"
+      ],
+      [
+       "旁白",
+       "他解下剑穗，塞进你手里：「有事拿这个找我。」"
       ]
      ],
-     "next": "ch2_end"
+     "next": "ch2_end",
+     "set": {
+      "+item": "item_jiansui"
+     }
     },
     {
      "id": "ch2_end",
@@ -1172,12 +1231,9 @@
        "next": "ch3_route_senior",
        "req": [
         [
-         "senior",
-         "in",
-         [
-          "debt",
-          "loyal"
-         ]
+         "item_jiansui",
+         "==",
+         true
         ]
        ],
        "set": {
@@ -1208,7 +1264,7 @@
      "id": "ch3_route",
      "type": "choice",
      "title": "后山的路",
-     "prompt": "后山只有一条路，巡夜弟子来回走。",
+     "prompt": "苏晚小声说：「子时钟响，巡夜会换人……」",
      "options": [
       {
        "label": "趁子时换岗溜过去",
@@ -1305,14 +1361,17 @@
       ],
       [
        "苏晚",
-       "带着春天回来。"
+       "这半块玉佩你拿着。若见到一个白衣人，给他看。"
       ],
       [
        "旁白",
        "她消失在后山的雾里。"
       ]
      ],
-     "next": "ch3_end"
+     "next": "ch3_end",
+     "set": {
+      "+item": "item_yupei"
+     }
     },
     {
      "id": "ch3_ignore",
@@ -1719,11 +1778,18 @@
        "敢喝本座的茶……"
       ],
       [
+       "旁白",
+       "长老起身添水。茶杯底刻着「卅七」，桌角放着一只火折子。你把火折子收进了袖子。"
+      ],
+      [
        "血骨",
        "你的眼神，本座见过。说吧，你到底是谁？"
       ]
      ],
-     "next": "ch4_choice"
+     "next": "ch4_choice",
+     "set": {
+      "+item": "item_huozhe"
+     }
     },
     {
      "id": "ch4_tea_refuse",
@@ -1735,11 +1801,18 @@
        "谨慎。好。"
       ],
       [
+       "旁白",
+       "长老起身添水。茶杯底刻着「卅七」，桌角放着一只火折子。你把火折子收进了袖子。"
+      ],
+      [
        "血骨",
        "你的眼神，本座见过。说吧，你到底是谁？"
       ]
      ],
-     "next": "ch4_choice"
+     "next": "ch4_choice",
+     "set": {
+      "+item": "item_huozhe"
+     }
     },
     {
      "id": "ch4_choice",
@@ -1771,6 +1844,11 @@
          "mem",
          "has",
          "mem_fire"
+        ],
+        [
+         "item_huozhe",
+         "==",
+         true
         ]
        ]
       },
@@ -2338,16 +2416,16 @@
      "id": "ch5_choice",
      "type": "choice",
      "title": "白衣人",
-     "prompt": "他的剑没有出鞘。",
+     "prompt": "他的剑没有出鞘。腰间挂着半块玉佩。",
      "options": [
       {
-       "label": "苏晚从雾里走出来：「哥？」",
+       "label": "取出苏晚给的半块玉佩",
        "next": "ch5_family",
        "req": [
         [
-         "suwan",
+         "item_yupei",
          "==",
-         "saved"
+         true
         ]
        ],
        "set": {
@@ -2454,9 +2532,16 @@
       [
        "顾长风",
        "若你骗我，剑宗会踏平血河。"
+      ],
+      [
+       "旁白",
+       "他把一枚剑令放进你手里：「血月那天，凭它破阵。」"
       ]
      ],
-     "next": "ch5_end"
+     "next": "ch5_end",
+     "set": {
+      "+item": "item_jianling"
+     }
     },
     {
      "id": "ch5_used",
@@ -2477,18 +2562,25 @@
      "lines": [
       [
        "顾长风",
-       "晚儿……"
+       "……这是晚儿的玉佩。她还活着？"
       ],
       [
-       "苏晚",
-       "哥，他救过我。在这个地方，他救过我。"
+       "你",
+       "她在后山外，等春天。"
       ],
       [
        "顾长风",
        "这份恩，天衍剑宗记下了。"
+      ],
+      [
+       "旁白",
+       "他把一枚剑令放进你手里：「血月那天，凭它破阵。」"
       ]
      ],
-     "next": "ch5_end"
+     "next": "ch5_end",
+     "set": {
+      "+item": "item_jianling"
+     }
     },
     {
      "id": "ch5_end",
@@ -2891,7 +2983,7 @@
      "id": "ch6_seed",
      "type": "choice",
      "title": "魔种在跳",
-     "prompt": "魔种在你体内跳动。",
+     "prompt": "玉简最后那句还是看不清。也许要亲眼看一次。",
      "options": [
       {
        "label": "把魔种引向宗主左胸",
@@ -2921,6 +3013,11 @@
          "elder",
          "==",
          "ally"
+        ],
+        [
+         "item_huozhe",
+         "==",
+         true
         ]
        ],
        "set": {
@@ -2935,7 +3032,7 @@
        }
       },
       {
-       "label": "与魔种相融",
+       "label": "与魔种相融（此后再无回头路）",
        "next": "ch6_merge",
        "set": {
         "seed": "merged"
@@ -2996,6 +3093,10 @@
       [
        "旁白",
        "倒下前你看见——他的魔种，在左胸。"
+      ],
+      [
+       "旁白",
+       "玉简上被血糊住的字，终于清楚了：「宗主……左胸。」"
       ]
      ],
      "grant": "mem_master",
@@ -3448,6 +3549,26 @@
          "seed_feed",
          "<",
          30
+        ],
+        [
+         "item_jiansui",
+         "==",
+         true
+        ],
+        [
+         "item_yupei",
+         "==",
+         true
+        ],
+        [
+         "item_huozhe",
+         "==",
+         true
+        ],
+        [
+         "item_jianling",
+         "==",
+         true
         ]
        ],
        "key": true

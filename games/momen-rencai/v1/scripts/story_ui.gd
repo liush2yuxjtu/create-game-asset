@@ -214,18 +214,23 @@ func next_line() -> void:
 func show_choices(prompt: String, opts: Array, on_pick: Callable, timer := 0.0, on_timeout := Callable()) -> void:
 	clear()
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	var n_lines := 0
+	var two_line := prompt.length() > 20  # 12px 字宽下一行约 20 个汉字，伏笔提示较长时换行
+	var h := (46 if two_line else 28) + 8
 	for o in opts:
-		n_lines += 2 if not o.ok else 1
-	var h := 30 + n_lines * 16 + opts.size() * 6
-	var top: float = max(262.0, H - 10 - h)
+		h += 44 if not o.ok else 24  # 按按钮实际渲染高度估算（锁定项两行）
+	var top: float = max(150.0, H - 10 - h)
 	var box := _panel(Rect2(6, top, W - 12, H - 10 - top), PANEL, GOLD.darkened(0.3))
 	box.mouse_filter = Control.MOUSE_FILTER_STOP
-	var p := _label(prompt, Vector2(8, 5), GOLD, 12, box)
+	# 提示按字数手动折成两行（伏笔台词较长；像素字体下每行约 20 字）
+	var p := _label(prompt.substr(0, 20) if two_line else prompt, Vector2(8, 5), GOLD, 12, box)
 	p.size = Vector2(W - 28, 16)
 	p.clip_text = true
+	if two_line:
+		var p2 := _label(prompt.substr(20), Vector2(8, 23), GOLD, 12, box)
+		p2.size = Vector2(W - 28, 16)
+		p2.clip_text = true
 	var v := VBoxContainer.new()
-	v.position = Vector2(6, 24)
+	v.position = Vector2(6, 44 if two_line else 24)
 	v.size = Vector2(W - 24, 0)
 	v.add_theme_constant_override("separation", 4)
 	box.add_child(v)
@@ -297,6 +302,27 @@ func toast_memory(text: String) -> void:
 	tw.tween_callback(p.queue_free)
 
 
+# ───────────── 关键物品提示 ─────────────
+
+func toast_item(name: String, desc: String) -> void:
+	var p := _panel(Rect2(20, 176, W - 40, 62), Color("231c0c"), GOLD, self)
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var a := _label("获得关键物品", Vector2(0, 6), GOLD, 12, p)
+	a.size = Vector2(W - 40, 14)
+	a.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var b := _label("【%s】" % name, Vector2(0, 22), WHITE, 12, p)
+	b.size = Vector2(W - 40, 14)
+	b.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var c := _label(desc, Vector2(6, 40), DIM, 12, p)
+	c.size = Vector2(W - 52, 14)
+	c.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	c.clip_text = true
+	var tw := create_tween()
+	tw.tween_interval(2.6)
+	tw.tween_property(p, "modulate:a", 0.0, 0.4)
+	tw.tween_callback(p.queue_free)
+
+
 # ───────────── 《底特律》式章节流程图 ─────────────
 
 func show_flowchart(ch: Dictionary, idx: int, on_continue: Callable, button_text := "继续") -> void:
@@ -310,9 +336,19 @@ func show_flowchart(ch: Dictionary, idx: int, on_continue: Callable, button_text
 	_label(nums[idx] + " · " + ch.title, Vector2(10, 8), WHITE, 24, null, 3)
 	var pr: Vector2i = Story.chapter_progress(ch)
 	_label("流程图 · 已探索 %d / %d" % [pr.x, pr.y], Vector2(10, 40), GOLD)
+	var bag: Array = Story.items().map(func(id): return Story.item_name(id))
+	var bag_txt := "行囊：" + ("、".join(bag) if not bag.is_empty() else "（空）")
+	# 五件物品写满约 29 字，按 20 字手动折行（与选项提示同一做法）
+	var b1 := _label(bag_txt.substr(0, 20), Vector2(10, 58), GOLD.darkened(0.1), 12)
+	b1.size = Vector2(W - 20, 16)
+	b1.clip_text = true
+	if bag_txt.length() > 20:
+		var b2 := _label(bag_txt.substr(20), Vector2(10, 74), GOLD.darkened(0.1), 12)
+		b2.size = Vector2(W - 20, 16)
+		b2.clip_text = true
 	flow_graph = load("res://scripts/flow_graph.gd").new()
-	flow_graph.position = Vector2(6, 60)
-	flow_graph.size = Vector2(W - 12, 330)
+	flow_graph.position = Vector2(6, 96)
+	flow_graph.size = Vector2(W - 12, 294)
 	layer.add_child(flow_graph)
 	var info := _label("点节点查看。？ = 还没走到的分支", Vector2(10, 396), DIM, 12)
 	info.size = Vector2(W - 20, 34)
