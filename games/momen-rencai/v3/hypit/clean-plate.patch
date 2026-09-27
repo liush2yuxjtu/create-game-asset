@@ -1,0 +1,26 @@
+diff --git a/games/momen-rencai/v2/scripts/director.gd b/games/momen-rencai/v2/scripts/director.gd
+index 303387c..4eb2540 100644
+--- a/games/momen-rencai/v2/scripts/director.gd
++++ b/games/momen-rencai/v2/scripts/director.gd
+@@ -122,6 +122,8 @@ func _process(d: float) -> void:
+ 
+ 
+ func _captions() -> void:
++	if OS.get_cmdline_user_args().has("--clean"):
++		return
+ 	var idx := -1
+ 	for i in S.captions.size():
+ 		var c: Dictionary = S.captions[i]
+diff --git a/games/momen-rencai/v2/tools/record_video.sh b/games/momen-rencai/v2/tools/record_video.sh
+index 6392476..f989031 100755
+--- a/games/momen-rencai/v2/tools/record_video.sh
++++ b/games/momen-rencai/v2/tools/record_video.sh
+@@ -10,7 +10,7 @@ TMP="$(mktemp -d)"
+ RUN=()
+ if [ -z "${DISPLAY:-}" ] && command -v xvfb-run >/dev/null; then RUN=(xvfb-run -a -s "-screen 0 1280x1024x24"); fi
+ "${RUN[@]}" "$GODOT" --path . --rendering-driver opengl3 --write-movie "$TMP/rec.avi" --fixed-fps 30 -- --movie
+-ffmpeg -y -v error -i "$TMP/rec.avi" -vf "scale=1080:1920:flags=neighbor,format=yuv420p" \
++ffmpeg -y -v error -i "$TMP/rec.avi" -vf "scale=1080:1920:flags=neighbor,setsar=1,format=yuv420p" \
+   -c:v libx264 -preset slow -crf 18 -r 30 -af "loudnorm=I=-14:TP=-1.5:LRA=11" -c:a aac -b:a 160k -ar 44100 -movflags +faststart "$OUT"
+ rm -rf "$TMP"
+ ffprobe -v error -show_entries format=duration:stream=codec_name,width,height -of compact "$OUT"
