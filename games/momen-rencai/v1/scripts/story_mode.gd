@@ -18,6 +18,7 @@ func setup(main: Node2D, story_ui: Control) -> void:
 	Story.node_entered.connect(_on_node)
 	Story.chapter_started.connect(func(ch): pending_card = ch)
 	Story.memory_gained.connect(func(_id, t): ui.toast_memory(t))
+	Story.item_gained.connect(func(_id, nm, ds): ui.toast_item(nm, ds))
 	sacrifice_btn = m._button("舍身（故意战死）", sacrifice, m.INK, m.BLOOD)
 	sacrifice_btn.position = Vector2(150, 262)
 	sacrifice_btn.custom_minimum_size = Vector2(112, 20)

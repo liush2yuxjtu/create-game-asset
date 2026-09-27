@@ -51,7 +51,21 @@ func run(m) -> void:
 			if not ok:
 				break
 		check(ok and Story.st.node == end_id, "%s ← %d 步（实际停在 %s）" % [Story.nodes[end_id].title, routes[end_id].size(), Story.st.node])
+		if end_id == "end_true":
+			check(Story.items().size() == Story.data.items.size(), "真结局路线集齐关键物品 %s" % str(Story.items().map(func(i): return Story.item_name(i))))
 	check(Story.st.endings.size() >= 1, "结局记录写入")
+
+	print("== 1b. 关键物品卡点")
+	Story.reset_state(false)
+	Story.st.active = true
+	Story.goto("ch5_choice")
+	var opt0: Dictionary = Story.options()[0]
+	check(not opt0.ok and str(opt0.need).contains("半块玉佩"), "没有玉佩时「取出玉佩」锁住，并提示缺【半块玉佩】(%s)" % opt0.need)
+	var got := []
+	Story.item_gained.connect(func(id, _n, _d): got.append(id), CONNECT_ONE_SHOT)
+	Story.apply_set({"+item": "item_yupei"})
+	check(got == ["item_yupei"] and Story.options()[0].ok, "拿到玉佩后发出 item_gained，选项解锁")
+	check(Story.cond_text(["item_huozhe", "==", true]) == "物品【火折子】", "物品条件显示为物品名")
 
 	print("== 2. 剧情 UI 冒烟（第一章 → 第三章）")
 	Story.reset_state(false)

@@ -297,6 +297,27 @@ func toast_memory(text: String) -> void:
 	tw.tween_callback(p.queue_free)
 
 
+# ───────────── 关键物品提示 ─────────────
+
+func toast_item(name: String, desc: String) -> void:
+	var p := _panel(Rect2(20, 176, W - 40, 62), Color("231c0c"), GOLD, self)
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var a := _label("获得关键物品", Vector2(0, 6), GOLD, 12, p)
+	a.size = Vector2(W - 40, 14)
+	a.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var b := _label("【%s】" % name, Vector2(0, 22), WHITE, 12, p)
+	b.size = Vector2(W - 40, 14)
+	b.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var c := _label(desc, Vector2(6, 40), DIM, 12, p)
+	c.size = Vector2(W - 52, 14)
+	c.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	c.clip_text = true
+	var tw := create_tween()
+	tw.tween_interval(2.6)
+	tw.tween_property(p, "modulate:a", 0.0, 0.4)
+	tw.tween_callback(p.queue_free)
+
+
 # ───────────── 《底特律》式章节流程图 ─────────────
 
 func show_flowchart(ch: Dictionary, idx: int, on_continue: Callable, button_text := "继续") -> void:
@@ -310,9 +331,13 @@ func show_flowchart(ch: Dictionary, idx: int, on_continue: Callable, button_text
 	_label(nums[idx] + " · " + ch.title, Vector2(10, 8), WHITE, 24, null, 3)
 	var pr: Vector2i = Story.chapter_progress(ch)
 	_label("流程图 · 已探索 %d / %d" % [pr.x, pr.y], Vector2(10, 40), GOLD)
+	var bag: Array = Story.items().map(func(id): return Story.item_name(id))
+	var bag_lbl := _label("行囊：" + ("、".join(bag) if not bag.is_empty() else "（空）"), Vector2(10, 58), GOLD.darkened(0.1), 12)
+	bag_lbl.size = Vector2(W - 20, 16)
+	bag_lbl.clip_text = true
 	flow_graph = load("res://scripts/flow_graph.gd").new()
-	flow_graph.position = Vector2(6, 60)
-	flow_graph.size = Vector2(W - 12, 330)
+	flow_graph.position = Vector2(6, 78)
+	flow_graph.size = Vector2(W - 12, 312)
 	layer.add_child(flow_graph)
 	var info := _label("点节点查看。？ = 还没走到的分支", Vector2(10, 396), DIM, 12)
 	info.size = Vector2(W - 20, 34)

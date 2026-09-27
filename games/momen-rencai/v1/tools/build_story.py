@@ -28,10 +28,20 @@ MEMORIES = {
     "mem_master": "宗主的魔种在左胸",
 }
 
+# 关键物品：跨章的钥匙（卡点设计见设计稿「剧情卡点 · 关键物品 · 关键信息」）
+ITEMS = {
+    "item_yujian": {"name": "染血玉简", "desc": "第三波。别背对他。宗主……"},
+    "item_jiansui": {"name": "厉寒的剑穗", "desc": "厉寒欠你一条命的凭证"},
+    "item_yupei": {"name": "半块玉佩", "desc": "苏晚给的：见到白衣人，给他看"},
+    "item_huozhe": {"name": "火折子", "desc": "血骨长老怕火"},
+    "item_jianling": {"name": "天衍剑令", "desc": "血月那天，顾长风凭它破阵"},
+}
+
 FLAGS = {
     "senior": "none", "senior_rel": 0, "suwan": "none", "elder": "none", "elder_respect": 0,
     "gu": "none", "seed": "none", "seed_feed": 0, "master": "alive", "know_seed": False,
     "ruthless": 0, "kindness": 0, "master_favor": 0, "trust": 0,
+    **{k: False for k in ITEMS},
 }
 
 CHARACTERS = {
@@ -95,6 +105,7 @@ def E(id, title, lines, epilogue, tone):
 
 
 MEM = lambda m: ["mem", "has", m]
+ITEM = lambda i: [i, "==", True]
 
 chapters = []
 
@@ -107,8 +118,8 @@ chapters.append({"id": "ch1", "title": "第九十九次", "subtitle": "序章 ·
         O("翻他的储物袋", "ch1_body_loot", set={"pills": 1, "ruthless": 1}),
         O("替他合上眼", "ch1_body_close", set={"kindness": 1}),
     ]),
-    S("ch1_body_loot", "翻找", [["旁白", "一颗回气丹，半块灵石。"], ["魔种", "苟住的第一课：死人的东西，也是东西。"]], "ch1_mem"),
-    S("ch1_body_close", "合眼", [["旁白", "你替他合上了眼。"], ["旁白", "那张脸，和你第三十世时一模一样。"]], "ch1_mem"),
+    S("ch1_body_loot", "翻找", [["旁白", "一颗回气丹，半块灵石，还有一枚染血的玉简。"], ["旁白", "玉简上是你自己的字：「第三波。别背对他。宗主……」最后几个字被血糊住了。"], ["魔种", "苟住的第一课：死人的东西，也是东西。"]], "ch1_mem", set={"+item": "item_yujian"}),
+    S("ch1_body_close", "合眼", [["旁白", "你替他合上了眼。"], ["旁白", "那张脸，和你第三十世时一模一样。"], ["旁白", "他手里滑出一枚染血的玉简。"], ["旁白", "玉简上是你自己的字：「第三波。别背对他。宗主……」最后几个字被血糊住了。"]], "ch1_mem", set={"+item": "item_yujian"}),
     C("ch1_mem", "带哪条记忆", "九十九世留下三段记忆，这一世只能带一段：", [
         O("「师兄会在第3波背刺」", "ch1_senior", set={"+mem": "mem_betray"}),
         O("「长老怕火」", "ch1_senior", set={"+mem": "mem_fire"}),
@@ -134,7 +145,7 @@ chapters.append({"id": "ch2", "title": "外门考核", "subtitle": "第三波", 
     S("ch2_front", "请缨", [["血骨", "有胆。本座记住你了。"], ["厉寒", "（皱眉）你疯了？"]], "ch2_waves"),
     S("ch2_back", "缩后", [["旁白", "三个抢着出头的弟子，第一波就没了。"], ["魔种", "很好。活着才能记账。"]], "ch2_waves"),
     B("ch2_waves", "第一、二波", {"waves": 2, "senior": "ally"}, "ch2_w3", "ch2_w3"),
-    C("ch2_w3", "第三波", "第三波。厉寒站到了你身后。", [
+    C("ch2_w3", "第三波", "厉寒：「师弟，站我前面。」玉简上的“第三波”在发烫。", [
         O("闪身，反杀厉寒", "ch2_kill", req=[MEM("mem_betray")], set={"senior": "dead", "ruthless": 2}, key=True),
         O("闪身，饶他一命", "ch2_spare", req=[MEM("mem_betray")], set={"senior": "debt", "kindness": 1}, key=True),
         O("「长老，他要背刺我。」", "ch2_report", req=[MEM("mem_betray")], set={"senior": "enemy", "elder_respect": 1}),
@@ -142,9 +153,9 @@ chapters.append({"id": "ch2", "title": "外门考核", "subtitle": "第三波", 
     ]),
     D("ch2_death", "背后一凉", [["厉寒", "师弟，魔门的规矩你懂的。"], ["旁白", "背后一凉。"]], "mem_betray", "ch2_open"),
     S("ch2_kill", "反杀", [["旁白", "厉寒倒下，眼里全是不解。"], ["血骨", "有意思。"]], "ch2_end"),
-    S("ch2_spare", "饶命", [["厉寒", "……你怎么知道？"], ["你", "我记得。"], ["厉寒", "你记得？记得什么？"], ["你", "记得你每一次都会后悔。"], ["厉寒", "这条命，算我欠你的。"]], "ch2_end"),
+    S("ch2_spare", "饶命", [["厉寒", "……你怎么知道？"], ["你", "我记得。"], ["厉寒", "你记得？记得什么？"], ["你", "记得你每一次都会后悔。"], ["厉寒", "这条命，算我欠你的。"], ["旁白", "他解下剑穗，塞进你手里。"]], "ch2_end", set={"+item": "item_jiansui"}),
     S("ch2_report", "揭发", [["血骨", "背后出手，也得有本事。你，不错。"], ["厉寒", "（被拖走）我记住你了。"]], "ch2_end"),
-    S("ch2_trust", "他没有出手", [["旁白", "他没有出手。"], ["厉寒", "丹药的事……我记着你的好。"]], "ch2_end"),
+    S("ch2_trust", "他没有出手", [["旁白", "他没有出手。"], ["厉寒", "丹药的事……我记着你的好。"], ["旁白", "他解下剑穗，塞进你手里：「有事拿这个找我。」"]], "ch2_end", set={"+item": "item_jiansui"}),
     V("ch2_end", "收束 · 入内门", [["旁白", "你成了内门弟子。"], ["旁白", "血骨长老多看了你一眼。"]], "ch3_open"),
 ]})
 
@@ -159,11 +170,11 @@ chapters.append({"id": "ch3", "title": "药堂之夜", "subtitle": "炉鼎", "re
     S("ch3_gift_back", "推回", [["苏晚", "（愣了一下）你和别的师兄不一样。"]], "ch3_choice"),
     C("ch3_choice", "苏晚的请求", "药炉咕嘟作响。", [
         O("「我带你走。」", "ch3_route", set={"suwan": "escape", "kindness": 1}, key=True),
-        O("「厉寒会帮我们。」", "ch3_route_senior", req=[["senior", "in", ["debt", "loyal"]]], set={"suwan": "escape", "senior": "loyal"}),
+        O("「厉寒会帮我们。」", "ch3_route_senior", req=[ITEM("item_jiansui")], set={"suwan": "escape", "senior": "loyal"}),
         O("装作没听见", "ch3_ignore", set={"suwan": "ignored"}),
         O("向长老告密", "ch3_report", set={"suwan": "sacrificed", "ruthless": 1, "elder_respect": 1}, key=True),
     ]),
-    C("ch3_route", "后山的路", "后山只有一条路，巡夜弟子来回走。", [
+    C("ch3_route", "后山的路", "苏晚小声说：「子时钟响，巡夜会换人……」", [
         O("趁子时换岗溜过去", "ch3_saved", req=[MEM("mem_patrol")], set={"suwan": "saved"}),
         O("硬闯", "ch3_fight"),
     ]),
@@ -171,7 +182,7 @@ chapters.append({"id": "ch3", "title": "药堂之夜", "subtitle": "炉鼎", "re
     B("ch3_fight", "硬闯巡夜", {"waves": 1, "count": 8, "escort": "苏晚"}, "ch3_saved_fight", "ch3_death"),
     S("ch3_saved_fight", "杀出一条路", [["旁白", "血染了后山的雾。"]], "ch3_saved", set={"suwan": "saved", "ruthless": 1}),
     D("ch3_death", "巡夜的剑", [["旁白", "巡夜弟子的剑穿过你们两个。"], ["旁白", "倒下前你看清了——他们子时换岗。"]], "mem_patrol", "ch3_open"),
-    S("ch3_saved", "苏晚离开", [["苏晚", "我会回来找你的。"], ["苏晚", "带着春天回来。"], ["旁白", "她消失在后山的雾里。"]], "ch3_end"),
+    S("ch3_saved", "苏晚离开", [["苏晚", "我会回来找你的。"], ["苏晚", "这半块玉佩你拿着。若见到一个白衣人，给他看。"], ["旁白", "她消失在后山的雾里。"]], "ch3_end", set={"+item": "item_yupei"}),
     S("ch3_ignore", "转身", [["旁白", "你转身。药炉咕嘟作响。"], ["魔种", "苟住，很好。"]], "ch3_end"),
     S("ch3_report", "告密", [["血骨", "炉鼎跑不了。你，赏。"], ["旁白", "苏晚被带走时，没有看你。"]], "ch3_end"),
     V("ch3_end", "收束 · 四十九天", [["旁白", "血月祭，还有四十九天。"]], "ch4_open"),
@@ -184,11 +195,11 @@ chapters.append({"id": "ch4", "title": "血骨", "subtitle": "第三十七次", 
         O("一饮而尽", "ch4_tea_drink", set={"elder_respect": 1}),
         O("不动", "ch4_tea_refuse", set={"ruthless": 1}),
     ]),
-    S("ch4_tea_drink", "饮", [["血骨", "敢喝本座的茶……"], ["血骨", "你的眼神，本座见过。说吧，你到底是谁？"]], "ch4_choice"),
-    S("ch4_tea_refuse", "不饮", [["血骨", "谨慎。好。"], ["血骨", "你的眼神，本座见过。说吧，你到底是谁？"]], "ch4_choice"),
+    S("ch4_tea_drink", "饮", [["血骨", "敢喝本座的茶……"], ["旁白", "长老起身添水。茶杯底刻着「卅七」，桌角放着一只火折子。你把火折子收进了袖子。"], ["血骨", "你的眼神，本座见过。说吧，你到底是谁？"]], "ch4_choice", set={"+item": "item_huozhe"}),
+    S("ch4_tea_refuse", "不饮", [["血骨", "谨慎。好。"], ["旁白", "长老起身添水。茶杯底刻着「卅七」，桌角放着一只火折子。你把火折子收进了袖子。"], ["血骨", "你的眼神，本座见过。说吧，你到底是谁？"]], "ch4_choice", set={"+item": "item_huozhe"}),
     C("ch4_choice", "你到底是谁", "长老的指尖，停在你天灵盖上方一寸。", [
         O("我记得你第三十七世的样子。", "ch4_truth_ally", req=[MEM("mem_elder37")], set={"elder": "ally", "know_seed": True}, key=True),
-        O("点燃火折子：「您怕这个。」", "ch4_blackmail", req=[MEM("mem_fire")]),
+        O("点燃火折子：「您怕这个。」", "ch4_blackmail", req=[MEM("mem_fire"), ITEM("item_huozhe")]),
         O("「我在轮回。这是第一百世。」", "ch4_truth", next_if=[[[["elder_respect", "<", 1]], "ch4_death_truth"]]),
         O("装傻：「弟子只是运气好。」", "ch4_test"),
     ]),
@@ -216,8 +227,8 @@ chapters.append({"id": "ch5", "title": "正道来客", "subtitle": "白衣", "re
     ]),
     S("ch5_array_help", "补阵", [["顾长风", "……魔门弟子，会画天衍剑阵？"], ["你", "第六十世，我在剑宗扫过三年地。"]], "ch5_choice"),
     S("ch5_array_break", "碎阵", [["顾长风", "（剑已半出鞘）好。"]], "ch5_choice"),
-    C("ch5_choice", "白衣人", "他的剑没有出鞘。", [
-        O("苏晚从雾里走出来：「哥？」", "ch5_family", req=[["suwan", "==", "saved"]], set={"gu": "ally", "trust": 1}, key=True),
+    C("ch5_choice", "白衣人", "他的剑没有出鞘。腰间挂着半块玉佩。", [
+        O("取出苏晚给的半块玉佩", "ch5_family", req=[ITEM("item_yupei")], set={"gu": "ally", "trust": 1}, key=True),
         O("「苏晚还活着。」", "ch5_family", req=[MEM("mem_gu"), ["suwan", "==", "saved"]], set={"gu": "ally"}),
         O("「血月祭那天，我给你开门。」", "ch5_ally", set={"gu": "ally"}),
         O("假意结盟，回头禀报宗主", "ch5_used", set={"gu": "used", "ruthless": 1, "master_favor": 1}, key=True),
@@ -226,9 +237,9 @@ chapters.append({"id": "ch5", "title": "正道来客", "subtitle": "白衣", "re
     B("ch5_fight", "剑与魔", {"waves": 1, "boss": "gu"}, "ch5_kill", "ch5_death"),
     D("ch5_death", "替我照顾晚儿", [["顾长风", "魔门也有不想杀人的……"], ["顾长风", "替我……照顾晚儿。"]], "mem_gu", "ch5_open"),
     S("ch5_kill", "白衣染血", [["顾长风", "晚儿……对不起。"], ["旁白", "你不知道他在说谁。"]], "ch5_end", set={"gu": "dead", "master_favor": 1}),
-    S("ch5_ally", "盟约", [["顾长风", "若你骗我，剑宗会踏平血河。"]], "ch5_end"),
+    S("ch5_ally", "盟约", [["顾长风", "若你骗我，剑宗会踏平血河。"], ["旁白", "他把一枚剑令放进你手里：「血月那天，凭它破阵。」"]], "ch5_end", set={"+item": "item_jianling"}),
     S("ch5_used", "传音", [["夜无归", "（传音）做得好，人材。"]], "ch5_end"),
-    S("ch5_family", "兄妹", [["顾长风", "晚儿……"], ["苏晚", "哥，他救过我。在这个地方，他救过我。"], ["顾长风", "这份恩，天衍剑宗记下了。"]], "ch5_end"),
+    S("ch5_family", "兄妹", [["顾长风", "……这是晚儿的玉佩。她还活着？"], ["你", "她在后山外，等春天。"], ["顾长风", "这份恩，天衍剑宗记下了。"], ["旁白", "他把一枚剑令放进你手里：「血月那天，凭它破阵。」"]], "ch5_end", set={"+item": "item_jianling"}),
     V("ch5_end", "收束 · 血月", [["旁白", "血月升起。"]], "ch6_open"),
 ]})
 
@@ -243,16 +254,16 @@ chapters.append({"id": "ch6", "title": "血月祭", "subtitle": "收割", "realm
     S("ch6_kneel_no", "不跪", [["旁白", "整座祭坛，只有你站着。"], ["夜无归", "……第一百世，终于有点意思了。"], ["魔种", "你吐纳了一次。"]], "ch6_ledger"),
     {"id": "ch6_ledger", "type": "ledger", "title": "账本：喂养魔种", "seconds": 12,
      "lines": [["魔种", "吐纳吧。每一次，我都会记下。"]], "next": "ch6_seed"},
-    C("ch6_seed", "魔种在跳", "魔种在你体内跳动。", [
+    C("ch6_seed", "魔种在跳", "玉简最后那句还是看不清。也许要亲眼看一次。", [
         O("把魔种引向宗主左胸", "ch6_allies", req=[["know_seed", "==", True], MEM("mem_master")], set={"seed": "turned"}, key=True),
-        O("「长老，火！」", "ch6_allies", req=[["elder", "==", "ally"]], set={"seed": "sealed"}),
+        O("「长老，火！」", "ch6_allies", req=[["elder", "==", "ally"], ITEM("item_huozhe")], set={"seed": "sealed"}),
         O("抗拒它", "ch6_allies", set={"seed": "refused"}),
-        O("与魔种相融", "ch6_merge", set={"seed": "merged"}, key=True),
+        O("与魔种相融（此后再无回头路）", "ch6_merge", set={"seed": "merged"}, key=True),
     ]),
     S("ch6_merge", "相融", [["魔种", "很好。"], ["魔种", "我们开始炼化。"]], "ch6_boss"),
     S("ch6_allies", "有人站到你身边", [["旁白", "有人站到了你身边。"]], "ch6_boss"),
     B("ch6_boss", "宗主夜无归", {"waves": 1, "boss": "master", "allies_from_flags": True}, "ch6_end", "ch6_death"),
-    D("ch6_death", "第一百零一次", [["夜无归", "第一百零一次，我等你。"], ["旁白", "倒下前你看见——他的魔种，在左胸。"]], "mem_master", "ch6_open"),
+    D("ch6_death", "第一百零一次", [["夜无归", "第一百零一次，我等你。"], ["旁白", "倒下前你看见——他的魔种，在左胸。"], ["旁白", "玉简上被血糊住的字，终于清楚了：「宗主……左胸。」"]], "mem_master", "ch6_open"),
     V("ch6_end", "收束 · 掌心", [["旁白", "宗主倒下。"], ["旁白", "魔种在你掌心跳动。"]], "ch7_open"),
 ]})
 
@@ -273,7 +284,8 @@ chapters.append({"id": "ch7", "title": "第一百世", "subtitle": "终章", "re
     S("ch7_look_gu", "顾长风", [["顾长风", "不管你选什么，剑宗欠你一个人情。"]], "ch7_final"),
     S("ch7_look_none", "无人", [["旁白", "你没有回头。"], ["魔种", "现在，选吧。"]], "ch7_final"),
     C("ch7_final", "最后的选择", "魔种在你掌心。所有人都在看你。", [
-        O("放下魔种，让轮回停止", "end_true", req=[["mems", ">=", 6], ["senior", "==", "loyal"], ["suwan", "==", "saved"], ["elder", "==", "ally"], ["seed", "in", ["refused", "sealed", "turned"]], ["seed_feed", "<", 30]], key=True),
+        O("放下魔种，让轮回停止", "end_true", req=[["mems", ">=", 6], ["senior", "==", "loyal"], ["suwan", "==", "saved"], ["elder", "==", "ally"], ["seed", "in", ["refused", "sealed", "turned"]], ["seed_feed", "<", 30],
+                                                        ITEM("item_jiansui"), ITEM("item_yupei"), ITEM("item_huozhe"), ITEM("item_jianling")], key=True),
         O("与血骨一同焚尽魔种", "end_fire", req=[["elder", "in", ["ally", "blackmailed"]], MEM("mem_fire"), NOT_MERGED]),
         O("把魔种交给顾长风", "end_sword", req=[["gu", "==", "ally"], NOT_MERGED]),
         O("坐上宗主之位", "end_lord", req=[NOT_MERGED], next_if=[[[["senior", "==", "loyal"], ["suwan", "==", "saved"]], "end_family"]]),
@@ -397,6 +409,7 @@ story = {
     "reference": "Detroit: Become Human 式章节流程图：分支 → 收束点；轮回记忆 = 线索解锁；8 结局由累计标记 + 终章选择决定",
     "flags": FLAGS,
     "memories": MEMORIES,
+    "items": ITEMS,
     "characters": CHARACTERS,
     "chapters": chapters,
 }

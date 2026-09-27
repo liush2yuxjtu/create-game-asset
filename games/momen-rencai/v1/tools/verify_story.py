@@ -33,6 +33,8 @@ def apply(state, sets):
     for k, v in (sets or {}).items():
         if k == "+mem":
             mem.add(v)
+        elif k == "+item":
+            f[v] = True
         elif isinstance(v, bool) or isinstance(v, str):
             f[k] = v
         else:
