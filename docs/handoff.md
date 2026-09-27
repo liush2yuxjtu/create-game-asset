@@ -117,3 +117,7 @@ PR #6 合并后线上 Pages 已按 build-info SHA `2b3910e` 验收（引擎启�
 ### 2026-09-27 games/ 目录与魔门人材 v1
 
 新增 `games/`（完整游戏，每版一个目录）与 `public/games/momen-rencai/v1/`（Godot 4.4.1 Web nothreads 导出，随 Pages 发布）。源码、剧情数据、视频渲染器与实机录像在 `games/momen-rencai/v1/`，验证记录见其 `VERSION.md`。`scripts/build-playground.mjs` 的源码索引跳过 `public/games`，避免把 Godot 引擎 JS 计入技能源码全景；其余构建与门禁未改。桌面安装包（Windows ≈100 MB）不入库。本地 Godot 自测 PASS；线上 Pages 页面需合并后按 `/verify` 用 build-info SHA 验收，手机真机、Haiku 真 key、Win/mac 真机未验收。
+
+## 2026-09-27 魔门人材 v2 ·「忆」
+
+新目录 `games/momen-rencai/v2/`（v1 不动）。文字冒险 + 俯视圆圈战斗；5 章 17 层隐藏冲突、13 片记忆碎片（死亡时玩家亲手铭刻）、每章一个不解释的新数值、N 个生成选项 + 自由输入、Haiku 4.5 驱动角色（无 key 走离线规则）。爆款视频 `v2/video/momen_v2_viral_9x16.mp4` 由游戏录屏模式经 Godot Movie Maker 录制，新手引导逐 gate 复刻同一份分镜。`games/verify.json` 已登记 v2，`npm run verify:games` 本地 PASS。未验证：真实 Haiku key、手机真机、Pages 线上页（合并后按 `/verify` 验收）。详见 `v2/VERSION.md`。

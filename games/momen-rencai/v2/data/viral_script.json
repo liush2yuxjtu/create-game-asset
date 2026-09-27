@@ -1,0 +1,206 @@
+{
+ "title": "魔门人材 · 忆",
+ "canvas": [
+  270,
+  480
+ ],
+ "scale": 4,
+ "fps": 30,
+ "duration": 32.0,
+ "copy": "我在魔门死了99次，每次死前都记住一件事。第100世，同一个师兄又来约我去后山……这次，我记得。第一章有4层真相，你能挖到第几层？",
+ "hashtags": [
+  "#魔门人材",
+  "#修仙",
+  "#像素游戏",
+  "#AI游戏",
+  "#重生",
+  "#GBA",
+  "#文字游戏"
+ ],
+ "captions": [
+  {
+   "t0": 0.0,
+   "t1": 2.6,
+   "text": "我在魔门\n死了99次",
+   "style": "hook"
+  },
+  {
+   "t0": 2.6,
+   "t1": 5.6,
+   "text": "但每次死前\n我都会记住一件事"
+  },
+  {
+   "t0": 5.6,
+   "t1": 8.6,
+   "text": "第100世\n同一个师兄，又来了"
+  },
+  {
+   "t0": 8.6,
+   "t1": 11.2,
+   "text": "这一次\n我记得"
+  },
+  {
+   "t0": 11.2,
+   "t1": 14.4,
+   "text": "他愣住了"
+  },
+  {
+   "t0": 14.4,
+   "t1": 18.8,
+   "text": "他也有记忆\n（AI驱动，会记得你）"
+  },
+  {
+   "t0": 18.8,
+   "t1": 23.6,
+   "text": "这一世\n他没有下手"
+  },
+  {
+   "t0": 23.6,
+   "t1": 25.8,
+   "text": "每一章\n都不止一层"
+  },
+  {
+   "t0": 25.8,
+   "t1": 27.8,
+   "text": "每一章\n一个新的数字"
+  },
+  {
+   "t0": 27.8,
+   "t1": 32.0,
+   "text": "第一章有4层真相\n你能挖到第几层？",
+   "style": "cta"
+  }
+ ],
+ "events": [
+  {
+   "t": 0.0,
+   "do": "prologue",
+   "speed": 1.8
+  },
+  {
+   "t": 3.3,
+   "do": "tap",
+   "target": "open_bag",
+   "hint": "打开记忆背包"
+  },
+  {
+   "t": 4.0,
+   "do": "tap",
+   "target": "frag:frag_zhusha",
+   "hint": "选出那段记忆"
+  },
+  {
+   "t": 4.7,
+   "do": "tap",
+   "target": "awaken_btn",
+   "hint": "铭刻它"
+  },
+  {
+   "t": 5.4,
+   "do": "tap",
+   "target": "rebirth_btn",
+   "hint": "轮回"
+  },
+  {
+   "t": 6.0,
+   "do": "tap",
+   "target": "breathe",
+   "hint": "吐纳"
+  },
+  {
+   "t": 6.25,
+   "do": "tap",
+   "target": "breathe"
+  },
+  {
+   "t": 6.5,
+   "do": "tap",
+   "target": "breathe"
+  },
+  {
+   "t": 6.75,
+   "do": "tap",
+   "target": "breathe"
+  },
+  {
+   "t": 7.2,
+   "do": "tap",
+   "target": "choice:leave",
+   "hint": "去见师兄"
+  },
+  {
+   "t": 9.0,
+   "do": "tap",
+   "target": "bag_btn",
+   "hint": "打开「忆」"
+  },
+  {
+   "t": 9.6,
+   "do": "tap",
+   "target": "frag:frag_zhusha",
+   "hint": "就是这段"
+  },
+  {
+   "t": 10.2,
+   "do": "tap",
+   "target": "use_btn",
+   "hint": "此刻想起它"
+  },
+  {
+   "t": 11.0,
+   "do": "tap",
+   "target": "choice:debt",
+   "hint": "说出来"
+  },
+  {
+   "t": 14.8,
+   "do": "tap",
+   "target": "input",
+   "hint": "自己说点什么"
+  },
+  {
+   "t": 15.0,
+   "do": "type",
+   "text": "我也死过99次",
+   "dur": 1.0
+  },
+  {
+   "t": 16.3,
+   "do": "tap",
+   "target": "send",
+   "hint": "说"
+  },
+  {
+   "t": 19.1,
+   "do": "tap",
+   "target": "choice:help",
+   "hint": "这一次，换个活法",
+   "speed": 1.35
+  },
+  {
+   "t": 23.0,
+   "do": "tap",
+   "target": "cont",
+   "hint": "点一下继续"
+  },
+  {
+   "t": 23.2,
+   "do": "cards",
+   "on": true
+  },
+  {
+   "t": 25.6,
+   "do": "tap",
+   "target": "card_next",
+   "hint": "继续"
+  },
+  {
+   "t": 27.8,
+   "do": "cta"
+  },
+  {
+   "t": 32.0,
+   "do": "end"
+  }
+ ]
+}
