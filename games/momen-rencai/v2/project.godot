@@ -1,0 +1,38 @@
+; Engine configuration file.
+config_version=5
+
+[application]
+
+config/name="魔门人材 · 忆"
+config/description="死一次，记住一件事 — GBA 像素文字修仙 · 记忆碎片 · 多层冲突 · Haiku 驱动角色"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.4", "GL Compatibility")
+
+[autoload]
+
+Mem="*res://scripts/memory.gd"
+Story="*res://scripts/story.gd"
+GS="*res://scripts/game_state.gd"
+Agent="*res://scripts/agent.gd"
+Sfx="*res://scripts/sfx.gd"
+
+[display]
+
+window/size/viewport_width=270
+window/size/viewport_height=480
+window/size/window_width_override=540
+window/size/window_height_override=960
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+window/handheld/orientation=1
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.102, 0.078, 0.149, 1)
