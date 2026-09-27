@@ -1,6 +1,6 @@
 ---
 name: verify
-description: Verify Qinglan game assets, the runtime ZIP, full Godot games under games/, and the exact local or GitHub Pages preview. Use for /verify, release validation, and handoff acceptance.
+description: Verify Qinglan game assets, the runtime ZIP, full Godot games under games/, Hypit promo videos (caption layout and timing), and the exact local or GitHub Pages preview. Use for /verify, release validation, and handoff acceptance.
 ---
 
 # /verify — Qinglan asset and preview verification
@@ -82,3 +82,7 @@ For `/playground/`, read root `design.md` and `public/playground/sources.json`. 
 ## Full Godot games route (games/)
 
 For `games/<game>/<ver>/` and its web export `public/games/<game>/<ver>/`, read [Godot 游戏验证手册](references/godot-games.md). Start with `npm run verify:games` (Godot 4.4.1 via `GODOT=`; the Pages workflow runs the same gate and blocks deploy on failure): it runs every version listed in `games/verify.json` — story check, `--import`, headless self-tests with any `ERROR` line as FAIL, and a byte-for-byte check that the committed Web `.pck` matches a fresh export. Every fixed bug gets a regression check that fails on the old code. Otherwise run the project's own headless self-tests (`--autotest`, `--storytest`, `tools/verify_story.py` for 魔门人材) and grep their `RESULT:` lines. Re-export Web only from committed source; normally only `index.pck`/`index.html` change. Then run `python3 scripts/verify-game-web.py` against the production preview, and after merge against the Pages URL with `--sha <merge SHA>` once `build-info.json` shows that SHA. Open the saved screenshots; pixel change alone is not content proof. Record gameplay, mobile device/performance, live-LLM character quality, desktop builds and user art/story approval as separate NOT_RUN/PENDING fields unless actually exercised.
+
+## Hypit promo video route (games/*/*/hypit/)
+
+For a Hypit-built vertical video with a `hypit/screens.json` (first: `games/momen-rencai/v3`), read [Hypit 竖屏视频验证手册](references/hypit-videos.md). Run `python3 scripts/verify-hypit-video.py games/<game>/<ver> --video <mp4> --out verification/hypit-<ver>`: it checks that the generated `momen.svml/svs` match `screens.json`, the screens tile the timeline, every caption appears exactly on its labelled source event and ends with its screen with enough reading time, caption/title bands never overlap the gameplay frame, each labelled event frame is the local peak of on-screen change, and — on the rendered file — size/SAR/frame count, loudness and that each caption band is empty just before and filled just after its event. Any FAIL blocks. Then open `caption-sync-sheet.png` and watch the full video with sound: machine PASS proves timing and layout, not that each caption is on-topic. Record device playback and user approval separately as NOT_RUN/PENDING.

@@ -1,0 +1,145 @@
+{
+ "about": "v3 唯一分镜源：tools/gen_svml.py 由它生成 momen.svml / momen.svs；scripts/verify-hypit-video.py 用它校验时间对齐与版式。帧号均为 30fps。src_* 是 assets/footage/gameplay_clean.mp4 的源帧，event_src_f 是该字幕对应画面事件在源片里第一次出现的帧（逐帧人工标注，见 README）。",
+ "fps": 30,
+ "canvas": [
+  1080,
+  1920
+ ],
+ "frames": {
+  "title": [
+   40,
+   24,
+   1040,
+   96
+  ],
+  "cap": [
+   40,
+   104,
+   1040,
+   282
+  ],
+  "phone": [
+   90,
+   290,
+   990,
+   1890
+  ]
+ },
+ "title": "每次死前，我能记住一件事",
+ "caption_size": 72,
+ "title_size": 52,
+ "zoom": {
+  "to": 1.12,
+  "anchor": "top-left"
+ },
+ "screens": [
+  {
+   "id": "s01",
+   "src_in": 269,
+   "src_out": 330,
+   "event": "打开「忆」选出袖口的朱砂 → 隐藏选项（闪前）",
+   "event_src_f": 269,
+   "caption": [
+    "就是这一件",
+    "救了我的命"
+   ],
+   "sfx": "whoosh"
+  },
+  {
+   "id": "s02",
+   "src_in": 0,
+   "src_out": 120,
+   "event": "「你死了」屏：记忆会随死亡散去，从背包选出一段",
+   "event_src_f": 78,
+   "caption": [
+    "三段记忆",
+    "只能带一段"
+   ],
+   "sfx": "whoosh"
+  },
+  {
+   "id": "s03",
+   "src_in": 120,
+   "src_out": 162,
+   "event": "记忆卡「袖口的朱砂」出现",
+   "event_src_f": 120,
+   "caption": [
+    "你会选",
+    "哪一段？"
+   ],
+   "sfx": "reveal"
+  },
+  {
+   "id": "s04",
+   "src_in": 162,
+   "src_out": 216,
+   "event": "第100世白闪 → 吐纳",
+   "event_src_f": 162,
+   "caption": [
+    "重来一次",
+    "只多知道一件事"
+   ],
+   "sfx": "whoosh"
+  },
+  {
+   "id": "s05",
+   "src_in": 216,
+   "src_out": 330,
+   "event": "「◆ 这一幕……似曾相识」选项出现",
+   "event_src_f": 216,
+   "caption": [
+    "记忆该什么时候用？"
+   ],
+   "sfx": "whoosh"
+  },
+  {
+   "id": "s06",
+   "src_in": 330,
+   "src_out": 432,
+   "event": "层卡「第一章 · 第2层 师兄的命押在药堂」",
+   "event_src_f": 330,
+   "caption": [
+    "一件小事",
+    "能改多少？"
+   ],
+   "sfx": "reveal"
+  },
+  {
+   "id": "s07",
+   "src_in": 690,
+   "src_out": 750,
+   "event": "厉寒：「……这一世，就算了。」",
+   "event_src_f": 714,
+   "caption": [
+    "选对了",
+    "就能活"
+   ],
+   "sfx": "whoosh"
+  },
+  {
+   "id": "s08",
+   "src_in": 750,
+   "src_out": 798,
+   "event": "「第一章 · 完」还有 2 层没被看见",
+   "event_src_f": 750,
+   "caption": [
+    "下一世",
+    "你带什么？"
+   ],
+   "sfx": "whoosh"
+  },
+  {
+   "id": "s09",
+   "src_in": 834,
+   "src_out": 960,
+   "event": "结尾卡「魔门人材 · 忆」",
+   "event_src_f": 834,
+   "caption": [
+    "你会带哪段记忆",
+    "进下一世？"
+   ],
+   "sfx": "slam",
+   "cta": true
+  }
+ ]
+}
