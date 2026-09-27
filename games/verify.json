@@ -44,5 +44,11 @@
     "committed": "public/games/momen-rencai/v2/index.pck"
    }
   }
+ ],
+ "videos": [
+  {
+   "path": "games/momen-rencai/v3",
+   "video": "games/momen-rencai/v3/momen_v3_douyin_9x16.mp4"
+  }
  ]
 }

@@ -1,6 +1,6 @@
 // 完整门禁：npm run verify:ci。Pages 工作流只负责装环境然后调用这里，本地与 CI 跑同一套检查（测试左移）。
-// 顺序：机器检查 verify.mjs → Godot 游戏 verify-games.mjs → 真实浏览器 playground → 发布一致性（生成物已提交、build-info 干净）。
-// 需要 Godot（GODOT）与 Playwright + Chromium（browser-requirements.txt），缺失即 FAIL，不静默跳过。
+// 顺序：机器检查 verify.mjs → Godot 游戏 verify-games.mjs → Hypit 视频（games/verify.json 的 videos）→ 真实浏览器 playground → 发布一致性（生成物已提交、build-info 干净）。
+// 需要 Godot（GODOT）、ffmpeg/ffprobe 与 Playwright + Chromium（browser-requirements.txt），缺失即 FAIL，不静默跳过。
 import {spawn, spawnSync, execFileSync} from 'node:child_process';
 import {readFileSync} from 'node:fs';
 
@@ -14,6 +14,9 @@ const run = (name, command, args) => {
 
 run('machine', process.execPath, [`${here}/verify.mjs`]);
 run('games', process.execPath, [`${here}/verify-games.mjs`]);
+for (const v of JSON.parse(readFileSync('games/verify.json', 'utf8')).videos ?? []) {
+  run(`hypit-video ${v.path}`, 'python3', [`${here}/verify-hypit-video.py`, v.path, '--video', v.video, '--out', `verification/hypit-${v.path.split('/').pop()}`]);
+}
 
 console.log(`\n[verify:ci] playground preview on :${port}`);
 const preview = spawn(process.execPath, ['node_modules/vite/bin/vite.js', 'preview', '--host', '127.0.0.1', '--port', port, '--strictPort'], {stdio: 'ignore'});

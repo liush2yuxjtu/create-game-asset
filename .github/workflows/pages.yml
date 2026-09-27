@@ -28,8 +28,9 @@ jobs:
         with:
           path: ~/godot
           key: godot-4.4.1-stable-linux-x86_64
-      - name: Install verification tools (Godot, Playwright)
+      - name: Install verification tools (Godot, ffmpeg, Playwright)
         run: |
+          command -v ffprobe >/dev/null || { sudo apt-get update && sudo apt-get install -y ffmpeg; }
           echo "GODOT=$(.agents/skills/verify/scripts/install-godot.sh)" >> "$GITHUB_ENV"
           python -m pip install -r .agents/skills/verify/scripts/browser-requirements.txt
           python -m playwright install --with-deps chromium
@@ -43,6 +44,7 @@ jobs:
             verification/latest.json
             verification/games.json
             verification/playground-ci
+            verification/hypit-*
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
