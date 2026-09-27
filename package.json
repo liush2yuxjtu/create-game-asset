@@ -7,10 +7,11 @@
     "dev": "vite --host 127.0.0.1",
     "build": "node scripts/build.mjs",
     "preview": "vite preview --host 127.0.0.1",
-    "test": "node --test scripts/*.test.mjs",
+    "test": "node --test .agents/skills/verify/scripts/*.test.mjs",
     "package:asset": "node scripts/package-asset.mjs",
-    "verify": "node scripts/verify.mjs",
-    "verify:games": "node scripts/verify-games.mjs"
+    "verify": "node .agents/skills/verify/scripts/verify.mjs",
+    "verify:games": "node .agents/skills/verify/scripts/verify-games.mjs",
+    "verify:ci": "node .agents/skills/verify/scripts/ci.mjs"
   },
   "dependencies": {
     "three": "0.170.0"

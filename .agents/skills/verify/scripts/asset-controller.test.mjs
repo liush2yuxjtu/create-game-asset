@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {AssetController,features} from '../public/asset-lab/controller.js';
+import {AssetController,features} from '../../../../public/asset-lab/controller.js';
 const assets=[{id:'a',supports:Object.keys(features)},{id:'b',supports:['visible','particles','speed']}];
 test('per-instance false overrides global, inheritance restores latest global',()=>{const c=new AssetController(assets);c.setAsset('a','particles',false);c.setGlobal('particles',true);assert.equal(c.resolve('a').particles,false);assert.equal(c.resolve('b').particles,true);c.setGlobal('speed',2);c.setAsset('a','speed',.5);assert.equal(c.resolve('b').speed,2);c.setAsset('a','speed',null);assert.equal(c.resolve('a').speed,2);});
 test('unsupported controls reject; snapshots restore and cannot mutate state',()=>{const c=new AssetController(assets);assert.throws(()=>c.setAsset('b','glow',true));c.setAsset('a','intensity',0);const snapshot=c.snapshot();const d=new AssetController(assets);d.restore(snapshot);assert.equal(d.resolve('a').intensity,0);snapshot.global.speed=99;assert.equal(c.resolve('a').speed,1);});

@@ -8,7 +8,7 @@ Checks (each PASS/FAIL, written to <out>/report.json):
   4. Godot engine boots (loading overlay removed), no page errors / console errors
   5. Title canvas renders non-blank; clicking the first menu button changes the canvas
 Exit 0 = PASS, 1 = FAIL, 2 = BLOCKED (network error on the verifying machine; rerun, do not report as site FAIL).
-Requires Playwright + Pillow (see scripts/browser-requirements.txt). Headless Chromium uses SwiftShader WebGL.
+Requires Playwright + Pillow (see .agents/skills/verify/scripts/browser-requirements.txt). Headless Chromium uses SwiftShader WebGL.
 It is a smoke test, not gameplay, device-performance or art acceptance.
 """
 import argparse, io, json, time, urllib.request

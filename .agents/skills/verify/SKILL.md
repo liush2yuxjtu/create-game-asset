@@ -21,15 +21,19 @@ Maintain this project verifier when the actual launch/drive/evidence path change
 
 ## 1. Repeatable machine checks
 
-On a new checkout run `npm ci`, then `npm run verify`.
+All tests and CI gates live in this skill: `.agents/skills/verify/scripts/` (unit tests `*.test.mjs`, `verify*.mjs`/`verify-*.py`, `ci.mjs`, `install-godot.sh`, `browser-requirements.txt`). `.github/workflows/pages.yml` only provisions tools and runs `npm run verify:ci`; add new gates to these scripts, never inline in the workflow. Build/packaging tools stay in root `scripts/`; each game's own self-tests stay in `games/<game>/<ver>/tools/` and are listed in `games/verify.json`.
+
+Before pushing, run the same command CI runs (shift-left): `npm run verify:ci` = `verify.mjs` → `verify-games.mjs` → production preview + `verify-playground.py` → `git diff --exit-code` + clean `dist/build-info.json` matching HEAD (commit first). Tools: `GODOT=$(.agents/skills/verify/scripts/install-godot.sh)` and `python3 -m pip install -r .agents/skills/verify/scripts/browser-requirements.txt`. A missing tool is FAIL/BLOCKED, never a skip.
+
+For the quick asset gate alone, on a new checkout run `npm ci`, then `npm run verify`.
 
 The runner writes `verification/latest.json` with source SHA, initial working-tree status, step exit codes, and `browser: NOT_RUN`. It exits nonzero on a failed step. It does not silently skip missing Python/Node tools or browser requirements.
 
 Checks:
-- `python3 scripts/verify-skill-sync.py`: verify the complete design-system skill copy against its pinned upstream file manifest. Update the lock only after reviewing an intentional upstream sync.
+- `python3 .agents/skills/verify/scripts/verify-skill-sync.py`: verify the complete design-system skill copy against its pinned upstream file manifest. Update the lock only after reviewing an intentional upstream sync.
 - `npm test`: timeline boundaries 0/1.1/1.8/3.2, cleanup, deterministic backwards sampling, invalid times.
 - `npm run package:asset`: rebuild the 16-frame RGBA sprite atlas and deterministic ZIP.
-- `python3 scripts/verify-assets.py`: verify original GLB SHA, geometry identity, animation duration, ZIP inventory and internal hashes, equality with current runtime source, normalized asset specification, sprite dimensions and frame coordinates.
+- `python3 .agents/skills/verify/scripts/verify-assets.py`: verify original GLB SHA, geometry identity, animation duration, ZIP inventory and internal hashes, equality with current runtime source, normalized asset specification, sprite dimensions and frame coordinates.
 - `npm run build`: compile production assets and generate `build-info.json` with source SHA and dirty-tree indicator.
 - `git diff --check`: reject whitespace errors.
 
@@ -77,8 +81,8 @@ The current lab uses 36 catalog IDs (`v01`–`v36`), not rain-a/rain-b. Read `pu
 
 ## Top-down playground route
 
-For `/playground/`, read root `design.md` and `public/playground/sources.json`. Run `npm run verify`, start a production preview on an available port, then run `python3 scripts/verify-playground.py --url http://127.0.0.1:4196/playground/ --out verification/playground-local`. The browser script writes fresh pixel samples and continuous playback evidence; it is not a source-video parity test. Repeat against the actual Pages URL and match build-info.json to the deployment SHA. Keep the five mock fixtures, original-game evidence, previous ynjh (一念逍遥) baseline, and user art approval separate. Legacy crane and Qinglan remain independent renderers, not transparent Canvas plugins.
+For `/playground/`, read root `design.md` and `public/playground/sources.json`. Run `npm run verify`, start a production preview on an available port, then run `python3 .agents/skills/verify/scripts/verify-playground.py --url http://127.0.0.1:4196/playground/ --out verification/playground-local`. The browser script writes fresh pixel samples and continuous playback evidence; it is not a source-video parity test. Repeat against the actual Pages URL and match build-info.json to the deployment SHA. Keep the five mock fixtures, original-game evidence, previous ynjh (一念逍遥) baseline, and user art approval separate. Legacy crane and Qinglan remain independent renderers, not transparent Canvas plugins.
 
 ## Full Godot games route (games/)
 
-For `games/<game>/<ver>/` and its web export `public/games/<game>/<ver>/`, read [Godot 游戏验证手册](references/godot-games.md). Start with `npm run verify:games` (Godot 4.4.1 via `GODOT=`; the Pages workflow runs the same gate and blocks deploy on failure): it runs every version listed in `games/verify.json` — story check, `--import`, headless self-tests with any `ERROR` line as FAIL, and a byte-for-byte check that the committed Web `.pck` matches a fresh export. Every fixed bug gets a regression check that fails on the old code. Otherwise run the project's own headless self-tests (`--autotest`, `--storytest`, `tools/verify_story.py` for 魔门人材) and grep their `RESULT:` lines. Re-export Web only from committed source; normally only `index.pck`/`index.html` change. Then run `python3 scripts/verify-game-web.py` against the production preview, and after merge against the Pages URL with `--sha <merge SHA>` once `build-info.json` shows that SHA. Open the saved screenshots; pixel change alone is not content proof. Record gameplay, mobile device/performance, live-LLM character quality, desktop builds and user art/story approval as separate NOT_RUN/PENDING fields unless actually exercised.
+For `games/<game>/<ver>/` and its web export `public/games/<game>/<ver>/`, read [Godot 游戏验证手册](references/godot-games.md). Start with `npm run verify:games` (Godot 4.4.1 via `GODOT=`; the Pages workflow runs the same gate and blocks deploy on failure): it runs every version listed in `games/verify.json` — story check, `--import`, headless self-tests with any `ERROR` line as FAIL, and a byte-for-byte check that the committed Web `.pck` matches a fresh export. Every fixed bug gets a regression check that fails on the old code. Otherwise run the project's own headless self-tests (`--autotest`, `--storytest`, `tools/verify_story.py` for 魔门人材) and grep their `RESULT:` lines. Re-export Web only from committed source; normally only `index.pck`/`index.html` change. Then run `python3 .agents/skills/verify/scripts/verify-game-web.py` against the production preview, and after merge against the Pages URL with `--sha <merge SHA>` once `build-info.json` shows that SHA. Open the saved screenshots; pixel change alone is not content proof. Record gameplay, mobile device/performance, live-LLM character quality, desktop builds and user art/story approval as separate NOT_RUN/PENDING fields unless actually exercised.

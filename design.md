@@ -108,7 +108,7 @@ RAF按实际delta秒推进；单次delta上限0.1秒，避免隐藏恢复时跳�
 
 机器：`npm ci && npm run verify`，新增合同、源码覆盖、边界采样和文件语法测试；保持已有资产哈希与确定性打包。
 
-浏览器：`python3 scripts/verify-playground.py --url http://127.0.0.1:4196/playground/ --out verification/playground-local`。使用真实Chromium，40项逐项0/20/49/80/100%取样，检查非空、差异、末帧清空和倒退复现；5fixture；真实播放/暂停/循环；落点/角色/缩放/旋转/层开关；过滤空状态；本地有效模块、无效合同、超时恢复；390×844与桌面；应用console错误。保存截图、连续播放帧、JSON与源SHA。
+浏览器：`python3 .agents/skills/verify/scripts/verify-playground.py --url http://127.0.0.1:4196/playground/ --out verification/playground-local`。使用真实Chromium，40项逐项0/20/49/80/100%取样，检查非空、差异、末帧清空和倒退复现；5fixture；真实播放/暂停/循环；落点/角色/缩放/旋转/层开关；过滤空状态；本地有效模块、无效合同、超时恢复；390×844与桌面；应用console错误。保存截图、连续播放帧、JSON与源SHA。
 
 发布：Pages工作流先verify，再部署。读线上`build-info.json`，核对成功部署SHA、dirty=false，并在公共`/playground/`重复浏览器验收。验证直接源码与原青岚ZIP可获取。只提交代码或HTTP200不能算交互PASS。
 

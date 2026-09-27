@@ -40,10 +40,10 @@ $G --headless --path . --export-release "Web" <out>/index.html   # nothreads，�
 
 ```bash
 npm run build && npm run preview -- --port 4196 &
-python3 scripts/verify-game-web.py --url http://127.0.0.1:4196/games/<游戏>/<版本>/ \
+python3 .agents/skills/verify/scripts/verify-game-web.py --url http://127.0.0.1:4196/games/<游戏>/<版本>/ \
   --local public/games/<游戏>/<版本> --out verification/game-local
 # 合并到 main、Pages 部署后：
-python3 scripts/verify-game-web.py --url https://liush2yuxjtu.github.io/create-game-asset/games/<游戏>/<版本>/ \
+python3 .agents/skills/verify/scripts/verify-game-web.py --url https://liush2yuxjtu.github.io/create-game-asset/games/<游戏>/<版本>/ \
   --local public/games/<游戏>/<版本> --sha <合并提交完整 SHA> --out verification/game-live
 ```
 

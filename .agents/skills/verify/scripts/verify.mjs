@@ -5,10 +5,10 @@ mkdirSync('verification',{recursive:true});
 function save(){writeFileSync('verification/latest.json',JSON.stringify(report,null,2)+'\n');}
 save();
 for(const [name,command,args] of [
- ['skill-provenance','python3',['scripts/verify-skill-sync.py']],
+ ['skill-provenance','python3',['.agents/skills/verify/scripts/verify-skill-sync.py']],
  ['ynjh-contract','python3',['.agents/skills/design-system/scripts/validate.py','design-systems/ynjh']],
  ['timeline','npm',['test']],['package','npm',['run','package:asset']],
- ['asset-integrity','python3',['scripts/verify-assets.py']],['build','npm',['run','build']],
+ ['asset-integrity','python3',['.agents/skills/verify/scripts/verify-assets.py']],['build','npm',['run','build']],
  ['whitespace','git',['diff','--check']]
 ]){
  console.log(`\n[verify] ${name}`);const result=spawnSync(command,args,{stdio:'inherit'});

@@ -1,7 +1,7 @@
 """Validate the actual distributable against canonical source and metadata."""
 import hashlib,json,struct,zipfile
 from pathlib import Path
-root=Path(__file__).resolve().parent.parent
+root=Path(__file__).resolve().parents[4]
 sha=lambda b:hashlib.sha256(b).hexdigest()
 model=root/'public/assets/qinglan/v1/qinglan-sword-formation.glb'
 b=model.read_bytes()
