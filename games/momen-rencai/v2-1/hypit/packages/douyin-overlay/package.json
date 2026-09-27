@@ -1,0 +1,12 @@
+{
+  "name": "@momen/douyin-overlay",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "hypit": { "activation": "./dist/activation.js" },
+  "exports": { ".": "./dist/render.js" },
+  "files": ["dist", "README.md"],
+  "scripts": { "build": "tsc -p tsconfig.json" },
+  "peerDependencies": { "@hypit/hypit": "0.2.16" },
+  "devDependencies": { "typescript": "5.9.3", "@types/node": "24.10.1" }
+}

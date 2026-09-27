@@ -1,0 +1,6 @@
+<?svml using="@hypit/svs@1"?>
+<sheet version="1">
+  film.main { background: #0B0A10; }
+  media.once-start { stack-order: 0; fit: cover; playback: once-start; }
+  media.hold-start { stack-order: 0; fit: cover; playback: hold-start; }
+</sheet>
