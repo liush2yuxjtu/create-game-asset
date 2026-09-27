@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>版式 · 画布与区域规格</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:"FusionPixel";src:url(/_blob/f3fbf35e99c23790cdd6da0d08cf331b) format("woff2");font-weight:400;font-style:normal;font-display:block}
+body{margin:0;background:#120D1A;font-family:"Noto Sans SC",sans-serif;color:#F4EFE6}
+a{color:#F2C14E}a:hover{color:#FFD978}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1000px; box-sizing: border-box; padding: 56px 72px; background: #120D1A; display: flex; flex-direction: column; gap: 32px">
+  <div style="display: flex; flex-direction: column; gap: 10px">
+    <div style="font-size: 14px; letter-spacing: 0.16em; color: #A89CB8">LAYOUT · 1080×1920 画布，图中按 31.25% 缩放</div>
+    <h2 style="margin: 0; font-family: FusionPixel, 'Noto Sans SC', sans-serif; font-weight: 400; font-size: 52px; color: #F2C14E">两种版式：全屏钩子 / 金边手机框</h2>
+  </div>
+  <div style="display: flex; gap: 56px; align-items: flex-start">
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="font-size: 16px; font-weight: 700">A · 钩子 0–2.6s</div>
+      <div style="position: relative; width: 338px; height: 600px; border-radius: 10px; overflow: hidden; background: #000">
+        <img src="/_blob/cef831a5d1b00ea36c7646ed0fd1165b" alt="钩子版式实拍帧" style="position: absolute; left: 0; top: 0; width: 338px; height: 600px; object-fit: cover; opacity: 0.55">
+        <div style="position: absolute; left: 12px; top: 219px; width: 312px; height: 94px; border: 2px dashed #FFFFFF; box-sizing: border-box"></div>
+        <div style="position: absolute; left: 16px; top: 222px; padding: 2px 6px; background: #FFFFFF; color: #120D1A; font-size: 11px; font-weight: 700">hook-top</div>
+        <div style="position: absolute; left: 12px; top: 306px; width: 312px; height: 100px; border: 2px dashed #E5484D; box-sizing: border-box"></div>
+        <div style="position: absolute; left: 16px; top: 384px; padding: 2px 6px; background: #E5484D; color: #FFFFFF; font-size: 11px; font-weight: 700">hook-num</div>
+      </div>
+      <div style="font-size: 13px; line-height: 1.6; color: #A89CB8; width: 338px">实机画面铺满、亮度 0.32；大字压在对话区，舞台上的背刺动作保持可见。</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="font-size: 16px; font-weight: 700">B · 手机框 2.6–32s</div>
+      <div style="position: relative; width: 338px; height: 600px; border-radius: 10px; overflow: hidden; background: #120D1A; border: 1px solid #3A2E4D; box-sizing: border-box">
+        <img src="/_blob/8b7ef5c82ea3f523b9b47fa71c8115b0" alt="手机框版式实拍帧" style="position: absolute; left: 0; top: 0; width: 336px; height: 598px; object-fit: cover; opacity: 0.55">
+        <div style="position: absolute; left: 12px; top: 9px; width: 312px; height: 75px; border: 2px dashed #FFFFFF; box-sizing: border-box"></div>
+        <div style="position: absolute; left: 16px; top: 12px; padding: 2px 6px; background: #FFFFFF; color: #120D1A; font-size: 11px; font-weight: 700">cap-band</div>
+        <div style="position: absolute; left: 28px; top: 91px; width: 281px; height: 500px; border: 2px dashed #F2C14E; box-sizing: border-box; border-radius: 9px"></div>
+        <div style="position: absolute; left: 32px; top: 95px; padding: 2px 6px; background: #F2C14E; color: #120D1A; font-size: 11px; font-weight: 700">phone</div>
+      </div>
+      <div style="font-size: 13px; line-height: 1.6; color: #A89CB8; width: 338px">900×1600 保持游戏 9:16，zoom 1 时一像素不裁；顶部 240px 专给字幕。</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 14px; flex-grow: 1">
+      <div style="font-size: 16px; font-weight: 700">区域规格（space:Frame）</div>
+      <div style="display: grid; grid-template-columns: 120px 180px minmax(0, 1fr); border-top: 1px solid #3A2E4D; font-size: 14px">
+        <div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D; color: #A89CB8">Frame</div><div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D; color: #A89CB8">left, top → right, bottom</div><div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D; color: #A89CB8">用途</div>
+        <div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D; font-weight: 700">full</div><div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D">0, 0 → 1080, 1920</div><div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D; color: #D9D1E4">钩子全屏画面</div>
+        <div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D; font-weight: 700">hook-top</div><div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D">40, 700 → 1040, 1000</div><div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D; color: #D9D1E4">「师兄杀了我」132px，带 90% 暗底</div>
+        <div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D; font-weight: 700">hook-num</div><div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D">40, 980 → 1040, 1300</div><div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D; color: #D9D1E4">「99次」260px，slam 2.4→0.92→1</div>
+        <div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D; font-weight: 700">cap-band</div><div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D">40, 30 → 1040, 270</div><div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D; color: #D9D1E4">顶部字幕，≤2 行，86px / CTA 104px</div>
+        <div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D; font-weight: 700">phone</div><div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D">90, 290 → 990, 1890</div><div style="padding: 12px 0; border-bottom: 1px solid #3A2E4D; color: #D9D1E4">圆角 28 · 5px 魔金边 · 金色外发光</div>
+      </div>
+      <div style="font-size: 16px; font-weight: 700; margin-top: 12px">推镜公式（mt:Sampling）</div>
+      <div style="padding: 16px 18px; border-radius: 12px; background: #1C1528; border: 1px solid #3A2E4D; font-size: 14px; line-height: 1.8; color: #D9D1E4">
+        可平移上限 = (zoom − 1) × 半框尺寸（横 450 / 竖 800）<br>
+        左对齐 x = +(zoom − 1) × 450，保住每行台词开头<br>
+        顶对齐 y = +(zoom − 1) × 800 · 底对齐 y = −(zoom − 1) × 800<br>
+        台词行最长到画面宽 83%，所以对话推镜 zoom ≤ 1.2
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

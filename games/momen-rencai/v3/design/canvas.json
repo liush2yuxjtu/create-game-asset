@@ -1,0 +1,22 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Index.dc.html": {"h": 1100, "title": "00 目录", "w": 1440, "x": 0, "y": 0},
+    "StoryStudio.dc.html": {"h": 4400, "is_interactive": true, "title": "故事工作台 · L1→L4 联动（含口播）", "w": 1440, "x": 1520, "y": 0},
+    "Storyboard.dc.html": {"h": 1960, "title": "参考 · 旧版分镜 13 屏（他也记得，静态）", "w": 1440, "x": 3040, "y": 0},
+    "Main.dc.html": {"h": 1100, "title": "P1 · 总览 · 设计语言与 Hypit 管线", "w": 1440, "x": 0, "y": 4800},
+    "Layout.dc.html": {"h": 1000, "title": "P2 · 版式 · 画布与区域规格", "w": 1440, "x": 1520, "y": 4800},
+    "Timeline.dc.html": {"h": 760, "title": "P3 · 时间轴 · v3 Hypit 轨道（含口播）", "w": 1440, "x": 3040, "y": 4800}
+  },
+  "createdOnFiles": {"at": "2026-09-27T16:40:00+08:00", "v": 1},
+  "designSystems": [],
+  "launch": {"view": "canvas"},
+  "notes": {
+    "prodRow": {"kind": "title1", "maxW": 4480, "text": "制作规格  P1 · P2 · P3", "w": 240, "x": 0, "y": 4500},
+    "storyRow": {"kind": "title1", "maxW": 4480, "text": "故事：L1 → L2 → L3 → L4 一块画板联动", "w": 240, "x": 0, "y": -300}
+  },
+  "order": ["Index.dc.html", "StoryStudio.dc.html", "Storyboard.dc.html", "Main.dc.html", "Layout.dc.html", "Timeline.dc.html"],
+  "pages": [],
+  "title": "魔门人材 v2 · 爆款视频设计稿（Hypit）"
+}

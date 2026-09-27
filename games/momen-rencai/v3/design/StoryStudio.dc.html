@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>故事工作台 · L1 到 L4 联动</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:"FusionPixel";src:url(/_blob/a0a8e8076b308f25616a6eaa3268d997) format("woff2");font-weight:400;font-style:normal;font-display:block}
+body{margin:0;background:#120D1A;font-family:"Noto Sans SC",sans-serif;color:#F4EFE6}
+a{color:#F2C14E}a:hover{color:#FFD978}
+button{font-family:"Noto Sans SC",sans-serif;cursor:pointer}
+button:focus-visible{outline:2px solid #F2C14E;outline-offset:2px}
+</style>
+</helmet>
+<div style="width: 1440px; height: 4400px; box-sizing: border-box; padding: 56px 72px; background: #120D1A; display: flex; flex-direction: column; gap: 40px">
+
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="font-size: 14px; letter-spacing: 0.16em; color: #A89CB8">STORY STUDIO · 四层联动：改上层，下层自动重算</div>
+      <h1 style="margin: 0; font-family: FusionPixel, 'Noto Sans SC', sans-serif; font-weight: 400; font-size: 56px; line-height: 1.15; color: #F2C14E">故事工作台</h1>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center">
+      <div style="display: flex; gap: 6px; align-items: center; font-size: 14px; color: #D9D1E4">
+        <sc-for list="{{chain}}" as="c" hint-placeholder-count="4">
+          <div style="padding: 6px 12px; border-radius: 8px; background: #1C1528; border: 1px solid #3A2E4D">{{c}}</div>
+        </sc-for>
+      </div>
+      <button type="button" onClick="{{resetAll}}" style="min-height: 44px; padding: 0 16px; border-radius: 10px; background: transparent; color: #F2C14E; border: 1px solid #F2C14E; font-size: 14px">全部重置</button>
+      <a href="Index.dc.html" style="font-size: 14px; text-decoration: none">目录</a>
+    </div>
+  </div>
+
+  <!-- ================= L1 ================= -->
+  <div style="display: flex; flex-direction: column; gap: 20px; padding: 32px; border-radius: 20px; background: #17111F; border: 1px solid #3A2E4D">
+    <div style="display: flex; justify-content: space-between; align-items: center">
+      <div style="display: flex; gap: 12px; align-items: center">
+        <div style="padding: 4px 12px; border-radius: 999px; background: #F2C14E; color: #120D1A; font-size: 14px; font-weight: 700">L1 · 一句话</div>
+        <div style="font-size: 14px; color: #A89CB8">改这里 → L2 幕、L3 节拍、L4 画面全部重算，下层的手动改动会清空</div>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px">
+      <sc-for list="{{angleCards}}" as="c" hint-placeholder-count="6">
+        <button type="button" onClick="{{c.pick}}" aria-pressed="{{c.pressed}}" style="text-align: left; padding: 14px; min-height: 108px; border-radius: 12px; background: {{c.bg}}; border: 2px solid {{c.border}}; color: #F4EFE6; display: flex; flex-direction: column; gap: 6px">
+          <span style="display: flex; justify-content: space-between; width: 100%"><span style="font-size: 13px; color: {{c.tagColor}}">{{c.tag}}</span><span style="font-size: 12px; color: #A89CB8">素材 {{c.cover}}</span></span>
+          <span style="font-size: 17px; font-weight: 700">{{c.name}}</span>
+          <span style="font-size: 12px; line-height: 1.5; color: #A89CB8">{{c.gist}}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px">
+      <sc-for list="{{l1Groups}}" as="g" hint-placeholder-count="4">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <div style="font-size: 13px; color: #A89CB8">{{g.label}}</div>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap">
+            <sc-for list="{{g.items}}" as="p" hint-placeholder-count="3">
+              <button type="button" onClick="{{p.pick}}" aria-pressed="{{p.pressed}}" style="min-height: 40px; padding: 0 12px; border-radius: 999px; font-size: 13px; background: {{p.bg}}; color: {{p.fg}}; border: 1px solid {{p.border}}">{{p.label}}</button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display: flex; gap: 32px; align-items: stretch">
+      <div style="display: flex; flex-direction: column; gap: 14px; flex-grow: 1">
+        <div style="font-size: 13px; color: #A89CB8">{{angleName}} · {{povLabel}} · {{durLabel}}</div>
+        <div style="font-size: 13px; color: #4FB8A6">{{voiceLine}}</div>
+        <div style="font-family: FusionPixel, 'Noto Sans SC', sans-serif; font-size: 46px; line-height: 1.35; color: #FFFFFF"><sc-for list="{{logParts}}" as="s" hint-placeholder-count="4"><span style="color: {{s.color}}">{{s.text}}</span></sc-for></div>
+        <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+          <sc-for list="{{parts}}" as="p" hint-placeholder-count="4">
+            <div style="padding: 12px 14px; border-radius: 12px; background: #1C1528; border-top: 3px solid {{p.color}}; display: flex; flex-direction: column; gap: 4px">
+              <div style="font-size: 12px; color: #A89CB8">{{p.role}}</div>
+              <div style="font-size: 13px; line-height: 1.55; color: #D9D1E4">{{p.note}}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+          <div style="display: flex; flex-direction: column; gap: 4px"><div style="font-size: 12px; color: #A89CB8">观众看完记住</div><div style="font-size: 14px; line-height: 1.6">{{takeaway}}</div></div>
+          <div style="display: flex; flex-direction: column; gap: 4px"><div style="font-size: 12px; color: #A89CB8">AI 卖点</div><div style="font-size: 14px; line-height: 1.6">{{aiLine}}</div></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><div style="font-size: 12px; color: #A89CB8">实机素材覆盖</div><div style="height: 8px; border-radius: 999px; background: #2A2238; overflow: hidden"><div style="height: 8px; width: {{coverPct}}; background: {{coverColor}}"></div></div><div style="font-size: 12px; line-height: 1.5; color: #D9D1E4">{{coverNote}}</div></div>
+        </div>
+      </div>
+      <div style="width: 190px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px">
+        <div style="font-size: 12px; color: #A89CB8">开场第一句 · {{hookLabel}}</div>
+        <div style="width: 190px; height: 338px; border-radius: 16px; background: #0B0811; border: 3px solid #F2C14E; box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: 16px">
+          <div style="font-family: FusionPixel, 'Noto Sans SC', sans-serif; font-size: 22px; line-height: 1.4; text-align: center; color: #FFFFFF; white-space: pre-line">{{hookLine}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= L2 ================= -->
+  <div style="display: flex; flex-direction: column; gap: 20px; padding: 32px; border-radius: 20px; background: #17111F; border: 1px solid #3A2E4D">
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px">
+      <div style="display: flex; gap: 12px; align-items: center">
+        <div style="padding: 4px 12px; border-radius: 999px; background: #F2C14E; color: #120D1A; font-size: 14px; font-weight: 700">L2 · 幕</div>
+        <div style="font-size: 14px; color: #A89CB8">来自 L1：{{angleName}} · {{durLabel}} · 钩子「{{hookLabel}}」 → 改这里只影响 L3、L4</div>
+      </div>
+      <button type="button" onClick="{{resetL2}}" style="min-height: 40px; padding: 0 14px; border-radius: 10px; background: transparent; color: #A89CB8; border: 1px solid #3A2E4D; font-size: 13px">重置 L2 以下</button>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px">
+      <sc-for list="{{l2Groups}}" as="g" hint-placeholder-count="3">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <div style="font-size: 13px; color: #A89CB8">{{g.label}}</div>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap">
+            <sc-for list="{{g.items}}" as="p" hint-placeholder-count="3">
+              <button type="button" onClick="{{p.pick}}" aria-pressed="{{p.pressed}}" style="min-height: 40px; padding: 0 12px; border-radius: 999px; font-size: 13px; background: {{p.bg}}; color: {{p.fg}}; border: 1px solid {{p.border}}">{{p.label}}</button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <div style="display: flex; height: 40px; border-radius: 10px; overflow: hidden">
+        <sc-for list="{{actBar}}" as="b" hint-placeholder-count="5">
+          <div style="flex-grow: {{b.grow}}; flex-basis: 0; background: {{b.color}}; color: {{b.fg}}; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; overflow: hidden; white-space: nowrap">{{b.label}}</div>
+        </sc-for>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 12px; color: #A89CB8"><div>0s</div><div>{{totalLabel}}</div></div>
+      <div style="font-size: 13px; color: #D9D1E4">{{timingNote}}</div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px">
+      <sc-for list="{{actCards}}" as="a" hint-placeholder-count="5">
+        <div style="padding: 16px; border-radius: 14px; background: {{a.bg}}; border-top: 4px solid {{a.color}}; display: flex; flex-direction: column; gap: 8px; opacity: {{a.opacity}}">
+          <div style="display: flex; justify-content: space-between; align-items: baseline"><div style="font-family: FusionPixel, sans-serif; font-size: 26px">{{a.letter}}</div><div style="font-size: 12px; color: #A89CB8">{{a.t}}</div></div>
+          <div style="font-size: 16px; font-weight: 700">{{a.name}}</div>
+          <div style="font-size: 13px; line-height: 1.6; color: #D9D1E4">{{a.summary}}</div>
+          <div style="font-size: 12px; line-height: 1.5; color: #A89CB8">观众：{{a.viewer}}</div>
+          <div style="font-size: 12px; color: {{a.climaxColor}}">{{a.climaxLabel}}</div>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto">
+            <sc-if value="{{a.canToggle}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{a.toggle}}" aria-pressed="{{a.onPressed}}" style="min-height: 36px; padding: 0 10px; border-radius: 8px; background: transparent; color: #F4EFE6; border: 1px solid #3A2E4D; font-size: 12px">{{a.toggleLabel}}</button></sc-if>
+            <sc-if value="{{a.canClimax}}" hint-placeholder-val="{{true}}"><button type="button" onClick="{{a.setClimax}}" style="min-height: 36px; padding: 0 10px; border-radius: 8px; background: transparent; color: #F2C14E; border: 1px solid #3A2E4D; font-size: 12px">设为高潮</button></sc-if>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ================= L3 ================= -->
+  <div style="display: flex; flex-direction: column; gap: 16px; padding: 32px; border-radius: 20px; background: #17111F; border: 1px solid #3A2E4D">
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px">
+      <div style="display: flex; gap: 12px; align-items: center">
+        <div style="padding: 4px 12px; border-radius: 999px; background: #F2C14E; color: #120D1A; font-size: 14px; font-weight: 700">L3 · 节拍</div>
+        <div style="font-size: 14px; color: #A89CB8">来自 L2：{{actCount}} 幕 · {{structureLabel}} · {{pacingLabel}} → 改这里只影响 L4</div>
+      </div>
+      <button type="button" onClick="{{resetL3}}" style="min-height: 40px; padding: 0 14px; border-radius: 10px; background: transparent; color: #A89CB8; border: 1px solid #3A2E4D; font-size: 13px">重置 L3 以下</button>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
+      <sc-for list="{{l3Groups}}" as="g" hint-placeholder-count="1">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <div style="font-size: 13px; color: #A89CB8">{{g.label}}</div>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap">
+            <sc-for list="{{g.items}}" as="p" hint-placeholder-count="3">
+              <button type="button" onClick="{{p.pick}}" aria-pressed="{{p.pressed}}" style="min-height: 40px; padding: 0 12px; border-radius: 999px; font-size: 13px; background: {{p.bg}}; color: {{p.fg}}; border: 1px solid {{p.border}}">{{p.label}}</button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+      <div style="display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; color: #A89CB8">说明</div><div style="font-size: 13px; line-height: 1.6; color: #D9D1E4">每拍可「换说法」或「删掉」；删掉的拍会从 L4 移除。开场第一句和评论钩子由 L1 决定，这里固定。</div></div>
+    </div>
+    <div style="display: grid; grid-template-columns: 44px 88px 40px minmax(0, 1fr) minmax(0, 0.8fr) minmax(0, 0.9fr) minmax(0, 1.3fr) 170px; column-gap: 16px; padding: 0 14px; font-size: 12px; color: #A89CB8">
+      <div>拍</div><div>时间</div><div>幕</div><div>事件</div><div>观众在想</div><div>字幕</div><div>口播（主句含字幕）</div><div>操作</div>
+    </div>
+    <div style="display: flex; flex-direction: column; border-radius: 12px; overflow: hidden; border: 1px solid #3A2E4D">
+      <sc-for list="{{beatRows}}" as="b" hint-placeholder-count="12">
+        <div style="display: grid; grid-template-columns: 44px 88px 40px minmax(0, 1fr) minmax(0, 0.8fr) minmax(0, 0.9fr) minmax(0, 1.3fr) 170px; column-gap: 16px; padding: 10px 14px; background: #1C1528; border-bottom: 1px solid #2A2238; align-items: center; opacity: {{b.opacity}}">
+          <div style="font-family: FusionPixel, sans-serif; font-size: 20px; color: {{b.color}}">{{b.n}}</div>
+          <div style="font-size: 12px; color: #A89CB8">{{b.t}}</div>
+          <div style="font-size: 13px; color: {{b.color}}">{{b.act}}</div>
+          <div style="font-size: 14px; line-height: 1.5">{{b.event}}</div>
+          <div style="font-size: 13px; line-height: 1.5; color: #D9D1E4">{{b.viewer}}</div>
+          <div style="font-size: 14px; line-height: 1.5; color: {{b.capColor}}; white-space: pre-line">{{b.cap}}</div>
+          <div style="display: flex; flex-direction: column; gap: 2px"><div style="font-size: 13px; line-height: 1.5; color: #F4EFE6">{{b.vo}}</div><div style="font-size: 11px; color: {{b.voOkColor}}">{{b.voOk}}</div></div>
+          <div style="display: flex; gap: 6px">
+            <button type="button" onClick="{{b.cycle}}" style="min-height: 36px; padding: 0 10px; border-radius: 8px; background: transparent; color: #F2C14E; border: 1px solid #3A2E4D; font-size: 12px">换说法 · {{b.voiceLabel}}</button>
+            <button type="button" onClick="{{b.toggle}}" aria-pressed="{{b.onPressed}}" style="min-height: 36px; padding: 0 10px; border-radius: 8px; background: transparent; color: #F4EFE6; border: 1px solid #3A2E4D; font-size: 12px">{{b.toggleLabel}}</button>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ================= L4 ================= -->
+  <div style="display: flex; flex-direction: column; gap: 20px; padding: 32px; border-radius: 20px; background: #17111F; border: 1px solid #3A2E4D">
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px">
+      <div style="display: flex; gap: 12px; align-items: center">
+        <div style="padding: 4px 12px; border-radius: 999px; background: #F2C14E; color: #120D1A; font-size: 14px; font-weight: 700">L4 · 画面</div>
+        <div style="font-size: 14px; color: #A89CB8">来自 L3：{{screenCount}} 屏 · 字幕「{{voiceLabel}}」 · 画面取自 cut-2 实机录屏</div>
+      </div>
+      <button type="button" onClick="{{resetL4}}" style="min-height: 40px; padding: 0 14px; border-radius: 10px; background: transparent; color: #A89CB8; border: 1px solid #3A2E4D; font-size: 13px">重置 L4</button>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px">
+      <sc-for list="{{l4Groups}}" as="g" hint-placeholder-count="4">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <div style="font-size: 13px; color: #A89CB8">{{g.label}}</div>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap">
+            <sc-for list="{{g.items}}" as="p" hint-placeholder-count="3">
+              <button type="button" onClick="{{p.pick}}" aria-pressed="{{p.pressed}}" style="min-height: 40px; padding: 0 12px; border-radius: 999px; font-size: 13px; background: {{p.bg}}; color: {{p.fg}}; border: 1px solid {{p.border}}">{{p.label}}</button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 16px">
+      <sc-for list="{{screens}}" as="s" hint-placeholder-count="12">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; justify-content: space-between; align-items: center"><div style="font-family: FusionPixel, sans-serif; font-size: 18px; color: {{s.color}}">{{s.n}}</div><div style="font-size: 11px; color: #A89CB8">{{s.t}}</div></div>
+          <div style="position: relative; width: 166px; height: 295px; border-radius: 10px; overflow: hidden; background: #0B0811">
+            <sc-if value="{{s.full}}" hint-placeholder-val="{{false}}">
+              <img src="{{s.img}}" alt="{{s.alt}}" style="position: absolute; left: 0; top: 0; width: 166px; height: 295px; object-fit: cover; filter: brightness({{s.bright}}); transform: scale({{s.scale}})">
+            </sc-if>
+            <sc-if value="{{s.phone}}" hint-placeholder-val="{{true}}">
+              <div style="position: absolute; left: 14px; top: 46px; width: 138px; height: 245px; border-radius: 6px; border: 2px solid #F2C14E; box-sizing: border-box; overflow: hidden">
+                <img src="{{s.img}}" alt="{{s.alt}}" style="width: 134px; height: 241px; object-fit: cover; display: block; transform: scale({{s.scale}}); transform-origin: {{s.origin}}">
+              </div>
+            </sc-if>
+            <div style="position: absolute; left: 6px; right: 6px; top: {{s.capTop}}; padding: 4px 4px; border-radius: 4px; background: {{s.capBg}}; font-family: FusionPixel, 'Noto Sans SC', sans-serif; font-size: 12px; line-height: 1.3; text-align: center; color: {{s.capColor}}; white-space: pre-line">{{s.cap}}</div>
+            <sc-if value="{{s.chip}}" hint-placeholder-val="{{false}}">
+              <div style="position: absolute; left: 20px; bottom: 10px; padding: 2px 6px; border-radius: 999px; background: #120D1AE6; border: 1px solid #F2C14E; font-size: 9px; color: #F2C14E">NPC 由 AI 驱动</div>
+            </sc-if>
+          </div>
+          <div style="font-size: 11px; line-height: 1.5; color: #D9D1E4">{{s.shot}}</div>
+          <div style="font-size: 11px; line-height: 1.5; color: #A89CB8">{{s.sfx}}</div>
+          <div style="font-size: 11px; line-height: 1.5; color: #4FB8A6">{{s.vo}}</div>
+          <button type="button" onClick="{{s.swap}}" style="min-height: 36px; padding: 0 8px; border-radius: 8px; background: transparent; color: #F2C14E; border: 1px solid #3A2E4D; font-size: 12px">换画面 · {{s.momentName}}</button>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;angle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;memory&quot;,&quot;options&quot;:[&quot;remember&quot;,&quot;memory&quot;,&quot;ai&quot;,&quot;gou&quot;,&quot;layers&quot;,&quot;choice&quot;],&quot;section&quot;:&quot;L1 一句话&quot;},&quot;hook&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;cold&quot;,&quot;options&quot;:[&quot;number&quot;,&quot;question&quot;,&quot;cold&quot;,&quot;challenge&quot;],&quot;section&quot;:&quot;L1 一句话&quot;},&quot;pov&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;me&quot;,&quot;options&quot;:[&quot;me&quot;,&quot;you&quot;],&quot;section&quot;:&quot;L1 一句话&quot;},&quot;duration&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;33&quot;,&quot;options&quot;:[&quot;15&quot;,&quot;33&quot;,&quot;60&quot;],&quot;section&quot;:&quot;L1 一句话&quot;},&quot;showNumber&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;section&quot;:&quot;L1 一句话&quot;},&quot;aiExplicit&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;section&quot;:&quot;L1 一句话&quot;},&quot;showCTA&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;section&quot;:&quot;L1 一句话&quot;},&quot;structure&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;loop&quot;,&quot;options&quot;:[&quot;cold&quot;,&quot;linear&quot;,&quot;loop&quot;],&quot;section&quot;:&quot;L2 幕&quot;},&quot;pacing&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;balanced&quot;,&quot;options&quot;:[&quot;fast&quot;,&quot;balanced&quot;,&quot;slow&quot;],&quot;section&quot;:&quot;L2 幕&quot;},&quot;voice&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;a&quot;,&quot;options&quot;:[&quot;q&quot;,&quot;n&quot;,&quot;a&quot;],&quot;section&quot;:&quot;L3 节拍&quot;},&quot;framing&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;phone&quot;,&quot;options&quot;:[&quot;phone&quot;,&quot;full&quot;],&quot;section&quot;:&quot;L4 画面&quot;},&quot;zoom&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;subtle&quot;,&quot;options&quot;:[&quot;off&quot;,&quot;subtle&quot;,&quot;strong&quot;],&quot;section&quot;:&quot;L4 画面&quot;},&quot;capPos&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;top&quot;,&quot;options&quot;:[&quot;top&quot;,&quot;center&quot;],&quot;section&quot;:&quot;L4 画面&quot;},&quot;sfx&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;section&quot;:&quot;L4 画面&quot;},&quot;voiceOn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;section&quot;:&quot;L1 一句话&quot;},&quot;voiceName&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;yunxi&quot;,&quot;options&quot;:[&quot;yunxi&quot;,&quot;yunjian&quot;,&quot;xiaoxiao&quot;],&quot;section&quot;:&quot;L1 一句话&quot;},&quot;timing&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;event&quot;,&quot;options&quot;:[&quot;event&quot;,&quot;ratio&quot;],&quot;section&quot;:&quot;L2 幕&quot;},&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:4400}}">
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = {};
+}
+v(key, fallback) {
+var st = this.state || {};
+if (st[key] !== undefined) return st[key];
+if (this.props[key] !== undefined && this.props[key] !== null) return this.props[key];
+return fallback;
+}
+setL1(key, value) {
+var s = { actsOff: {}, climax: null, beatsOff: {}, capOverride: {}, frameOverride: {} };
+s[key] = value;
+this.setState(s);
+}
+setL2(key, value) {
+var s = { beatsOff: {}, capOverride: {}, frameOverride: {} };
+s[key] = value;
+this.setState(s);
+}
+setL3(key, value) {
+var s = { frameOverride: {} };
+s[key] = value;
+this.setState(s);
+}
+setL4(key, value) {
+var s = {};
+s[key] = value;
+this.setState(s);
+}
+flipMap(mapKey, id, cascade) {
+var cur = Object.assign({}, (this.state && this.state[mapKey]) || {});
+if (cur[id]) { delete cur[id]; } else { cur[id] = true; }
+var s = Object.assign({}, cascade || {});
+s[mapKey] = cur;
+this.setState(s);
+}
+setMap(mapKey, id, value) {
+var cur = Object.assign({}, (this.state && this.state[mapKey]) || {});
+cur[id] = value;
+var s = {}; s[mapKey] = cur;
+this.setState(s);
+}
+renderVals() {
+var self = this;
+var RED = '#E5484D', GREY = '#A89CB8', GOLD = '#F2C14E', TEAL = '#4FB8A6', LILAC = '#C9A0F0', WHITE = '#FFFFFF';
+var ACT_COLORS = { '0': WHITE, B: RED, C: GOLD, D: LILAC, E: TEAL };
+
+var M = {
+m1: { name: '背刺', dur: 4.0, img: '/_blob/cef831a5d1b00ea36c7646ed0fd1165b', alt: '第99世被师兄背刺' },
+m2: { name: '铭刻记忆', dur: 1.4, img: '/_blob/d8ff99b0670e67ccf53a610a23ae0aa4', alt: '背包里选出记忆碎片铭刻' },
+m3: { name: '第100世', dur: 1.8, img: '/_blob/8b7ef5c82ea3f523b9b47fa71c8115b0', alt: '第100世 师兄又来约去后山' },
+m4: { name: '隐藏选项', dur: 3.8, img: '/_blob/71f36156156ae3f193da51c33fd3a51a', alt: '使用记忆后隐藏选项出现' },
+m5: { name: '层卡', dur: 3.4, img: '/_blob/622f0930a8c68d27defc345e2dce219d', alt: '第一章第2层 师兄的命押在药堂' },
+m6: { name: '自由输入', dur: 3.4, img: '/_blob/d5439547141fe539e46baf77da77463f', alt: '输入框里自己打字' },
+m7: { name: '他愣住', dur: 1.4, img: '/_blob/2194f49b697fca6c2c9d286dd4005f0f', alt: '师兄盯着我 你到底知道多少' },
+m8: { name: '上一世的账', dur: 4.0, img: '/_blob/6ddfcfe8577d29d38479e3ada99e63fd', alt: '战斗中 上一世的账先记着' },
+m9: { name: '没下手', dur: 2.0, img: '/_blob/11a3bbb2f2124cec0265b85f537722e4', alt: '这一世 就算了' },
+m10: { name: '章末', dur: 1.6, img: '/_blob/7471ff20e2666eedc1b81651b0772cca', alt: '第一章完 还有两层' },
+m11: { name: '新数字', dur: 1.8, img: '/_blob/6ce46638d91fded04e1df4f4beeec336', alt: '第二章 药堂之夜 新数字 情' },
+m12: { name: '结尾卡', dur: 4.2, img: '/_blob/5674c6b81de0fe1aaacdf7c0e36cf058', alt: '结尾卡 魔门人材 忆' }
+};
+/* dur = 该画面事件在实机录屏里的原速长度（秒），与仓库 games/momen-rencai/v3/hypit/screens.json 一致；闪前固定 2.0s */
+var MKEYS = Object.keys(M);
+function b(m, n, q, a, event, viewer, extra) { return Object.assign({ m: m, caps: { n: n, q: q, a: a }, event: event, viewer: viewer }, extra || {}); }
+
+var ANGLES = {
+remember: { name: '他也记得', tag: '反转', gist: '对手也有记忆，第100次他没下手', cover: 100, teaser: 'm7', climax: 'D',
+me: ['杀了我99次的师兄，', '第100次，', '被我一句话说愣了——', '因为他也记得。'],
+you: ['杀了你99次的师兄，', '第100次，', '被你一句话说愣了——', '因为他也记得。'],
+roles: ['对手 · 循环', '转折点', '主角反击', '真正的反转'],
+notes: ['同一个人一次次杀我，观众立刻懂规则。', '整数带来“这次不一样”的期待。', '不是打赢，是一句「我也死过99次」。', '让他用「上一世的账」自己证明。'],
+hooks: { number: '他杀了我\n99次', question: '如果杀你的人\n也记得上一世？', cold: '「我也死过99次」\n——他愣住了', challenge: '第100次\n你能让他不下手吗？' },
+takeaway: '这个游戏的 NPC 会记得你上辈子干过什么。', cta: '你能挖到第几层？\n评论区见', coverNote: '现有录屏已全部覆盖。',
+acts: [
+{ id: 'B', name: '死循环', summary: '他一次次杀我；我每次死前只能记一件事；第100世同一句台词。', viewer: '懂了，是轮回', beats: [
+b('m1', '第99世\n他从背后捅了我', '「师弟，小心身后~」', '如果每次都被\n同一个人杀？', '第99世被背刺', '他真的杀过我'),
+b('m2', '每次死前\n我只能记住一件事', '「铭刻哪一段？」', '死前只能记一件事\n你记什么？', '从背包选出「袖口的朱砂」铭刻', '规则：只能带一件'),
+b('m3', '第100世\n同一句台词', '「后山出了只妖狐」', '这句话\n你听过99次了', '第100世，他说出一字不差的台词', '这次会不一样吗？') ] },
+{ id: 'C', name: '反击', summary: '用记住的线索说中秘密，再自己打出那句话。', viewer: '原来是这句话！', beats: [
+b('m4', '这一次\n我用上了那段记忆', '「你袖口那点朱砂\n是药堂的印吧？」', '如果你记得\n他的秘密？', '使用朱砂记忆，隐藏选项出现', '记忆能解锁东西'),
+b('m5', '他的秘密\n被我说中了', '「师兄的命\n押在药堂」', '第2层真相\n你猜到了吗？', '揭开第一章第2层', '爽'),
+b('m6', '选项里没有这句\n是我自己打的', '「我也死过99次」', '你会对他\n打什么？', '在输入框自己打字', '还能自己打字？'),
+b('m7', '他愣住了', '「……你到底\n知道多少？」', '他为什么愣住？', '他盯着我问', '闭环') ] },
+{ id: 'D', name: '他也记得', summary: '他说「上一世的账」——他也有记忆，这一世没下手。', viewer: 'NPC 也记得？', beats: [
+b('m8', '他也记得上一世', '「上一世的账\n先记着。」', 'NPC 也会记仇？', '战斗中他说漏了嘴', '他也记得？'),
+b('m9', '这一世\n他没有下手', '「这一世\n就算了。」', '命运改了吗？', '妖狐倒下，他收刀', '命运被改了') ] },
+{ id: 'E', name: '留问题', summary: '4层只挖到2层，你能挖到第几层？', viewer: '想评论', beats: [
+b('m10', '4层真相\n我只挖到2层', '「还有 2 层\n没被看见。」', '剩下两层\n在哪？', '第一章完 ■■□□', '还有两层'),
+b('m12', '', '', '', '结尾卡', '我要评论', { cta: true }) ] } ] },
+
+memory: { name: '只能带一件事', tag: '抉择', gist: '死前只能记住一件事，选哪件', cover: 90, teaser: 'm4', climax: 'C',
+hookVo: '就是这一件，救了我的命。', ctaVo: '死前只能记住一件事。你会带哪段记忆，进下一世？',
+me: ['每次死前，', '我能记住一件事——', '第100世，', '我终于选对了那一件。'],
+you: ['每次死前，', '你只能记住一件事——', '到了第100世，', '你会选哪一件？'],
+roles: ['规则', '限制', '转折点', '结果'],
+notes: ['死亡是常态，不是结局。', '背包里三段记忆，只能铭刻一段。', '同一个开局，这次带着对的线索。', '一段朱砂印记，改写了整条命。'],
+hooks: { number: '死了99次\n只带走99件事', question: '死前只能记住一件事\n你选什么？', cold: '就是这一件\n救了我的命', challenge: '3段记忆\n只能选1段，选吧' },
+takeaway: '记忆是这个游戏唯一的存档，选择带走什么就是玩法。', cta: '你会带哪段记忆\n进下一世？', coverNote: '铭刻、背包、使用记忆都有；缺“选错”的对照镜头。',
+acts: [
+{ id: 'B', name: '规则', summary: '又死了一次；「你死了」屏告诉我：只能从背包里带走一段记忆。', viewer: '只能带一件？', beats: [
+b('m1', '第99世\n又死了', '「记忆会随\n死亡散去」', '只能带一段', '第99世被背刺 →「你死了」屏', '只能带一段？', { vo: '只能带一段。', preVo: '第九十九次，又死在师兄刀下。' }) ] },
+{ id: 'C', name: '抉择', summary: '选了「袖口的朱砂」；第100世，它在关键时刻亮了。', viewer: '选对了！', beats: [
+b('m2', '我选了\n「袖口的朱砂」', '「袖口的朱砂\n第99世」', '你会选\n哪一段？', '记忆卡「袖口的朱砂」出现', '为什么是它？', { vo: '你会选哪一段？' }),
+b('m3', '第100世\n一切重来', '「后山出了只妖狐」', '重来一次\n只多知道一件事', '第100世白闪 → 吐纳', '会有用吗？', { vo: '重来一次，只多知道一件事。' }),
+b('m4', '那段记忆\n在这一刻亮了', '「◆ 这一幕……\n似曾相识」', '记忆该什么时候用？', '「似曾相识」选项出现 → 用上记忆', '有用了！', { vo: '第一百世，同一个后山。记忆，该什么时候用？' }) ] },
+{ id: 'D', name: '改命', summary: '一段朱砂揭开他的秘密，这一世他没下手。', viewer: '一件小事改了命', beats: [
+b('m5', '一段朱砂\n揭开了他的秘密', '「师兄的命\n押在药堂」', '一件小事\n能改多少？', '层卡：师兄的命押在药堂', '原来如此', { vo: '一件小事，揭开了他的秘密。能改多少？' }),
+b('m9', '这一世\n他没有下手', '「这一世\n就算了。」', '选对了\n就能活', '厉寒：「……这一世，就算了。」', '活下来了', { vo: '选对了就能活。' }) ] },
+{ id: 'E', name: '留问题', summary: '还有两层，要靠下一世带对的记忆。', viewer: '下一世带什么？', beats: [
+b('m10', '还有两层\n要靠下一世的记忆', '「还有 2 层\n没被看见。」', '下一世\n你带什么？', '第一章 · 完 ■■□□', '还有两层', { vo: '下一世，你带什么？' }),
+b('m12', '', '', '', '结尾卡', '想评论', { cta: true }) ] } ] },
+
+ai: { name: 'NPC 会记仇', tag: 'AI', gist: '你说过的话，他下辈子还记得', cover: 70, teaser: 'm8', climax: 'D',
+me: ['我在游戏里对师兄说了一句狠话，', '死了，', '下辈子——', '他还记得。'],
+you: ['你对 NPC 说的每一句话，', '他都会记住——', '哪怕你已经', '死过一次。'],
+roles: ['自由输入', '死亡', '下一世', 'AI 记忆'],
+notes: ['不是选项，是自己打字。', '轮回照常发生。', '同一个角色、同一个地点。', '他用台词证明他记得。'],
+hooks: { number: '第100世\n他还记得我第37世说的话', question: 'NPC 会记仇\n你还敢乱说吗？', cold: '「上一世的账\n先记着」', challenge: '随便打一句\n看他怎么回你' },
+takeaway: '自由输入 + AI 角色：你说什么，他都会回应、会记住。', cta: '你会对他说什么？\n评论区打出来', coverNote: '缺一段“上一世说 → 下一世回应”的对照录屏，需要补录。',
+acts: [
+{ id: 'B', name: '设定', summary: 'NPC 由 AI 驱动；我不点选项，自己打字。', viewer: '能自己说话？', beats: [
+b('m3', '这个师兄\n是 AI 驱动的', '「师弟，后山\n出了只妖狐」', 'NPC 会记得你吗？', '师兄登场', '他是 AI？'),
+b('m6', '我不点选项\n自己打字', '「我也死过99次」', '你会对 NPC\n说什么？', '在输入框打字', '会怎么回？') ] },
+{ id: 'C', name: '回应', summary: '他真的听懂了，但这一世我还是死了。', viewer: '他听懂了', beats: [
+b('m7', '他真的听懂了', '「……你到底\n知道多少？」', '他会怎么回你？', '他盯着我问', '真的在对话'),
+b('m1', '但这一世\n我还是死了', '「刀从背后\n进来的」', '说错话的代价', '被背刺', '可惜') ] },
+{ id: 'D', name: '下一世', summary: '下辈子，他还记得我说过的话。', viewer: 'NPC 会记仇？', beats: [
+b('m8', '下一世\n他还记得', '「上一世的账\n先记着。」', 'NPC 会记仇？', '战斗中他提起上一世', '他记得！'),
+b('m9', '他选择\n放过我', '「这一世\n就算了。」', '你说的话\n改变了他', '他收刀', '话有用') ] },
+{ id: 'E', name: '留问题', summary: '你会对他说什么？', viewer: '想试试', beats: [
+b('m12', '', '', '', '结尾卡', '我也想说一句', { cta: true }) ] } ] },
+
+gou: { name: '先苟再上位', tag: '气质', gist: '魔门里活下来的才叫人材', cover: 80, teaser: 'm1', climax: 'C',
+me: ['魔门里不讲对错，', '背刺不算罪——', '我苟了99世，', '才看懂活下来的规矩。'],
+you: ['在魔门，', '背刺不算罪。', '你能苟到', '第几世？'],
+roles: ['世界规则', '威胁', '代价', '成长'],
+notes: ['弱肉强食的魔门，师兄也会捅你。', '最亲近的人最危险。', '每一世都是用命换的经验。', '不是变强，是变聪明。'],
+hooks: { number: '被背刺99次后\n我学会了魔门的规矩', question: '师兄约你去后山\n你去吗？', cold: '这一刀\n我等了99世', challenge: '3秒内选：\n信师兄，还是先跑？' },
+takeaway: '这是一个靠脑子苟活的修仙游戏，不是数值比拼。', cta: '你能苟到第几世？', coverNote: '背刺、战斗都有；“苟”的日常（吐纳挂机）素材偏少。',
+acts: [
+{ id: 'B', name: '魔门规则', summary: '背刺不算罪；死一次，学一条规矩。', viewer: '好险恶', beats: [
+b('m1', '魔门里\n背刺不算罪', '「师弟，小心身后~」', '师兄叫你小心\n你信吗？', '被背刺', '好险恶'),
+b('m2', '死一次\n学一条规矩', '「铭刻哪一段？」', '你愿意死几次\n学会规则？', '铭刻记忆', '原来要这样学') ] },
+{ id: 'C', name: '学会苟', summary: '第100世不急着去后山，先抓他的把柄。', viewer: '会玩', beats: [
+b('m3', '第100世\n先不急着去后山', '「吐纳」', '先苟\n还是先去？', '第100世吐纳', '稳'),
+b('m4', '先抓住\n他的把柄', '「你袖口那点朱砂……」', '魔门里\n把柄就是命', '使用记忆', '有把柄了'),
+b('m5', '师兄的命\n押在药堂', '「师兄的命\n押在药堂」', '现在谁怕谁？', '揭开第2层', '反客为主') ] },
+{ id: 'D', name: '上位', summary: '他不敢动手了；活下来的才叫人材。', viewer: '苟住了', beats: [
+b('m8', '他不敢\n动手了', '「上一世的账\n先记着。」', '苟住了', '战斗', '他怕了'),
+b('m9', '活下来的\n才叫人材', '「这一世\n就算了。」', '你能苟到\n第几世？', '他收刀', '活了') ] },
+{ id: 'E', name: '留问题', summary: '下一章，新的规矩。', viewer: '还想看', beats: [
+b('m11', '下一章\n新的规矩', '「情」', '又多一个数字', '第二章', '是什么？'),
+b('m12', '', '', '', '结尾卡', '想评论', { cta: true }) ] } ] },
+
+layers: { name: '挖到第几层', tag: '解谜', gist: '4层真相，大多数人只看到1层', cover: 100, teaser: 'm5', climax: 'C',
+me: ['第一章藏着4层真相，', '我死了99次，', '才挖到', '第2层。'],
+you: ['第一章有4层真相，', '99%的人', '只看到了', '第1层。'],
+roles: ['谜面', '代价', '进度', '悬念'],
+notes: ['一个简单的后山约战，底下还有三层。', '每次死亡都是一条线索。', '层卡 ■■□□ 直接可视化进度。', '剩下两层留给观众。'],
+hooks: { number: '4层真相\n我只挖到2层', question: '你看到的剧情\n可能只是第1层', cold: '「师兄的命\n押在药堂」', challenge: '看完这段\n你能找到第3层吗？' },
+takeaway: '每一章都藏着多层真相，靠轮回一层层挖。', cta: '你能挖到第几层？\n评论区见', coverNote: '层卡、章末进度都已在录屏里。',
+acts: [
+{ id: 'B', name: '谜面', summary: '一个简单的后山邀约；去了就会死。', viewer: '为什么？', beats: [
+b('m3', '一个简单的\n后山邀约', '「后山出了只妖狐」', '你以为\n这是主线？', '师兄邀约', '普通剧情？'),
+b('m1', '去了\n就会死', '「刀从背后\n进来的」', '他为什么\n要杀我？', '被背刺', '为什么？') ] },
+{ id: 'C', name: '挖', summary: '每次死亡都是线索，用线索解锁第2层。', viewer: '原来如此', beats: [
+b('m2', '每次死亡\n都是线索', '「袖口的朱砂」', '线索藏在哪？', '铭刻朱砂', '线索'),
+b('m4', '用线索\n解锁隐藏选项', '「你袖口那点朱砂\n是药堂的印吧？」', '你发现了吗？', '隐藏选项', '解锁了'),
+b('m5', '第2层\n师兄的命押在药堂', '「第一章 · 第2层\n■■□□」', '第2层\n你猜到了吗？', '层卡', '第2层') ] },
+{ id: 'D', name: '更深', summary: '他说漏了嘴；第一章完，还剩两层。', viewer: '还有更深的', beats: [
+b('m8', '他说漏了嘴\n上一世', '「上一世的账\n先记着。」', '第3层的线索？', '战斗中的台词', '线索！'),
+b('m10', '第一章完\n还剩2层', '「还有 2 层\n没被看见。」', '剩下两层\n在哪？', '章末', '想挖') ] },
+{ id: 'E', name: '留问题', summary: '第二章又多了一个数字；你能挖到第几层？', viewer: '想评论', beats: [
+b('m11', '第二章\n又多了一个数字', '「情」', '它有什么用？', '第二章', '新谜题'),
+b('m12', '', '', '', '结尾卡', '想评论', { cta: true }) ] } ] },
+
+choice: { name: '你会怎么选', tag: '互动', gist: '同一个选择，第100次换答案', cover: 90, teaser: 'm7', climax: 'C',
+me: ['师兄约我去后山，', '前99次我都去了——', '第100次，', '我换了一个答案。'],
+you: ['师兄约你去后山。', '前99个你都去了。', '第100个你，', '怎么选？'],
+roles: ['选择', '重复的结局', '转折点', '观众参与'],
+notes: ['一个看似无害的邀约。', '每次都去，每次都死。', '不点选项，自己打字回答。', '把选择权交给评论区。'],
+hooks: { number: '同一个选择\n我错了99次', question: '师兄约你去后山\n去还是不去？', cold: '第100次\n我没按选项回答', challenge: '先暂停\n评论区选：A去 B不去' },
+takeaway: '没有标准答案，而且你的选择会被记住。', cta: '评论区：\n你选 A、B 还是 C？', coverNote: '选项、自由输入都有；缺“去了→死”的连续失败镜头。',
+acts: [
+{ id: 'B', name: '同一个选择', summary: '师兄约我去后山；去了就死，99次都一样。', viewer: '去还是不去？', beats: [
+b('m3', '师兄约我\n去后山', '「后山出了只妖狐\n同去？」', '去\n还是不去？', '师兄邀约', '去吗？'),
+b('m1', '去了\n就死', '「刀从背后\n进来的」', '99次\n都选了去', '被背刺', '又死了') ] },
+{ id: 'C', name: '换答案', summary: '第100次出现新选项，我干脆自己打了一句。', viewer: '还能这样？', beats: [
+b('m4', '第100次\n出现了新选项', '「你袖口那点朱砂\n是药堂的印吧？」', 'A 去\nB 问朱砂', '隐藏选项', '有新选项'),
+b('m6', '我干脆\n自己打了一句', '「我也死过99次」', 'C：自己说', '自由输入', '还能自己说？'),
+b('m7', '他愣住了', '「……你到底\n知道多少？」', '你会怎么说？', '他盯着我', '有效！') ] },
+{ id: 'D', name: '结果', summary: '这一世，他没下手。', viewer: '答案对了', beats: [
+b('m9', '这一世\n他没下手', '「这一世\n就算了。」', '答案对了', '他收刀', '活了') ] },
+{ id: 'E', name: '留问题', summary: '你选 A、B 还是 C？', viewer: '想投票', beats: [
+b('m12', '', '', '', '结尾卡', '想投票', { cta: true }) ] } ] }
+};
+
+var HOOKS = { number: '数字冲击', question: '反问', cold: '冷开场结果', challenge: '挑战观众' };
+var POVS = { me: '我', you: '你' };
+var DURS = { '15': '15 秒', '33': '33 秒', '60': '60 秒' };
+var STRUCT = { cold: '冷开场倒叙', linear: '顺叙', loop: '首尾循环' };
+var PACE = { fast: '快', balanced: '匀', slow: '慢热' };
+var VOICE = { q: '台词引用', n: '旁白', a: '问观众' };
+var FRAMING = { phone: '手机框', full: '全屏' };
+var ZOOM = { off: '不推镜', subtle: '轻推', strong: '强推' };
+var CAPPOS = { top: '顶部', center: '居中' };
+
+var angle = this.v('angle', 'memory'); if (!ANGLES[angle]) angle = 'memory';
+var hook = this.v('hook', 'cold'); if (!HOOKS[hook]) hook = 'cold';
+var pov = this.v('pov', 'me'); if (!POVS[pov]) pov = 'me';
+var dur = String(this.v('duration', '33')); if (!DURS[dur]) dur = '33';
+var showNumber = this.v('showNumber', true) !== false;
+var aiExplicit = this.v('aiExplicit', false) === true;
+var showCTA = this.v('showCTA', true) !== false;
+var structure = this.v('structure', 'cold'); if (!STRUCT[structure]) structure = 'cold';
+var pacing = this.v('pacing', 'balanced'); if (!PACE[pacing]) pacing = 'balanced';
+var voice = this.v('voice', 'q'); if (!VOICE[voice]) voice = 'q';
+var framing = this.v('framing', 'phone'); if (!FRAMING[framing]) framing = 'phone';
+var zoom = this.v('zoom', 'subtle'); if (!ZOOM[zoom]) zoom = 'subtle';
+var capPos = this.v('capPos', 'top'); if (!CAPPOS[capPos]) capPos = 'top';
+var sfxOn = this.v('sfx', true) !== false;
+var VOICES = { yunxi: '少年 · 云希', yunjian: '沉稳 · 云健', xiaoxiao: '女声 · 晓晓' };
+var TIMING = { event: '按画面事件（成片）', ratio: '按比例凑满时长' };
+var voiceOn = this.v('voiceOn', true) !== false;
+var voiceName = this.v('voiceName', 'yunxi'); if (!VOICES[voiceName]) voiceName = 'yunxi';
+var timingMode = this.v('timing', 'event'); if (!TIMING[timingMode]) timingMode = 'event';
+var st = this.state || {};
+var actsOff = st.actsOff || {};
+var beatsOff = st.beatsOff || {};
+var capOverride = st.capOverride || {};
+var frameOverride = st.frameOverride || {};
+
+var A = ANGLES[angle];
+function num(t) { return showNumber ? t : t.replace(/99(次|世|个|件)/g, '无数$1').replace(/99%/g, '大多数').replace(/第37世/g, '很久以前'); }
+function voiced(t) { return pov === 'you' ? t.replace(/我/g, '你') : t; }
+
+function pills(map, current, onPick) {
+return Object.keys(map).map(function (k) {
+var on = k === current;
+return { label: map[k], pressed: on ? 'true' : 'false', bg: on ? GOLD : 'transparent', fg: on ? '#120D1A' : '#F4EFE6', border: on ? GOLD : '#3A2E4D', pick: function () { onPick(k); } };
+});
+}
+function boolPills(labelOn, labelOff, current, onPick) {
+return pills({ on: labelOn, off: labelOff }, current ? 'on' : 'off', function (k) { onPick(k === 'on'); });
+}
+
+/* ---------- L2: acts ---------- */
+var climaxId = st.climax || A.climax;
+var baseActs = A.acts.slice();
+if (dur === '15') {
+var keep = {}; keep[baseActs[0].id] = true; keep[climaxId] = true; keep[baseActs[baseActs.length - 1].id] = true;
+baseActs = baseActs.filter(function (a) { return keep[a.id]; });
+}
+var actList = [];
+if (structure === 'cold' || structure === 'loop') {
+actList.push({ id: '0', name: structure === 'loop' ? '闪前（循环入口）' : '冷开场', summary: structure === 'loop' ? '先放结尾会用到的那一刻；片尾接回这里循环。' : '先给结果：把最强的一刻放在第 1 秒。', viewer: '为什么？', teaser: true, beats: [
+b(A.teaser, A.hooks[hook], A.hooks[hook], A.hooks[hook], '闪前：借用「' + M[A.teaser].name + '」画面', '想知道原因') ] });
+}
+baseActs.forEach(function (a) { actList.push(a); });
+var actKeyOf = function (a) { return angle + ':' + a.id; };
+var liveActs = actList.filter(function (a) { return a.teaser || !actsOff[actKeyOf(a)]; });
+if (liveActs.length === 0) liveActs = [actList[0]];
+
+/* ---------- L3: beats ---------- */
+var boost = { fast: 1.2, balanced: 1.5, slow: 1.9 }[pacing];
+var teaserLen = { fast: 1.5, balanced: 2.0, slow: 3.0 }[pacing];
+var total = Number(dur);
+var beatRowsRaw = [];
+liveActs.forEach(function (a) {
+var bs = a.beats.slice();
+if (dur === '15' && !a.teaser) bs = bs.slice(0, 1).concat(bs.filter(function (x) { return x.cta; }).slice(0, 1)).filter(function (x, i, arr) { return arr.indexOf(x) === i; });
+bs.forEach(function (bt, i) {
+if (bt.cta && !showCTA) return;
+beatRowsRaw.push({ act: a, beat: bt, idx: i, key: angle + ':' + a.id + ':' + i });
+});
+});
+if (structure === 'linear' && beatRowsRaw.length) { beatRowsRaw[0].hookHere = true; }
+var liveBeats = beatRowsRaw.filter(function (r) { return !beatsOff[r.key]; });
+if (liveBeats.length === 0 && beatRowsRaw.length) liveBeats = [beatRowsRaw[0]];
+
+var hasTeaser = liveBeats.length && liveBeats[0].act.teaser;
+var rest = total - (hasTeaser ? teaserLen : 0);
+var weights = liveBeats.map(function (r) {
+if (r.act.teaser) return 0;
+var w = r.act.id === climaxId ? boost : 1;
+if (r.beat.cta) w = w * (pacing === 'slow' ? 1.6 : 1.3);
+return w;
+});
+var wsum = weights.reduce(function (s, x) { return s + x; }, 0) || 1;
+var tcur = 0;
+var timed = liveBeats.map(function (r, i) {
+var len = timingMode === 'event' ? (r.act.teaser ? 2.0 : M[frameOverride[r.key] || r.beat.m].dur)
+: (r.act.teaser ? teaserLen : rest * weights[i] / wsum);
+var t0 = tcur; tcur += len;
+return Object.assign({}, r, { t0: t0, t1: tcur });
+});
+function fmt(x) { return (Math.round(x * 10) / 10).toFixed(1); }
+
+var actTimes = {};
+timed.forEach(function (r) {
+var k = r.act.id;
+if (!actTimes[k]) actTimes[k] = { t0: r.t0, t1: r.t1 };
+actTimes[k].t1 = r.t1;
+});
+
+function capFor(r, vk) {
+if (r.beat.cta) return num(A.cta);
+if (r.hookHere) return num(A.hooks[hook]);
+var c = r.beat.caps[vk] || r.beat.caps.n;
+if (vk === 'n') c = voiced(c);
+return num(c);
+}
+var VKEYS = ['q', 'n', 'a'];
+function flat(t) { var x = t.replace(/[「」]/g, '').replace(/\n/g, '，'); return /[。？！]$/.test(x) ? x : x + '。'; }
+function strip(t) { return t.replace(/[，。？！、：「」…—\s]/g, ''); }
+/* 口播：主句必须包含本拍字幕（逐行原样），成片由 tools/tts_vo.py 用 Edge-TTS 生成 */
+function voFor(r, vk) {
+if (!voiceOn) return '';
+var v;
+if (r.act.teaser || r.hookHere) v = A.hookVo || flat(A.hooks[hook]);
+else if (r.beat.cta) v = A.ctaVo || flat(A.cta);
+else if (r.beat.vo && vk === 'a') v = r.beat.vo;
+else v = flat(capFor(r, vk));
+if (vk === 'n' || pov === 'you') v = voiced(v);
+return num(v);
+}
+function voCovers(cap, v) {
+if (!v) return true;
+return cap.split('\n').every(function (line) { return strip(v).indexOf(strip(line)) >= 0; });
+}
+
+var beatRows = beatRowsRaw.map(function (r) {
+var off = !!beatsOff[r.key];
+var t = timed.filter(function (x) { return x.key === r.key; })[0];
+var vk = capOverride[r.key] || voice;
+var color = ACT_COLORS[r.act.id] || GREY;
+var nIdx = t ? timed.indexOf(t) + 1 : 0;
+return {
+n: off ? '—' : (nIdx < 10 ? '0' + nIdx : String(nIdx)),
+t: t ? fmt(t.t0) + '–' + fmt(t.t1) + 's' : '已删',
+act: r.act.teaser ? '冷' : r.act.id,
+color: color,
+event: num(r.beat.event),
+viewer: r.beat.viewer,
+cap: capFor(r, vk),
+capColor: r.beat.cta ? TEAL : (vk === 'q' ? GOLD : '#FFFFFF'),
+vo: voiceOn ? ((r.beat.preVo && !r.act.teaser ? num(r.beat.preVo) + ' ' : '') + voFor(r, vk)) : '（口播关）',
+voOk: voCovers(capFor(r, vk), voFor(r, vk)) ? '✓ 字幕在口播里' : '✗ 字幕不在口播里',
+voOkColor: voCovers(capFor(r, vk), voFor(r, vk)) ? TEAL : RED,
+voiceLabel: r.beat.cta || r.hookHere || r.act.teaser ? '固定' : VOICE[vk],
+cycle: function () {
+if (r.beat.cta || r.hookHere) return;
+var next = VKEYS[(VKEYS.indexOf(vk) + 1) % VKEYS.length];
+self.setMap('capOverride', r.key, next);
+},
+toggle: function () { self.flipMap('beatsOff', r.key, { frameOverride: {} }); },
+toggleLabel: off ? '恢复' : '删掉',
+onPressed: off ? 'false' : 'true',
+opacity: off ? 0.4 : 1
+};
+});
+
+/* ---------- L4: screens ---------- */
+var zoomScale = { off: 1, subtle: 1.12, strong: 1.35 }[zoom];
+var screens = timed.map(function (r, i) {
+var mk = frameOverride[r.key] || r.beat.m;
+var mo = M[mk];
+var vk = capOverride[r.key] || voice;
+var isTeaser = !!r.act.teaser;
+var full = framing === 'full' || isTeaser;
+var sfx = '';
+if (sfxOn) {
+if (isTeaser) sfx = '音效：心跳 ×2';
+else if (r.beat.cta) sfx = '音效：撞击';
+else if (r.act.id === climaxId && r.idx === 0) sfx = '音效：reveal';
+else if (r.idx === 0) sfx = '音效：whoosh';
+else sfx = '音效：无';
+} else { sfx = '音效：关'; }
+var zlabel = zoom === 'off' ? '不推镜' : ('推镜 1→' + zoomScale);
+return {
+n: (i + 1 < 10 ? '0' : '') + (i + 1),
+t: fmt(r.t0) + '–' + fmt(r.t1) + 's',
+color: ACT_COLORS[r.act.id] || GREY,
+img: mo.img, alt: mo.alt, momentName: mo.name,
+full: full, phone: !full,
+bright: isTeaser ? 0.45 : (full ? 0.7 : 1),
+scale: zoomScale,
+origin: 'left top',
+cap: capFor(r, vk),
+capColor: r.beat.cta ? TEAL : (vk === 'q' && !r.hookHere ? GOLD : '#FFFFFF'),
+capTop: capPos === 'center' || isTeaser ? '118px' : '6px',
+capBg: full || capPos === 'center' ? '#120D1ACC' : 'transparent',
+chip: aiExplicit && (mk === 'm8' || mk === 'm7' || angle === 'ai'),
+shot: (isTeaser ? '闪前 · 全屏压暗' : FRAMING[framing]) + ' · ' + zlabel + ' · 画面「' + mo.name + '」',
+sfx: sfx,
+vo: voiceOn ? '口播：' + (r.beat.preVo && !isTeaser ? num(r.beat.preVo) + ' ' : '') + voFor(r, vk) : '口播：关',
+swap: function () {
+var next = MKEYS[(MKEYS.indexOf(mk) + 1) % MKEYS.length];
+self.setMap('frameOverride', r.key, next);
+}
+};
+});
+
+/* ---------- L2 cards ---------- */
+var actCards = actList.map(function (a) {
+var off = !a.teaser && !!actsOff[actKeyOf(a)];
+var tt = actTimes[a.id];
+var isClimax = a.id === climaxId;
+return {
+letter: a.teaser ? '冷' : a.id, name: a.name, summary: num(voiced(a.summary)), viewer: a.viewer,
+color: ACT_COLORS[a.id] || GREY,
+t: off ? '已关' : (tt ? fmt(tt.t0) + '–' + fmt(tt.t1) + 's' : '—'),
+bg: isClimax ? '#2A2238' : '#1C1528',
+opacity: off ? 0.4 : 1,
+climaxLabel: isClimax ? '★ 高潮幕（时长 ×' + boost + '）' : '',
+climaxColor: GOLD,
+canToggle: !a.teaser,
+canClimax: !a.teaser && !isClimax && !off,
+toggle: function () { self.flipMap('actsOff', actKeyOf(a), { beatsOff: {}, capOverride: {}, frameOverride: {} }); },
+toggleLabel: off ? '恢复这一幕' : '关掉这一幕',
+onPressed: off ? 'false' : 'true',
+setClimax: function () { self.setL2('climax', a.id); }
+};
+});
+var actBar = liveActs.map(function (a) {
+var tt = actTimes[a.id];
+var len = tt ? tt.t1 - tt.t0 : 0;
+var c = ACT_COLORS[a.id] || GREY;
+return { grow: Math.max(0.01, len), color: c, fg: c === RED ? '#FFFFFF' : '#120D1A', label: (a.teaser ? '冷' : a.id) + ' ' + fmt(len) + 's' };
+}).filter(function (x) { return x.grow > 0.01; });
+
+var words = A[pov];
+var LCOLORS = [RED, GREY, GOLD, TEAL];
+var cover = A.cover;
+
+return {
+chain: ['L1 ' + A.name + (voiceOn ? ' · 口播' : ''), 'L2 ' + liveActs.length + ' 幕', 'L3 ' + timed.length + ' 拍', 'L4 ' + timed.length + ' 屏 · ' + fmt(tcur) + 's'],
+resetAll: function () { self.setState({ voiceOn: undefined, voiceName: undefined, timing: undefined, angle: undefined, hook: undefined, pov: undefined, duration: undefined, showNumber: undefined, aiExplicit: undefined, showCTA: undefined, structure: undefined, pacing: undefined, voice: undefined, framing: undefined, zoom: undefined, capPos: undefined, sfx: undefined, actsOff: {}, climax: null, beatsOff: {}, capOverride: {}, frameOverride: {} }); },
+resetL2: function () { self.setState({ structure: undefined, pacing: undefined, actsOff: {}, climax: null, beatsOff: {}, capOverride: {}, frameOverride: {} }); },
+resetL3: function () { self.setState({ voice: undefined, beatsOff: {}, capOverride: {}, frameOverride: {} }); },
+resetL4: function () { self.setState({ framing: undefined, zoom: undefined, capPos: undefined, sfx: undefined, frameOverride: {} }); },
+
+angleCards: Object.keys(ANGLES).map(function (k) {
+var c = ANGLES[k], on = k === angle;
+return { name: c.name, tag: c.tag, gist: num(c.gist), cover: c.cover + '%', pressed: on ? 'true' : 'false', bg: on ? '#2A2238' : '#1C1528', border: on ? GOLD : '#3A2E4D', tagColor: on ? GOLD : GREY, pick: function () { self.setL1('angle', k); } };
+}),
+l1Groups: [
+{ label: '钩子类型', items: pills(HOOKS, hook, function (k) { self.setL1('hook', k); }) },
+{ label: '视角 · 时长', items: pills(POVS, pov, function (k) { self.setL1('pov', k); }).concat(pills(DURS, dur, function (k) { self.setL1('duration', k); })) },
+{ label: '数字 · AI 表达', items: boolPills('显示 99', '不写数字', showNumber, function (x) { self.setL1('showNumber', x); }).concat(boolPills('AI 明说', 'AI 暗示', aiExplicit, function (x) { self.setL1('aiExplicit', x); })) },
+{ label: '结尾 · 人声', items: boolPills('评论钩子', '不要钩子', showCTA, function (x) { self.setL1('showCTA', x); }).concat(boolPills('口播开', '口播关', voiceOn, function (x) { self.setL1('voiceOn', x); })) },
+{ label: '音色（Edge-TTS）', items: pills(VOICES, voiceName, function (k) { self.setL1('voiceName', k); }) }
+],
+voiceLine: voiceOn ? '口播：' + VOICES[voiceName] + ' · 主句包含字幕、在画面事件那一帧开口' : '口播：关（成片无人声）',
+angleName: A.name, povLabel: '第' + (pov === 'me' ? '一' : '二') + '人称「' + POVS[pov] + '」', durLabel: DURS[dur], hookLabel: HOOKS[hook],
+logParts: words.map(function (w, i) { return { text: num(w), color: LCOLORS[i] }; }),
+parts: words.map(function (w, i) { return { role: A.roles[i], note: num(A.notes[i]), color: LCOLORS[i] }; }),
+hookLine: num(A.hooks[hook]),
+takeaway: A.takeaway,
+aiLine: aiExplicit ? '明说：字幕/标签直接写「NPC 由 AI 驱动」。' : '暗示：只用台词证明他记得。',
+coverPct: cover + '%', coverColor: cover >= 90 ? TEAL : (cover >= 80 ? GOLD : RED), coverNote: A.coverNote,
+
+l2Groups: [
+{ label: '结构', items: pills(STRUCT, structure, function (k) { self.setL2('structure', k); }) },
+{ label: '节奏', items: pills(PACE, pacing, function (k) { self.setL2('pacing', k); }) },
+{ label: '高潮幕', items: pills({ auto: '按角度默认' }, st.climax ? '' : 'auto', function () { self.setL2('climax', null); }) },
+{ label: '时长怎么排', items: pills(TIMING, timingMode, function (k) { self.setL2('timing', k); }) }
+],
+timingNote: timingMode === 'event' ? '每拍 = 该画面事件的原速长度，合计 ' + fmt(tcur) + 's（目标 ' + DURS[dur] + '）；与成片一致' : '按比例凑满 ' + DURS[dur] + '；成片不用这种方式（会让字幕和画面错位）',
+actBar: actBar, totalLabel: fmt(tcur) + 's', actCards: actCards,
+actCount: liveActs.length, structureLabel: STRUCT[structure], pacingLabel: '节奏' + PACE[pacing],
+
+l3Groups: [
+{ label: '字幕说法（全局，可逐拍改）', items: pills(VOICE, voice, function (k) { self.setL3('voice', k); }) }
+],
+beatRows: beatRows,
+
+l4Groups: [
+{ label: '取景', items: pills(FRAMING, framing, function (k) { self.setL4('framing', k); }) },
+{ label: '推镜', items: pills(ZOOM, zoom, function (k) { self.setL4('zoom', k); }) },
+{ label: '字幕位置', items: pills(CAPPOS, capPos, function (k) { self.setL4('capPos', k); }) },
+{ label: '音效', items: boolPills('开', '关', sfxOn, function (x) { self.setL4('sfx', x); }) }
+],
+screens: screens, screenCount: screens.length, voiceLabel: VOICE[voice]
+};
+}
+}
+</script>
+</body>
+</html>

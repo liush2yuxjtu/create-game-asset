@@ -1,5 +1,5 @@
 {
- "about": "v3 唯一分镜源：tools/gen_svml.py 由它生成 momen.svml / momen.svs；scripts/verify-hypit-video.py 用它校验时间对齐与版式。帧号均为 30fps。src_* 是 assets/footage/gameplay_clean.mp4 的源帧，event_src_f 是该字幕对应画面事件在源片里第一次出现的帧（逐帧人工标注，见 README）。",
+ "about": "v3 唯一分镜源：tools/gen_svml.py 由它生成 momen.svml / momen.svs；scripts/verify-hypit-video.py 用它校验时间对齐与版式。帧号均为 30fps。src_* 是 assets/footage/gameplay_clean.mp4 的源帧，event_src_f 是该字幕对应画面事件在源片里第一次出现的帧（逐帧人工标注，见 README）。vo 是口播：main=true 的那句包含本屏字幕、在事件帧开口；at=screen 的句子在屏首开口。tools/tts_vo.py 生成 assets/vo/ 与 vo_timing.json。",
  "fps": 30,
  "canvas": [
   1080,
@@ -43,7 +43,14 @@
     "就是这一件",
     "救了我的命"
    ],
-   "sfx": "whoosh"
+   "sfx": "whoosh",
+   "vo": [
+    {
+     "text": "就是这一件，救了我的命。",
+     "at": "event",
+     "main": true
+    }
+   ]
   },
   {
    "id": "s02",
@@ -52,10 +59,21 @@
    "event": "「你死了」屏：记忆会随死亡散去，从背包选出一段",
    "event_src_f": 78,
    "caption": [
-    "三段记忆",
     "只能带一段"
    ],
-   "sfx": "whoosh"
+   "sfx": "whoosh",
+   "vo": [
+    {
+     "text": "第九十九次，又死在师兄刀下。",
+     "at": "screen",
+     "delay_f": 4
+    },
+    {
+     "text": "只能带一段。",
+     "at": "event",
+     "main": true
+    }
+   ]
   },
   {
    "id": "s03",
@@ -67,7 +85,14 @@
     "你会选",
     "哪一段？"
    ],
-   "sfx": "reveal"
+   "sfx": "reveal",
+   "vo": [
+    {
+     "text": "你会选哪一段？",
+     "at": "event",
+     "main": true
+    }
+   ]
   },
   {
    "id": "s04",
@@ -79,7 +104,14 @@
     "重来一次",
     "只多知道一件事"
    ],
-   "sfx": "whoosh"
+   "sfx": "whoosh",
+   "vo": [
+    {
+     "text": "重来一次，只多知道一件事。",
+     "at": "event",
+     "main": true
+    }
+   ]
   },
   {
    "id": "s05",
@@ -90,7 +122,14 @@
    "caption": [
     "记忆该什么时候用？"
    ],
-   "sfx": "whoosh"
+   "sfx": "whoosh",
+   "vo": [
+    {
+     "text": "第一百世，同一个后山。记忆，该什么时候用？",
+     "at": "event",
+     "main": true
+    }
+   ]
   },
   {
    "id": "s06",
@@ -102,7 +141,14 @@
     "一件小事",
     "能改多少？"
    ],
-   "sfx": "reveal"
+   "sfx": "reveal",
+   "vo": [
+    {
+     "text": "一件小事，揭开了他的秘密。能改多少？",
+     "at": "event",
+     "main": true
+    }
+   ]
   },
   {
    "id": "s07",
@@ -114,7 +160,14 @@
     "选对了",
     "就能活"
    ],
-   "sfx": "whoosh"
+   "sfx": "whoosh",
+   "vo": [
+    {
+     "text": "选对了就能活。",
+     "at": "event",
+     "main": true
+    }
+   ]
   },
   {
    "id": "s08",
@@ -126,7 +179,14 @@
     "下一世",
     "你带什么？"
    ],
-   "sfx": "whoosh"
+   "sfx": "whoosh",
+   "vo": [
+    {
+     "text": "下一世，你带什么？",
+     "at": "event",
+     "main": true
+    }
+   ]
   },
   {
    "id": "s09",
@@ -139,7 +199,24 @@
     "进下一世？"
    ],
    "sfx": "slam",
-   "cta": true
+   "cta": true,
+   "vo": [
+    {
+     "text": "死前只能记住一件事。你会带哪段记忆，进下一世？",
+     "at": "event",
+     "main": true
+    }
+   ]
   }
- ]
+ ],
+ "voice": {
+  "engine": "edge-tts",
+  "name": "zh-CN-YunxiNeural",
+  "base_rate": 10,
+  "max_rate": 40,
+  "lufs": -16,
+  "bgm_gain_under_vo": 0.18,
+  "bgm_gain": 0.5,
+  "min_speech_over_music_lu": 10
+ }
 }
