@@ -66,6 +66,10 @@ func run(m) -> void:
 	Story.apply_set({"+item": "item_yupei"})
 	check(got == ["item_yupei"] and Story.options()[0].ok, "拿到玉佩后发出 item_gained，选项解锁")
 	check(Story.cond_text(["item_huozhe", "==", true]) == "物品【火折子】", "物品条件显示为物品名")
+	var ui0 = m.story_ui
+	ui0.show_choices("厉寒：「师弟，站我前面。」玉简上的“第三波”在发烫。", [{"i": 0, "label": "x", "ok": true, "need": "", "key": false}], func(_i): pass)
+	check(ui0.find_children("*", "Label", true, false).any(func(l): return l.text == "波”在发烫。"), "超过 20 字的选项提示折成两行显示")
+	ui0.clear()
 
 	print("== 2. 剧情 UI 冒烟（第一章 → 第三章）")
 	Story.reset_state(false)

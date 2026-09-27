@@ -214,18 +214,23 @@ func next_line() -> void:
 func show_choices(prompt: String, opts: Array, on_pick: Callable, timer := 0.0, on_timeout := Callable()) -> void:
 	clear()
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	var n_lines := 0
+	var two_line := prompt.length() > 20  # 12px 字宽下一行约 20 个汉字，伏笔提示较长时换行
+	var h := (46 if two_line else 28) + 8
 	for o in opts:
-		n_lines += 2 if not o.ok else 1
-	var h := 30 + n_lines * 16 + opts.size() * 6
-	var top: float = max(262.0, H - 10 - h)
+		h += 44 if not o.ok else 24  # 按按钮实际渲染高度估算（锁定项两行）
+	var top: float = max(150.0, H - 10 - h)
 	var box := _panel(Rect2(6, top, W - 12, H - 10 - top), PANEL, GOLD.darkened(0.3))
 	box.mouse_filter = Control.MOUSE_FILTER_STOP
-	var p := _label(prompt, Vector2(8, 5), GOLD, 12, box)
+	# 提示按字数手动折成两行（伏笔台词较长；像素字体下每行约 20 字）
+	var p := _label(prompt.substr(0, 20) if two_line else prompt, Vector2(8, 5), GOLD, 12, box)
 	p.size = Vector2(W - 28, 16)
 	p.clip_text = true
+	if two_line:
+		var p2 := _label(prompt.substr(20), Vector2(8, 23), GOLD, 12, box)
+		p2.size = Vector2(W - 28, 16)
+		p2.clip_text = true
 	var v := VBoxContainer.new()
-	v.position = Vector2(6, 24)
+	v.position = Vector2(6, 44 if two_line else 24)
 	v.size = Vector2(W - 24, 0)
 	v.add_theme_constant_override("separation", 4)
 	box.add_child(v)
@@ -332,12 +337,18 @@ func show_flowchart(ch: Dictionary, idx: int, on_continue: Callable, button_text
 	var pr: Vector2i = Story.chapter_progress(ch)
 	_label("流程图 · 已探索 %d / %d" % [pr.x, pr.y], Vector2(10, 40), GOLD)
 	var bag: Array = Story.items().map(func(id): return Story.item_name(id))
-	var bag_lbl := _label("行囊：" + ("、".join(bag) if not bag.is_empty() else "（空）"), Vector2(10, 58), GOLD.darkened(0.1), 12)
-	bag_lbl.size = Vector2(W - 20, 16)
-	bag_lbl.clip_text = true
+	var bag_txt := "行囊：" + ("、".join(bag) if not bag.is_empty() else "（空）")
+	# 五件物品写满约 29 字，按 20 字手动折行（与选项提示同一做法）
+	var b1 := _label(bag_txt.substr(0, 20), Vector2(10, 58), GOLD.darkened(0.1), 12)
+	b1.size = Vector2(W - 20, 16)
+	b1.clip_text = true
+	if bag_txt.length() > 20:
+		var b2 := _label(bag_txt.substr(20), Vector2(10, 74), GOLD.darkened(0.1), 12)
+		b2.size = Vector2(W - 20, 16)
+		b2.clip_text = true
 	flow_graph = load("res://scripts/flow_graph.gd").new()
-	flow_graph.position = Vector2(6, 78)
-	flow_graph.size = Vector2(W - 12, 312)
+	flow_graph.position = Vector2(6, 96)
+	flow_graph.size = Vector2(W - 12, 294)
 	layer.add_child(flow_graph)
 	var info := _label("点节点查看。？ = 还没走到的分支", Vector2(10, 396), DIM, 12)
 	info.size = Vector2(W - 20, 34)
