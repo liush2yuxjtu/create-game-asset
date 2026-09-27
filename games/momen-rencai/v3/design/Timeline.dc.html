@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>时间轴 · v3 Hypit 轨道（含口播）</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:"FusionPixel";src:url(/_blob/a0a8e8076b308f25616a6eaa3268d997) format("woff2");font-weight:400;font-style:normal;font-display:block}
+body{margin:0;background:#120D1A;font-family:"Noto Sans SC",sans-serif;color:#F4EFE6}
+a{color:#F2C14E}a:hover{color:#FFD978}
+</style>
+</helmet>
+<div style="width: 1440px; height: 760px; box-sizing: border-box; padding: 56px 72px; background: #120D1A; display: flex; flex-direction: column; gap: 24px">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end">
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="font-size: 14px; letter-spacing: 0.16em; color: #A89CB8">TIMELINE · v3 · 30fps · 727 帧 = 24.2s · 来自仓库 hypit/screens.json + assets/vo/vo_timing.json</div>
+      <h2 style="margin: 0; font-family: FusionPixel, 'Noto Sans SC', sans-serif; font-weight: 400; font-size: 44px; color: #F2C14E">画面事件定时间，口播和字幕在同一帧开口</h2>
+    </div>
+    <div style="font-size: 13px; line-height: 1.6; color: #A89CB8; text-align: right">每屏原速源片，首尾相接<br>口播 Edge-TTS 云希 · BGM 全程 ×0.18</div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex">
+      <div style="width: 150px; flex-shrink: 0"></div>
+      <div style="position: relative; width: 1146px; height: 20px">
+        <sc-for list="{{ticks}}" as="k" hint-placeholder-count="7">
+          <div style="position: absolute; left: {{k.left}}; top: 0; font-size: 12px; color: #A89CB8">{{k.label}}</div>
+        </sc-for>
+      </div>
+    </div>
+    <sc-for list="{{lanes}}" as="lane" hint-placeholder-count="4">
+      <div style="display: flex; align-items: center">
+        <div style="width: 150px; flex-shrink: 0; display: flex; flex-direction: column; gap: 2px">
+          <div style="font-size: 15px; font-weight: 700">{{lane.name}}</div>
+          <div style="font-size: 12px; color: #A89CB8">{{lane.hypit}}</div>
+        </div>
+        <div style="position: relative; width: 1146px; height: {{lane.h}}; background: #1C1528; border-radius: 8px">
+          <sc-for list="{{lane.items}}" as="it" hint-placeholder-count="9">
+            <div title="{{it.tip}}" style="position: absolute; left: {{it.left}}; top: 6px; width: {{it.width}}; bottom: 6px; box-sizing: border-box; border-radius: 6px; background: {{it.bg}}; border: 1px solid {{it.border}}; padding: 5px 6px; overflow: hidden; font-size: 11px; line-height: 1.35; color: {{it.fg}}">{{it.label}}</div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="display: flex; gap: 28px; font-size: 13px; color: #A89CB8">
+    <div>口播块里的 +N% 是自动选的语速（放不进窗口才加速，上限 +40%）</div>
+    <div>音效比开口早 4 帧，不盖住第一个字</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":760}}'>
+class Component extends DCLogic {
+renderVals() {
+var W = 1146, F = 727;
+function px(f) { return Math.round(f / F * W) + 'px'; }
+function block(a, b, label, bg, border, fg) {
+return { left: px(a), width: Math.max(4, Math.round((b - a) / F * W)) + 'px', label: label, bg: bg, border: border, fg: fg, tip: label };
+}
+function mark(f, label, color) { return { left: px(f), width: '4px', label: '', bg: color, border: color, fg: color, tip: label }; }
+var gold = '#F2C14E', teal = '#4FB8A6', muted = '#3A2E4D';
+var screens = [[0, 61, '01 闪前：用上朱砂'], [61, 181, '02 背刺 →「你死了」'], [181, 223, '03 朱砂卡'], [223, 277, '04 第100世'], [277, 391, '05 似曾相识 → 隐藏选项'], [391, 493, '06 层卡'], [493, 553, '07 这一世就算了'], [553, 601, '08 第一章完'], [601, 727, '09 结尾卡']];
+var caps = [[0, 61, '就是这一件/救了我的命'], [139, 181, '只能带一段'], [181, 223, '你会选/哪一段？'], [223, 277, '重来一次/只多知道一件事'], [277, 391, '记忆该什么时候用？'], [391, 493, '一件小事/能改多少？'], [517, 553, '选对了/就能活'], [553, 601, '下一世/你带什么？'], [601, 727, '你会带哪段记忆/进下一世？']];
+var vo = [[0, 56, '就是这一件，救了我的命。 +30%'], [65, 132, '第九十九次，又死在师兄刀下。 +20%'], [139, 171, '只能带一段。 +10%'], [181, 215, '你会选哪一段？ +10%'], [223, 275, '重来一次，只多知道一件事。 +40%'], [277, 384, '第一百世，同一个后山。记忆，该什么时候用？ +20%'], [391, 490, '一件小事，揭开了他的秘密。能改多少？ +20%'], [517, 549, '选对了就能活。 +30%'], [553, 598, '下一世，你带什么？ +30%'], [601, 716, '死前只能记住一件事。你会带哪段记忆，进下一世？ +20%']];
+var sfx = [[0, 'whoosh'], [135, 'whoosh'], [177, 'reveal'], [219, 'whoosh'], [273, 'whoosh'], [387, 'reveal'], [513, 'whoosh'], [549, 'whoosh'], [597, 'slam']];
+var ticks = [];
+for (var s = 0; s <= 24; s += 4) { ticks.push({ left: px(s * 30), label: s + 's' }); }
+return {
+ticks: ticks,
+lanes: [
+{ name: '画面', hypit: 'mt:Track game · 9 屏', h: '58px', items: screens.map(function (x) { return block(x[0], x[1], x[2], '#2A2238', muted, '#F4EFE6'); }) },
+{ name: '字幕', hypit: 'typo:Track · 事件帧出现', h: '58px', items: caps.map(function (x) { return block(x[0], x[1], x[2], '#3A3020', gold, '#F2C14E'); }) },
+{ name: '口播', hypit: 'audio:Track · Edge-TTS', h: '74px', items: vo.map(function (x) { return block(x[0], x[1], x[2], '#1E3230', teal, '#F4EFE6'); }) },
+{ name: '音效', hypit: 'audio:Item', h: '34px', items: sfx.map(function (x) { return mark(x[0], x[1], x[1] === 'slam' ? teal : (x[1] === 'reveal' ? gold : '#A89CB8')); }) }
+]
+};
+}
+}
+</script>
+</body>
+</html>

@@ -4,7 +4,8 @@
 规则：
 - 每屏一个 media-track Item，按源帧 [src_in, src_out) 原速播放，屏与屏首尾相接；
 - 每屏字幕从 event_src_f 对应的节目帧开始，到该屏结束，与画面事件对齐；
-- 字幕放在手机框上方的字幕带里，不压游戏画面。
+- 字幕放在手机框上方的字幕带里，不压游戏画面；
+- 口播（assets/vo/，由 tools/tts_vo.py 生成）按 vo_timing.json 的开口帧放置，BGM 全程压低到 voice.bgm_gain_under_vo。
 用法：python3 tools/gen_svml.py [--check]   （--check：只比较，不写文件；不一致时退出码 1）
 """
 import json
@@ -18,8 +19,11 @@ def px(v):
     return f"{v}px"
 
 
-def build(spec):
+def build(spec, timing=None):
     fps = spec["fps"]
+    if timing is None:
+        tp = ROOT / "assets" / "vo" / "vo_timing.json"
+        timing = json.loads(tp.read_text()) if tp.exists() else {}
     fr = spec["frames"]
     phone_css = ('stack-order: 2; fit: cover; clip: rounded; radius: 28; border-width: 5; '
                  'border-color: #F2C14E; frame-paint: #120D1A; shadows: "0 0 40 6 #F2C14E44";')
@@ -43,11 +47,19 @@ def build(spec):
         body = "<typo:Break/>".join(s["caption"])
         caps.append(f'    <typo:Area id="cap-{s["id"]}" placement={{cap-band}} style={{{style}}} motion={{pop}} '
                     f'at="{cap_at}f" for="{cap_for}f"><typo:P>{body}</typo:P></typo:Area>')
-        src = {"whoosh": ("whoosh", "0.4"), "reveal": ("reveal", "0.6"), "slam": ("slam", "0.9")}.get(s.get("sfx"))
+        src = {"whoosh": ("whoosh", "0.25"), "reveal": ("reveal", "0.35"), "slam": ("slam", "0.7")}.get(s.get("sfx"))
         if src:
-            sfx.append(f'    <audio:Item id="sfx-{s["id"]}" source={{{src[0]}.media}} at="{cap_at}f" for="24f" playback="once" gain="{src[1]}"/>')
+            sfx.append(f'    <audio:Item id="sfx-{s["id"]}" source={{{src[0]}.media}} at="{max(0, cap_at - 4)}f" for="24f" playback="once" gain="{src[1]}"/>')
         at += n
     total = at
+    vo_assets, vo_norm, vo_items = [], [], []
+    for key in sorted(timing):
+        t = timing[key]
+        vid = "vo-" + key
+        vo_assets.append(f'  <asset:Audio id="{vid}-file" src="./assets/vo/{key}.wav"/>')
+        vo_norm.append(f'  <pipeline:Normalize id="{vid}" source={{{vid}-file}} clock={{clock}} video="none" audio="default" span-authority="audio"/>')
+        vo_items.append(f'    <audio:Item id="{vid}-line" source={{{vid}.media}} at="{t["start_f"]}f" for="{t["dur_f"] + 2}f" playback="once" gain="1"/>')
+    bgm_gain = spec.get("voice", {}).get("bgm_gain_under_vo", 0.55) if timing else 0.55
     svs += [
         f'  text.title {{ size: {spec["title_size"]}; line-height: 1.2; stack-order: 20; align: center; block-align: center; }}',
         f'  text.cap {{ size: {spec["caption_size"]}; line-height: 1.2; stack-order: 25; align: center; block-align: center; }}',
@@ -75,6 +87,7 @@ def build(spec):
   <asset:Audio id="whoosh-file" src="./assets/audio/sfx_whoosh.wav"/>
   <asset:Audio id="reveal-file" src="./assets/audio/sfx_reveal.wav"/>
   <asset:Audio id="slam-file" src="./assets/audio/impactWood_light_002.ogg"/>
+{chr(10).join(vo_assets)}
 
   <program:Clock id="clock" frame-rate="{fps}"/>
   <pipeline:Normalize id="gameplay" source={{gameplay-file}} clock={{clock}} video="primary-moving" audio="none" span-authority="video"/>
@@ -82,6 +95,7 @@ def build(spec):
   <pipeline:Normalize id="whoosh" source={{whoosh-file}} clock={{clock}} video="none" audio="default" span-authority="audio"/>
   <pipeline:Normalize id="reveal" source={{reveal-file}} clock={{clock}} video="none" audio="default" span-authority="audio"/>
   <pipeline:Normalize id="slam" source={{slam-file}} clock={{clock}} video="none" audio="default" span-authority="audio"/>
+{chr(10).join(vo_norm)}
 
   <time:Timeline id="program" clock={{clock}} end="{total}f"/>
   <space:Canvas id="canvas" width="{spec["canvas"][0]}" height="{spec["canvas"][1]}"/>
@@ -117,8 +131,9 @@ def build(spec):
   </typo:Track>
 
   <audio:Track id="sound" timeline={{program.timeline}}>
-    <audio:Item id="music" source={{bgm.media}} during="program" playback="loop" gain="0.55" fade-out="30f"/>
+    <audio:Item id="music" source={{bgm.media}} during="program" playback="loop" gain="{bgm_gain}" fade-out="30f"/>
 {chr(10).join(sfx)}
+{chr(10).join(vo_items)}
   </audio:Track>
 
   <film:Film id="main" canvas={{canvas}} timeline={{program.timeline}} appearance={{look.film.main}}>

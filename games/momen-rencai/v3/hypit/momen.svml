@@ -19,6 +19,16 @@
   <asset:Audio id="whoosh-file" src="./assets/audio/sfx_whoosh.wav"/>
   <asset:Audio id="reveal-file" src="./assets/audio/sfx_reveal.wav"/>
   <asset:Audio id="slam-file" src="./assets/audio/impactWood_light_002.ogg"/>
+  <asset:Audio id="vo-s01-0-file" src="./assets/vo/s01-0.wav"/>
+  <asset:Audio id="vo-s02-0-file" src="./assets/vo/s02-0.wav"/>
+  <asset:Audio id="vo-s02-1-file" src="./assets/vo/s02-1.wav"/>
+  <asset:Audio id="vo-s03-0-file" src="./assets/vo/s03-0.wav"/>
+  <asset:Audio id="vo-s04-0-file" src="./assets/vo/s04-0.wav"/>
+  <asset:Audio id="vo-s05-0-file" src="./assets/vo/s05-0.wav"/>
+  <asset:Audio id="vo-s06-0-file" src="./assets/vo/s06-0.wav"/>
+  <asset:Audio id="vo-s07-0-file" src="./assets/vo/s07-0.wav"/>
+  <asset:Audio id="vo-s08-0-file" src="./assets/vo/s08-0.wav"/>
+  <asset:Audio id="vo-s09-0-file" src="./assets/vo/s09-0.wav"/>
 
   <program:Clock id="clock" frame-rate="30"/>
   <pipeline:Normalize id="gameplay" source={gameplay-file} clock={clock} video="primary-moving" audio="none" span-authority="video"/>
@@ -26,6 +36,16 @@
   <pipeline:Normalize id="whoosh" source={whoosh-file} clock={clock} video="none" audio="default" span-authority="audio"/>
   <pipeline:Normalize id="reveal" source={reveal-file} clock={clock} video="none" audio="default" span-authority="audio"/>
   <pipeline:Normalize id="slam" source={slam-file} clock={clock} video="none" audio="default" span-authority="audio"/>
+  <pipeline:Normalize id="vo-s01-0" source={vo-s01-0-file} clock={clock} video="none" audio="default" span-authority="audio"/>
+  <pipeline:Normalize id="vo-s02-0" source={vo-s02-0-file} clock={clock} video="none" audio="default" span-authority="audio"/>
+  <pipeline:Normalize id="vo-s02-1" source={vo-s02-1-file} clock={clock} video="none" audio="default" span-authority="audio"/>
+  <pipeline:Normalize id="vo-s03-0" source={vo-s03-0-file} clock={clock} video="none" audio="default" span-authority="audio"/>
+  <pipeline:Normalize id="vo-s04-0" source={vo-s04-0-file} clock={clock} video="none" audio="default" span-authority="audio"/>
+  <pipeline:Normalize id="vo-s05-0" source={vo-s05-0-file} clock={clock} video="none" audio="default" span-authority="audio"/>
+  <pipeline:Normalize id="vo-s06-0" source={vo-s06-0-file} clock={clock} video="none" audio="default" span-authority="audio"/>
+  <pipeline:Normalize id="vo-s07-0" source={vo-s07-0-file} clock={clock} video="none" audio="default" span-authority="audio"/>
+  <pipeline:Normalize id="vo-s08-0" source={vo-s08-0-file} clock={clock} video="none" audio="default" span-authority="audio"/>
+  <pipeline:Normalize id="vo-s09-0" source={vo-s09-0-file} clock={clock} video="none" audio="default" span-authority="audio"/>
 
   <time:Timeline id="program" clock={clock} end="727f"/>
   <space:Canvas id="canvas" width="1080" height="1920"/>
@@ -93,7 +113,7 @@
   <typo:Track id="captions" timeline={program.timeline}>
     <typo:Area id="title" placement={title-band} style={title-style} during="program">每次死前，我能记住一件事</typo:Area>
     <typo:Area id="cap-s01" placement={cap-band} style={cap-style} motion={pop} at="0f" for="61f"><typo:P>就是这一件<typo:Break/>救了我的命</typo:P></typo:Area>
-    <typo:Area id="cap-s02" placement={cap-band} style={cap-style} motion={pop} at="139f" for="42f"><typo:P>三段记忆<typo:Break/>只能带一段</typo:P></typo:Area>
+    <typo:Area id="cap-s02" placement={cap-band} style={cap-style} motion={pop} at="139f" for="42f"><typo:P>只能带一段</typo:P></typo:Area>
     <typo:Area id="cap-s03" placement={cap-band} style={cap-style} motion={pop} at="181f" for="42f"><typo:P>你会选<typo:Break/>哪一段？</typo:P></typo:Area>
     <typo:Area id="cap-s04" placement={cap-band} style={cap-style} motion={pop} at="223f" for="54f"><typo:P>重来一次<typo:Break/>只多知道一件事</typo:P></typo:Area>
     <typo:Area id="cap-s05" placement={cap-band} style={cap-style} motion={pop} at="277f" for="114f"><typo:P>记忆该什么时候用？</typo:P></typo:Area>
@@ -104,16 +124,26 @@
   </typo:Track>
 
   <audio:Track id="sound" timeline={program.timeline}>
-    <audio:Item id="music" source={bgm.media} during="program" playback="loop" gain="0.55" fade-out="30f"/>
-    <audio:Item id="sfx-s01" source={whoosh.media} at="0f" for="24f" playback="once" gain="0.4"/>
-    <audio:Item id="sfx-s02" source={whoosh.media} at="139f" for="24f" playback="once" gain="0.4"/>
-    <audio:Item id="sfx-s03" source={reveal.media} at="181f" for="24f" playback="once" gain="0.6"/>
-    <audio:Item id="sfx-s04" source={whoosh.media} at="223f" for="24f" playback="once" gain="0.4"/>
-    <audio:Item id="sfx-s05" source={whoosh.media} at="277f" for="24f" playback="once" gain="0.4"/>
-    <audio:Item id="sfx-s06" source={reveal.media} at="391f" for="24f" playback="once" gain="0.6"/>
-    <audio:Item id="sfx-s07" source={whoosh.media} at="517f" for="24f" playback="once" gain="0.4"/>
-    <audio:Item id="sfx-s08" source={whoosh.media} at="553f" for="24f" playback="once" gain="0.4"/>
-    <audio:Item id="sfx-s09" source={slam.media} at="601f" for="24f" playback="once" gain="0.9"/>
+    <audio:Item id="music" source={bgm.media} during="program" playback="loop" gain="0.18" fade-out="30f"/>
+    <audio:Item id="sfx-s01" source={whoosh.media} at="0f" for="24f" playback="once" gain="0.25"/>
+    <audio:Item id="sfx-s02" source={whoosh.media} at="135f" for="24f" playback="once" gain="0.25"/>
+    <audio:Item id="sfx-s03" source={reveal.media} at="177f" for="24f" playback="once" gain="0.35"/>
+    <audio:Item id="sfx-s04" source={whoosh.media} at="219f" for="24f" playback="once" gain="0.25"/>
+    <audio:Item id="sfx-s05" source={whoosh.media} at="273f" for="24f" playback="once" gain="0.25"/>
+    <audio:Item id="sfx-s06" source={reveal.media} at="387f" for="24f" playback="once" gain="0.35"/>
+    <audio:Item id="sfx-s07" source={whoosh.media} at="513f" for="24f" playback="once" gain="0.25"/>
+    <audio:Item id="sfx-s08" source={whoosh.media} at="549f" for="24f" playback="once" gain="0.25"/>
+    <audio:Item id="sfx-s09" source={slam.media} at="597f" for="24f" playback="once" gain="0.7"/>
+    <audio:Item id="vo-s01-0-line" source={vo-s01-0.media} at="0f" for="58f" playback="once" gain="1"/>
+    <audio:Item id="vo-s02-0-line" source={vo-s02-0.media} at="65f" for="69f" playback="once" gain="1"/>
+    <audio:Item id="vo-s02-1-line" source={vo-s02-1.media} at="139f" for="34f" playback="once" gain="1"/>
+    <audio:Item id="vo-s03-0-line" source={vo-s03-0.media} at="181f" for="36f" playback="once" gain="1"/>
+    <audio:Item id="vo-s04-0-line" source={vo-s04-0.media} at="223f" for="54f" playback="once" gain="1"/>
+    <audio:Item id="vo-s05-0-line" source={vo-s05-0.media} at="277f" for="109f" playback="once" gain="1"/>
+    <audio:Item id="vo-s06-0-line" source={vo-s06-0.media} at="391f" for="101f" playback="once" gain="1"/>
+    <audio:Item id="vo-s07-0-line" source={vo-s07-0.media} at="517f" for="34f" playback="once" gain="1"/>
+    <audio:Item id="vo-s08-0-line" source={vo-s08-0.media} at="553f" for="47f" playback="once" gain="1"/>
+    <audio:Item id="vo-s09-0-line" source={vo-s09-0.media} at="601f" for="117f" playback="once" gain="1"/>
   </audio:Track>
 
   <film:Film id="main" canvas={canvas} timeline={program.timeline} appearance={look.film.main}>

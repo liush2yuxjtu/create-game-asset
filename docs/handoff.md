@@ -100,7 +100,7 @@ GitHub Pages 目标：<https://liush2yuxjtu.github.io/create-game-asset/>。
 
 ### 2026-09-27 测试与 CI 门禁收进 /verify
 
-所有测试与校验脚本（含 v3 新增的 `verify-hypit-video.py`）从 `scripts/` 移到 `.agents/skills/verify/scripts/`；新增 `ci.mjs`（`npm run verify:ci`：机器检查 → 游戏 → Hypit 视频（`games/verify.json` 的 `videos`，此前 CI 未跑）→ playground 真实浏览器 → 生成物已提交 + build-info 干净）与 `install-godot.sh`。`pages.yml` 只装 Node/Python/Godot/ffmpeg/Playwright 然后跑 `npm run verify:ci`，三个证据产物合并为 `verification`。推送前本地跑同一命令。构建工具（`build.mjs`、`package-asset.mjs` 等）留在 `scripts/`；游戏自测 `games/*/tools/` 不动。历史报告中的 `scripts/verify-*.py` 路径保留原样，指当时的位置。
+所有测试与校验脚本（含 v3 新增的 `verify-hypit-video.py` 及其辅助 `render-story-studio.cjs`）从 `scripts/` 移到 `.agents/skills/verify/scripts/`；新增 `ci.mjs`（`npm run verify:ci`：机器检查 → 游戏 → Hypit 视频（`games/verify.json` 的 `videos`，此前 CI 未跑）→ playground 真实浏览器 → 生成物已提交 + build-info 干净）与 `install-godot.sh`。`pages.yml` 只装 Node/Python/Godot/ffmpeg/Playwright 然后跑 `npm run verify:ci`，三个证据产物合并为 `verification`。推送前本地跑同一命令。构建工具（`build.mjs`、`package-asset.mjs` 等）留在 `scripts/`；游戏自测 `games/*/tools/` 不动。历史报告中的 `scripts/verify-*.py` 路径保留原样，指当时的位置。
 
 ### 2026-09-27 线上验收：CI 门禁合并后（f35f64b）
 
