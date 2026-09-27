@@ -5,8 +5,8 @@
     "Index.dc.html": {"h": 1100, "title": "00 目录", "w": 1440, "x": 0, "y": 0},
     "StoryStudio.dc.html": {"h": 4400, "is_interactive": true, "title": "故事工作台 · L1→L4 联动（含口播）", "w": 1440, "x": 1520, "y": 0},
     "Storyboard.dc.html": {"h": 1960, "title": "参考 · 旧版分镜 13 屏（他也记得，静态）", "w": 1440, "x": 3040, "y": 0},
-    "Main.dc.html": {"h": 1100, "title": "P1 · 总览 · 设计语言与 Hypit 管线", "w": 1440, "x": 0, "y": 4800},
-    "Layout.dc.html": {"h": 1000, "title": "P2 · 版式 · 画布与区域规格", "w": 1440, "x": 1520, "y": 4800},
+    "Main.dc.html": {"h": 1100, "title": "P1 · 总览（历史：首版 32s 无口播）", "w": 1440, "x": 0, "y": 4800},
+    "Layout.dc.html": {"h": 1000, "title": "P2 · 版式（历史：首版）", "w": 1440, "x": 1520, "y": 4800},
     "Timeline.dc.html": {"h": 760, "title": "P3 · 时间轴 · v3 Hypit 轨道（含口播）", "w": 1440, "x": 3040, "y": 4800}
   },
   "createdOnFiles": {"at": "2026-09-27T16:40:00+08:00", "v": 1},

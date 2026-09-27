@@ -248,21 +248,37 @@ def main():
         bad = []
         for key, (ln, start, end, main, sid) in wins.items():
             t = timing.get(key)
-            if not t:
-                continue
+            wav = hdir / "assets" / "vo" / f"{key}.wav"
+            if not t or not wav.exists():
+                continue  # 已在 G1 记为缺失
             if t["text"] != ln["text"]:
                 bad.append(f"{key} vo_timing 文案过期")
             if t["start_f"] != start:
                 bad.append(f"{key} 开口 {t['start_f']}f ≠ 窗口 {start}f")
             if main and start != caps.get(sid, (None,))[0]:
                 bad.append(f"{key} 主句开口 {start}f ≠ 字幕出现 {caps.get(sid, (None,))[0]}f")
-            real = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0",
-                                         str(hdir / "assets" / "vo" / f"{key}.wav")], capture_output=True, text=True).stdout)
-            if start + math.ceil(real * fps) > end + 1:
-                bad.append(f"{key} 说到 {start + math.ceil(real * fps)}f，越过窗口 {end}f")
-            if f'at="{start}f"' not in re.search(rf'<audio:Item id="vo-{key}-line"[^>]*>', svml).group(0):
+            dur_txt = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0",
+                                  str(wav)], capture_output=True, text=True).stdout.strip()
+            try:
+                real_f = math.ceil(float(dur_txt) * fps)
+            except ValueError:
+                bad.append(f"{key}.wav 读不出时长")
+                continue
+            if start + real_f > end + 1:
+                bad.append(f"{key} 说到 {start + real_f}f，越过窗口 {end}f")
+            m = re.search(rf'<audio:Item id="vo-{key}-line"[^>]*>', svml)
+            if not m:
+                bad.append(f"{key} momen.svml 里没有口播 audio:Item")
+                continue
+            item = m.group(0)
+            if f'at="{start}f"' not in item:
                 bad.append(f"{key} momen.svml 里的口播位置与 vo_timing 不一致")
-        record("G2 口播时间", not bad, "; ".join(bad) or "每句在窗口开口处开口、在窗口内说完；主句与字幕同帧")
+            fm = re.search(r'for="(\d+)f"', item)
+            if not fm or int(fm.group(1)) < real_f:
+                bad.append(f"{key} momen.svml 排了 {fm.group(1) if fm else '?'}f，wav 实长 {real_f}f，会被截尾")
+            elif start + int(fm.group(1)) > end + 2:
+                bad.append(f"{key} momen.svml 排到 {start + int(fm.group(1))}f，越过窗口 {end}f")
+        record("G2 口播时间", not bad, "; ".join(bad) or "每句在窗口开口处开口、在窗口内说完（wav 实长与 svml 排期都查）；主句与字幕同帧")
 
         bad = []
         strip = lambda x: re.sub(r"[，。？！、：「」…\s]", "", x)

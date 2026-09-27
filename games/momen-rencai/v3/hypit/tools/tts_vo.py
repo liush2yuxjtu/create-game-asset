@@ -5,6 +5,7 @@
 - 语速从 voice.base_rate 起每次 +10%，直到裁掉首尾静音后的长度放得进窗口；到 voice.max_rate 还放不进就报错退出，
   这时应该改稿或加长这一屏的源片，而不是再提速。
 - 输出 assets/vo/<屏>-<序号>.wav（48k 单声道，-16 LUFS）和 assets/vo/vo_timing.json（语速、帧长、词级时间）。
+  先写到临时目录，全部放得下才替换 assets/vo/；有一句放不下就整批不发布，旧口播原样保留。
 依赖：pip install edge-tts；走代理时读 HTTPS_PROXY，自签 CA 设 SSL_CERT_FILE。
 用法：python3 tools/tts_vo.py
 """
@@ -13,6 +14,7 @@ import json
 import math
 import os
 import pathlib
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -61,9 +63,10 @@ def main():
     spec = json.loads((ROOT / "screens.json").read_text())
     fps, v = spec["fps"], spec["voice"]
     vo_dir = ROOT / "assets" / "vo"
-    vo_dir.mkdir(parents=True, exist_ok=True)
     timing, failed = {}, []
     with tempfile.TemporaryDirectory() as tmp:
+        stage = pathlib.Path(tmp) / "stage"
+        stage.mkdir()
         for s, k, line, start, end in windows(spec):
             key = f"{s['id']}-{k}"
             budget = (end - start) / fps
@@ -79,16 +82,19 @@ def main():
             dur = t1 - t0
             if dur > budget:
                 failed.append(f"{key}「{line['text']}」在 +{rate}% 仍需 {dur:.2f}s，窗口只有 {budget:.2f}s")
-            wav = vo_dir / f"{key}.wav"
+            wav = stage / f"{key}.wav"
             subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{t0:.3f}", "-to", f"{t1:.3f}", "-i", str(mp3),
                             "-af", f"loudnorm=I={v['lufs']}:TP=-1.5:LRA=7", "-ar", "48000", "-ac", "1", str(wav)], check=True)
             timing[key] = {"text": line["text"], "rate": rate, "start_f": start, "dur_f": math.ceil(dur * fps),
                            "window_end_f": end, "words": [[round(w[0] - t0, 3), w[1], w[2]] for w in words]}
             print(f"{key}: +{rate}% {dur:.2f}s / 窗口 {budget:.2f}s  {line['text']}")
-    (vo_dir / "vo_timing.json").write_text(json.dumps(timing, ensure_ascii=False, indent=1) + "\n")
-    if failed:
-        print("放不下：\n  " + "\n  ".join(failed))
-        sys.exit(1)
+        if failed:
+            print("放不下（assets/vo/ 未改动）：\n  " + "\n  ".join(failed))
+            sys.exit(1)
+        (stage / "vo_timing.json").write_text(json.dumps(timing, ensure_ascii=False, indent=1) + "\n")
+        if vo_dir.exists():
+            shutil.rmtree(vo_dir)
+        shutil.copytree(stage, vo_dir)
 
 
 if __name__ == "__main__":
