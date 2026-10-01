@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "recorded_on": "2026-09-23",
+  "post": {
+    "title": "点击查看数十个体法神通优化效果",
+    "author": "小师妹",
+    "section": "策划来信",
+    "published": "2022-12-17",
+    "url": "https://www.taptap.cn/moment/353176070301681776",
+    "verification": "原帖文本与图片标签已于本轮读取；这不是2026当前版本认证。",
+    "airtable_record_id": "recARo6wx3nCGRuTz"
+  },
+  "references": [
+    {
+      "id": "fire",
+      "label": "火咒术 2.0",
+      "raw_url": "https://img2.tapimg.com/bbcode/images/df3b27e20e0026d9a5e80f21c2f851a1.gif",
+      "original_page_image_url": "https://img2-tc.tapimg.com/bbcode/images/df3b27e20e0026d9a5e80f21c2f851a1.gif/_tap_ugc.jpg",
+      "alternative_raw_url": "https://img2-tc.tapimg.com/bbcode/images/df3b27e20e0026d9a5e80f21c2f851a1.gif",
+      "source_post": "https://www.taptap.cn/moment/353176070301681776",
+      "airtable_record_id": "recQNab4FbKofAQRo",
+      "prior_turn_file_observation": {
+        "format": "GIF",
+        "frame_count": 70,
+        "width": 422,
+        "height": 726,
+        "encoded_duration_ms": 2680,
+        "byte_count": 1425178,
+        "provenance": "前一轮Mac mini实际读取的记录；不是本轮重新下载或播放验证。"
+      },
+      "current_verification": "本轮已核对原帖标签；当前环境下载/播放未完成。",
+      "redistributed_in_bundle": false
+    },
+    {
+      "id": "slash",
+      "label": "修罗斩 2.0",
+      "raw_url": "https://img2.tapimg.com/bbcode/images/7c97b703ab6ac1bf3f2d19f37809d9a0.gif",
+      "original_page_image_url": "https://img2-tc.tapimg.com/bbcode/images/7c97b703ab6ac1bf3f2d19f37809d9a0.gif/_tap_ugc.jpg",
+      "alternative_raw_url": "https://img2-tc.tapimg.com/bbcode/images/7c97b703ab6ac1bf3f2d19f37809d9a0.gif",
+      "source_post": "https://www.taptap.cn/moment/353176070301681776",
+      "airtable_record_id": "recx2hhZGhxA0ghuI",
+      "prior_turn_file_observation": {
+        "format": "GIF",
+        "frame_count": 56,
+        "width": 422,
+        "height": 726,
+        "encoded_duration_ms": 1680,
+        "byte_count": 1897210,
+        "provenance": "前一轮Mac mini实际读取的记录；不是本轮重新下载或播放验证。"
+      },
+      "current_verification": "本轮已核对原帖标签；当前环境下载/播放未完成。",
+      "redistributed_in_bundle": false
+    },
+    {
+      "id": "array",
+      "label": "殇阳剑阵 2.0",
+      "raw_url": "https://img2.tapimg.com/bbcode/images/0e5eab78dd91970569af779bc401dbd4.gif",
+      "original_page_image_url": "https://img2-tc.tapimg.com/bbcode/images/0e5eab78dd91970569af779bc401dbd4.gif/_tap_ugc.jpg",
+      "alternative_raw_url": "https://img2-tc.tapimg.com/bbcode/images/0e5eab78dd91970569af779bc401dbd4.gif",
+      "source_post": "https://www.taptap.cn/moment/353176070301681776",
+      "airtable_record_id": "recoIkJY0EoSr9vZ4",
+      "prior_turn_file_observation": {
+        "format": "GIF",
+        "frame_count": 75,
+        "width": 422,
+        "height": 720,
+        "encoded_duration_ms": 2250,
+        "byte_count": 10430575,
+        "provenance": "前一轮Mac mini实际读取的记录；不是本轮重新下载或播放验证。"
+      },
+      "current_verification": "本轮已核对原帖标签；当前环境下载/播放未完成。",
+      "redistributed_in_bundle": false
+    }
+  ],
+  "prototype": {
+    "name": "刀光试作 01",
+    "version": "0.1",
+    "reference_target": "修罗斩 2.0",
+    "implementation": "独立 Canvas 2D 程序化动作提案，不使用官方贴图或青岚资产。",
+    "duration_seconds": 1.68,
+    "timing_provenance": "试作编排参数；与前一轮记录的GIF总时长一致不构成官方施法时序验证。",
+    "reference_playback": "NOT_VERIFIED_NETWORK_UNAVAILABLE",
+    "visual_parity": "NOT_VERIFIED",
+    "engine_integration": "NOT_IMPLEMENTED",
+    "public_deployment": "NOT_DEPLOYED"
+  }
+}
